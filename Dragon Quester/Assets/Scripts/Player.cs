@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
             currentSpell = spellList[selectedSpell];
             if (MP >= currentSpell.GetCost())
             {
+                MP -= currentSpell.GetCost();
                 HideUI();
             }
             else
@@ -146,7 +147,7 @@ public class Player : MonoBehaviour
 
     public void MagicCastSuccess()
     {
-        mpText.text = (MP - currentSpell.GetCost()).ToString() + " / 100";
+        mpText.text = MP.ToString() + " / 100";
     }
 
     void PlayerDied()
