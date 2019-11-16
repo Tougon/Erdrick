@@ -2,14 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Text.RegularExpressions;
 
 public class AnimationSequence : Sequence
 {
 
     public class AnimationSequenceAction
     {
-        public enum Action { ChangeUserAnimation, ChangeTargetAnimation, TerminateAnimation }
+        public enum Action { ChangeUserAnimation, ChangeTargetAnimation, TerminateAnimation, GenerateEffect, TerminateEffect }
 
         public int frame;
         public Action action;
@@ -35,7 +34,7 @@ public class AnimationSequence : Sequence
         user = u;
         target = t;
 
-        string[] sequence = Regex.Split(obj.animationSequence.text, "\n");
+        string[] sequence = obj.animationSequence.text.Split('\n');
 
         for(int i=0; i<sequence.Length; i++)
         {
@@ -78,12 +77,10 @@ public class AnimationSequence : Sequence
             currentFrame++;
 
             // Process animation events
-            foreach (AnimationSequenceAction action in sequenceActions)
+            while (sequenceActions.Count > 0 && !(sequenceActions[0].frame > currentFrame))
             {
-                if (action.frame > currentFrame)
-                    break;
-                else
-                    CallSequenceFunction(action.action, action.param);
+                CallSequenceFunction(sequenceActions[0].action, sequenceActions[0].param);
+                sequenceActions.RemoveAt(0);
             }
 
             yield return null;
@@ -96,6 +93,9 @@ public class AnimationSequence : Sequence
     public override void SequenceEnd()
     {
         Debug.Log("End of Animation");
+
+        while(effects.Count > 0)
+            effects.RemoveAt(0);
     }
 
 
@@ -109,17 +109,59 @@ public class AnimationSequence : Sequence
             case AnimationSequenceAction.Action.ChangeUserAnimation:
                 ChangeUserAnimation(param);
                 break;
+            case AnimationSequenceAction.Action.GenerateEffect:
+                string[] vals = param.Split(',');
+
+                if (vals.Length != 5)
+                    Debug.LogError("Invalid param count for Effect Generation!");
+
+                GenerateEffect(vals[0], vals[1], float.Parse(vals[2].Trim()), float.Parse(vals[3].Trim()), float.Parse(vals[4].Trim()));
+                break;
+            case AnimationSequenceAction.Action.TerminateEffect:
+                int id = int.Parse(param);
+                TerminateEffect(id);
+                break;
             case AnimationSequenceAction.Action.TerminateAnimation:
                 active = false;
                 break;
         }
     }
 
+    private void ChangeUserAnimation(string t) { user.SetAnimation(t.Trim()); }
+    private void ChangeTargetAnimation(string t) { target.SetAnimation(t.Trim()); }
+    
+    private void GenerateEffect(string path, string relative, float x, float y, float z)
+    {
+        path = path.Trim();
+        relative = relative.Trim();
 
-    private void ChangeAnimation(string t) { Debug.Log(t); }
+        if(relative == "User")
+        {
+            Vector3 rel = user.transform.position;
+
+            x += rel.x;
+            y += rel.y;
+            z += rel.z;
+        }
+        else if(relative == "Target")
+        {
+            Vector3 rel = target.transform.position;
+
+            x += rel.x;
+            y += rel.y;
+            z += rel.z;
+        }
+        Debug.Log(path);
+        GameObject effect = GameObject.Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
+        effect.transform.position = new Vector3(x, y, z);
+        effects.Add(effect);
+    }
 
 
-    private void ChangeUserAnimation(string t) { ChangeAnimation(t); }
+    private void TerminateEffect(int id)
+    {
+        effects[id].SetActive(false);
+    }
 
     #endregion
 }

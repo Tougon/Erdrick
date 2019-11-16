@@ -1,2 +1,5 @@
-60|ChangeUserAnimation|attack
+60|ChangeUserAnimation|Attack
+80|GenerateEffect|Placeholder/E,User,-1.0,0.1,-0.5 
+150|TerminateEffect|0
+300|ChangeUserAnimation|Idle
 300|TerminateAnimation
