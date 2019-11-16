@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FightController : MonoBehaviour
 {
@@ -9,10 +10,12 @@ public class FightController : MonoBehaviour
     [SerializeField] Player Player1, Player2;
     Player.Command P1Command, P2Command;
     [SerializeField] GameObject battleUIElements;
-    [SerializeField] Text P1_CommandText, P2_CommandText;
+    [SerializeField] Text P1_CommandText, P2_CommandText, victoryText;
     public List<Spell> SpellList;
     
     int playersReady = 0;
+
+    bool battling;
 
     private void Awake()
     {
@@ -21,6 +24,7 @@ public class FightController : MonoBehaviour
 
     void BeginBattle()
     {
+        battling = true;
         playersReady = 0;
         Player1.StartBattle();
         Player2.StartBattle();
@@ -85,6 +89,8 @@ public class FightController : MonoBehaviour
             P1_CommandText.text = "Block!";
             P2_CommandText.text = "Block!";
             yield return new WaitForSeconds(1.0f);
+            P1_CommandText.text = "wow FUCKING nothing";
+            P2_CommandText.text = "wow FUCKING nothing";
         }
         else if (P1Command == Player.Command.Block && P2Command == Player.Command.Spell)
         {
@@ -137,24 +143,49 @@ public class FightController : MonoBehaviour
         P1_CommandText.text = "test";
         P2_CommandText.text = "test";
         playersReady = 0;
-        Player1.StartTurn();
-        Player2.StartTurn();
+        if (battling)
+        {
+            Player1.StartTurn();
+            Player2.StartTurn();
+        }
+        else
+        {
+            // victory stuff
+            victoryText.gameObject.SetActive(true);
+            StartCoroutine(EndGameTimer());
+        }
     }
 
     public void PlayerDied(int whomst)
     {
+        //battling = false;
         EndBattle();
+        switch (whomst)
+        {
+            case 0:
+                victoryText.text = "Player 2 Wins!";
+                break;
+            case 1:
+                victoryText.text = "Player 1 Wins!";
+                break;
+        }
     }
 
     void EndBattle()
     {
-        Debug.Log("end battle!");
+        battling = false;
     }
 
     IEnumerator EndTurnTimer()
     {
         yield return new WaitForSeconds(2.0f);
         EndTurn();
+    }
+
+    IEnumerator EndGameTimer()
+    {
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene(0);
     }
 
     public Spell GetRandomSpell()
