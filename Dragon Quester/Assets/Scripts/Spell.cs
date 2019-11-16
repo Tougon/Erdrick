@@ -6,6 +6,7 @@ public class Spell : ScriptableObject
 {
     float MP_Cost;
     string Spell_Name;
+    string Damage;
 
     public float GetCost()
     {
@@ -15,5 +16,10 @@ public class Spell : ScriptableObject
     public string GetName()
     {
         return Spell_Name;
+    }
+
+    public float GetDamage()
+    {
+        return Damage;
     }
 }

@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] FightController FC;
     [SerializeField] int PlayerID;
     [SerializeField] GameObject UIelements;
+    [SerializeField] Text healthText, mpText;
 
     [HideInInspector] public enum Command { Attack, Block, Spell };
 
@@ -76,23 +78,29 @@ public class Player : MonoBehaviour
         return Action;
     }
 
-    public string GetSpellName()
+    public Spell GetSpell()
     {
-        return currentSpell.GetName();
+        return currentSpell;
     }
 
-    float GetDamage()
+    public float GetDamage()
     {
         return atkDamage;
     }
 
-    void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         Health -= damage;
+        healthText.text = Health.ToString();
         if(Health <= 0.0f)
         {
             PlayerDied();
         }
+    }
+
+    public void MagicCastSuccess()
+    {
+        mpText.text = (MP - currentSpell.GetCost()).ToString();
     }
 
     void PlayerDied()
