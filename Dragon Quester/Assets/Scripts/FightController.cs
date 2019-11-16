@@ -72,6 +72,7 @@ public class FightController : MonoBehaviour
             Player2.TakeDamage(Player1.GetDamage());
             P1_CommandText.text = "Interrupt!";
             P2_CommandText.text = ("Took " + Player1.GetSpell().GetDamage().ToString() + " Damage!");
+            Player2.DrainMP(Player2.GetSpell().GetCost());
         }
         else if (P1Command == Player.Command.Block && P2Command == Player.Command.Attack)
         {
@@ -96,7 +97,7 @@ public class FightController : MonoBehaviour
             P2_CommandText.text = Player2.GetSpell().GetName();
             Player1.TakeDamage(Player2.GetSpell().GetDamage());
             P1_CommandText.text = ("Took " + Player2.GetSpell().GetDamage().ToString() + " Damage!");
-            Player2.MagicCastSuccess();
+            Player2.DrainMP(Player2.GetSpell().GetCost());
         }
         else if (P1Command == Player.Command.Spell && P2Command == Player.Command.Attack)
         {
@@ -106,6 +107,7 @@ public class FightController : MonoBehaviour
             Player1.TakeDamage(Player2.GetDamage());
             P1_CommandText.text = ("Took " + Player2.GetDamage().ToString() + " Damage!");
             P2_CommandText.text = "Interrupt!";
+            Player1.DrainMP(Player1.GetSpell().GetCost());
         }
         else if (P1Command == Player.Command.Spell && P2Command == Player.Command.Block)
         {
@@ -114,7 +116,7 @@ public class FightController : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             Player2.TakeDamage(Player1.GetSpell().GetDamage());
             P2_CommandText.text = ("Took " + Player1.GetSpell().GetDamage().ToString() + " Damage!");
-            Player1.MagicCastSuccess();
+            Player1.DrainMP(Player1.GetSpell().GetCost());
         }
         else if (P1Command == Player.Command.Spell && P2Command == Player.Command.Spell)
         {
@@ -125,8 +127,8 @@ public class FightController : MonoBehaviour
             Player2.TakeDamage(Player1.GetSpell().GetDamage());
             P1_CommandText.text = ("Took " + Player2.GetSpell().GetDamage().ToString() + " Damage!");
             P2_CommandText.text = ("Took " + Player1.GetSpell().GetDamage().ToString() + " Damage!");
-            Player1.MagicCastSuccess();
-            Player2.MagicCastSuccess();
+            Player1.DrainMP(Player1.GetSpell().GetCost());
+            Player2.DrainMP(Player2.GetSpell().GetCost());
         }
         else
         {

@@ -117,7 +117,6 @@ public class Player : MonoBehaviour
             currentSpell = spellList[selectedSpell];
             if (MP >= currentSpell.GetCost())
             {
-                MP -= currentSpell.GetCost();
                 HideUI();
             }
             else
@@ -170,11 +169,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void MagicCastSuccess()
-    {
-        mpText.text = MP.ToString() + " / 100";
-    }
-
     void PlayerDied()
     {
         FC.PlayerDied(PlayerID);
@@ -194,5 +188,12 @@ public class Player : MonoBehaviour
     {
         MP += amt;
         mpText.text = MP.ToString();
+    }
+
+    public void DrainMP(float amt)
+    {
+        MP -= amt;
+        MP = Mathf.Clamp(MP, 0.0f, 100.0f);
+        mpText.text = MP.ToString() + " / 100";
     }
 }
