@@ -151,7 +151,7 @@ public class Player : MonoBehaviour
 
     void PlayerDied()
     {
-        FC.SendMessage("PlayerDied", 0);
+        FC.PlayerDied(PlayerID);
     }
 
     void EndBattle()

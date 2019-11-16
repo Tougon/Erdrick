@@ -141,14 +141,14 @@ public class FightController : MonoBehaviour
         Player2.StartTurn();
     }
 
-    void PlayerDied(int whomst)
+    public void PlayerDied(int whomst)
     {
         EndBattle();
     }
 
     void EndBattle()
     {
-
+        Debug.Log("end battle!");
     }
 
     IEnumerator EndTurnTimer()
