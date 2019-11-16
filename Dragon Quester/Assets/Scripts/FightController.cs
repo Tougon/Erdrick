@@ -50,8 +50,8 @@ public class FightController : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             Player1.TakeDamage(1);
             Player2.TakeDamage(1);
-            P1_CommandText.text = "1 Damage!";
-            P2_CommandText.text = "1 Damage!";
+            P1_CommandText.text = "Took 1 Damage!";
+            P2_CommandText.text = "Took 1 Damage!";
         }
         else if (P1Command == Player.Command.Attack && P2Command == Player.Command.Block)
         {
@@ -59,7 +59,7 @@ public class FightController : MonoBehaviour
             P2_CommandText.text = "Block!";
             yield return new WaitForSeconds(1.0f);
             Player1.TakeDamage(Player2.GetDamage());
-            P1_CommandText.text = (Player2.GetDamage().ToString() + " Damage!");
+            P1_CommandText.text = ("Took " + Player2.GetDamage().ToString() + " Damage!");
             P2_CommandText.text = "Counterattack!";
         }
         else if (P1Command == Player.Command.Attack && P2Command == Player.Command.Spell)
@@ -69,7 +69,7 @@ public class FightController : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             Player2.TakeDamage(Player1.GetDamage());
             P1_CommandText.text = "Interrupt!";
-            P2_CommandText.text = (Player1.GetSpell().GetDamage().ToString() + " Damage!");
+            P2_CommandText.text = ("Took " + Player1.GetSpell().GetDamage().ToString() + " Damage!");
         }
         else if (P1Command == Player.Command.Block && P2Command == Player.Command.Attack)
         {
@@ -78,7 +78,7 @@ public class FightController : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             Player2.TakeDamage(Player1.GetDamage());
             P1_CommandText.text = "Counterattack!";
-            P2_CommandText.text = (Player1.GetDamage().ToString() + " Damage!");
+            P2_CommandText.text = ("Took " + Player1.GetDamage().ToString() + " Damage!");
         }
         else if (P1Command == Player.Command.Block && P2Command == Player.Command.Block)
         {
@@ -91,7 +91,7 @@ public class FightController : MonoBehaviour
             P1_CommandText.text = "Block!";
             P2_CommandText.text = Player2.GetSpell().GetName();
             Player1.TakeDamage(Player2.GetSpell().GetDamage());
-            P1_CommandText.text = (Player2.GetSpell().GetDamage().ToString() + " Damage!");
+            P1_CommandText.text = ("Took " + Player2.GetSpell().GetDamage().ToString() + " Damage!");
             Player2.MagicCastSuccess();
         }
         else if (P1Command == Player.Command.Spell && P2Command == Player.Command.Attack)
@@ -100,7 +100,7 @@ public class FightController : MonoBehaviour
             P2_CommandText.text = "Attack!";
             yield return new WaitForSeconds(1.0f);
             Player1.TakeDamage(Player2.GetDamage());
-            P1_CommandText.text = (Player2.GetDamage().ToString() + " Damage!");
+            P1_CommandText.text = ("Took " + Player2.GetDamage().ToString() + " Damage!");
             P2_CommandText.text = "Interrupt!";
         }
         else if (P1Command == Player.Command.Spell && P2Command == Player.Command.Block)
@@ -109,7 +109,7 @@ public class FightController : MonoBehaviour
             P2_CommandText.text = "Block!";
             yield return new WaitForSeconds(1.0f);
             Player2.TakeDamage(Player1.GetSpell().GetDamage());
-            P2_CommandText.text = (Player1.GetSpell().GetDamage().ToString() + " Damage!");
+            P2_CommandText.text = ("Took " + Player1.GetSpell().GetDamage().ToString() + " Damage!");
             Player1.MagicCastSuccess();
         }
         else if (P1Command == Player.Command.Spell && P2Command == Player.Command.Spell)
@@ -119,8 +119,8 @@ public class FightController : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             Player1.TakeDamage(Player2.GetSpell().GetDamage());
             Player2.TakeDamage(Player1.GetSpell().GetDamage());
-            P1_CommandText.text = (Player2.GetSpell().GetDamage().ToString() + " Damage!");
-            P2_CommandText.text = (Player1.GetSpell().GetDamage().ToString() + " Damage!");
+            P1_CommandText.text = ("Took " + Player2.GetSpell().GetDamage().ToString() + " Damage!");
+            P2_CommandText.text = ("Took " + Player1.GetSpell().GetDamage().ToString() + " Damage!");
             Player1.MagicCastSuccess();
             Player2.MagicCastSuccess();
         }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DarcMagicaBall
   m_EditorClassIdentifier: 
   MP_Cost: 30
-  Spell_Name: Darc Magica
+  Spell_Name: Darc Magica Ball
   Damage: 30
