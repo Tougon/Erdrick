@@ -304,11 +304,11 @@ GameObject:
   m_Component:
   - component: {fileID: 453335292}
   - component: {fileID: 453335291}
-  - component: {fileID: 453335295}
   - component: {fileID: 453335294}
   - component: {fileID: 453335293}
+  - component: {fileID: 453335295}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: PToed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -418,16 +418,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 453335290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea5b6467222bb4b4aab879cb3c8144a3, type: 3}
+  m_Script: {fileID: 11500000, guid: bd810e1233f817740a1a5555bf50e0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FC: {fileID: 0}
-  PlayerID: 0
-  CommandUI: {fileID: 0}
-  healthText: {fileID: 0}
-  mpText: {fileID: 0}
-  spellUp: {fileID: 0}
-  spellDown: {fileID: 0}
-  spellLeft: {fileID: 0}
-  spellRight: {fileID: 0}
-  spellList: []

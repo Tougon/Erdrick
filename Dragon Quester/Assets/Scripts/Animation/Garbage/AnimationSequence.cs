@@ -2,13 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class AnimationSequence : Sequence
 {
 
     public class AnimationSequenceAction
     {
-        public enum Action { ChangeUserAnimation, ChangeTargetAnimation, TerminateAnimation, GenerateEffect, TerminateEffect }
+        public enum Action { ChangeUserAnimation, ChangeTargetAnimation, TerminateAnimation, GenerateEffect, TerminateEffect,
+           Move, Rotate, Scale, Color}
 
         public int frame;
         public Action action;
@@ -22,17 +24,43 @@ public class AnimationSequence : Sequence
 
     public string sequenceName { get; private set; }
 
-    private Player user;
-    private Player target;
-    private List<GameObject> effects = new List<GameObject>();
+    private Entity user;
+    private Entity target;
+    private Vector3 userPosition;
+    private Vector3 targetPosition;
+    private Vector3 userRotation;
+    private Vector3 targetRotation;
+    private Vector3 userScale;
+    private Vector3 targetScale;
+    private Color userColor;
+    private Color targetColor;
+    private SpriteRenderer userSprite;
+    private SpriteRenderer targetSprite;
+
+    private List<Entity> effects = new List<Entity>();
 
     private List<AnimationSequenceAction> sequenceActions = new List<AnimationSequenceAction>();
 
 
-    public AnimationSequence(AnimationSequenceObject obj, Player u, Player t)
+    public AnimationSequence(AnimationSequenceObject obj, Entity u, Entity t)
     {
         user = u;
         target = t;
+
+        userPosition = user.transform.position;
+        userRotation = user.transform.eulerAngles;
+        userScale = user.transform.localScale;
+        userSprite = user.GetSpriteRenderer();
+        userColor = userSprite.color;
+
+        if(target!= null)
+        {
+            targetPosition = target.transform.position;
+            targetRotation = target.transform.eulerAngles;
+            targetScale = target.transform.localScale;
+            targetSprite = target.GetSpriteRenderer();
+            targetColor = targetSprite.color;
+        }
 
         string[] sequence = obj.animationSequence.text.Split('\n');
 
@@ -96,6 +124,19 @@ public class AnimationSequence : Sequence
 
         while(effects.Count > 0)
             effects.RemoveAt(0);
+
+        user.transform.position = userPosition;
+        user.transform.eulerAngles = userRotation;
+        user.transform.localScale = userScale;
+        userSprite.color = userColor;
+
+        if(target != null)
+        {
+            target.transform.position = targetPosition;
+            target.transform.eulerAngles = targetRotation;
+            target.transform.localScale = targetScale;
+            targetSprite.color = targetColor;
+        }
     }
 
 
@@ -110,17 +151,119 @@ public class AnimationSequence : Sequence
                 ChangeUserAnimation(param);
                 break;
             case AnimationSequenceAction.Action.GenerateEffect:
-                string[] vals = param.Split(',');
+                string[] effectVals = param.Split(',');
 
-                if (vals.Length != 5)
+                if (effectVals.Length != 5)
                     Debug.LogError("Invalid param count for Effect Generation!");
 
-                GenerateEffect(vals[0], vals[1], float.Parse(vals[2].Trim()), float.Parse(vals[3].Trim()), float.Parse(vals[4].Trim()));
+                GenerateEffect(effectVals[0], effectVals[1], 
+                    float.Parse(effectVals[2].Trim()), float.Parse(effectVals[3].Trim()), float.Parse(effectVals[4].Trim()));
                 break;
             case AnimationSequenceAction.Action.TerminateEffect:
                 int id = int.Parse(param);
                 TerminateEffect(id);
                 break;
+            case AnimationSequenceAction.Action.Move:
+                string[] moveVals = param.Split(',');
+
+                if(moveVals.Length > 6 && moveVals.Length < 5)
+                    Debug.LogError("Invalid param count for Movement!");
+
+                Transform tM;
+                string sM = moveVals[0].Trim();
+
+                if (sM.Equals("User"))
+                    tM = user.transform;
+                else if (sM.Equals("Target"))
+                    tM = target.transform;
+                else
+                    tM = effects[int.Parse(moveVals[5].Trim())].transform;
+
+                float durationM = ((float)currentFrame) / (float.Parse(moveVals[1].Trim()) + ((float)currentFrame));
+
+                float xM = float.Parse(moveVals[2].Trim()) + tM.position.x;
+                float yM = float.Parse(moveVals[3].Trim()) + tM.position.y;
+                float zM = float.Parse(moveVals[4].Trim()) + tM.position.z;
+
+                TweenPosition(tM, xM, yM, zM, durationM);
+                break;
+
+            case AnimationSequenceAction.Action.Rotate:
+                string[] rotateVals = param.Split(',');
+
+                if (rotateVals.Length > 6 && rotateVals.Length < 5)
+                    Debug.LogError("Invalid param count for Movement!");
+
+                Transform tR;
+                string sR = rotateVals[0].Trim();
+
+                if (sR.Equals("User"))
+                    tR = user.transform;
+                else if (sR.Equals("Target"))
+                    tR = target.transform;
+                else
+                    tR = effects[int.Parse(rotateVals[5].Trim())].transform;
+
+                float durationR = ((float)currentFrame) / (float.Parse(rotateVals[1].Trim()) + ((float)currentFrame));
+
+                float xR = float.Parse(rotateVals[2].Trim()) + tR.position.x;
+                float yR = float.Parse(rotateVals[3].Trim()) + tR.position.y;
+                float zR = float.Parse(rotateVals[4].Trim()) + tR.position.z;
+
+                TweenRotation(tR, xR, yR, zR, durationR);
+                break;
+
+            case AnimationSequenceAction.Action.Scale:
+                string[] scaleVals = param.Split(',');
+
+                if (scaleVals.Length > 6 && scaleVals.Length < 5)
+                    Debug.LogError("Invalid param count for Movement!");
+
+                Transform tS;
+                string sS = scaleVals[0].Trim();
+
+                if (sS.Equals("User"))
+                    tS = user.transform;
+                else if (sS.Equals("Target"))
+                    tS = target.transform;
+                else
+                    tS = effects[int.Parse(scaleVals[5].Trim())].transform;
+
+                float durationS = ((float)currentFrame) / (float.Parse(scaleVals[1].Trim()) + ((float)currentFrame));
+
+                float xS = float.Parse(scaleVals[2].Trim()) + tS.position.x;
+                float yS = float.Parse(scaleVals[3].Trim()) + tS.position.y;
+                float zS = float.Parse(scaleVals[4].Trim()) + tS.position.z;
+
+                TweenScale(tS, xS, yS, zS, durationS);
+                break;
+
+            case AnimationSequenceAction.Action.Color:
+                string[] colorVals = param.Split(',');
+
+                if (colorVals.Length > 7 && colorVals.Length < 6)
+                    Debug.LogError("Invalid param count for Color!");
+
+                Entity eC;
+                string sC = colorVals[0].Trim();
+
+                if (sC.Equals("User"))
+                    eC = user;
+                else if (sC.Equals("Target"))
+                    eC = target;
+                else
+                    eC = effects[int.Parse(colorVals[6].Trim())];
+
+                float durationC = ((float)currentFrame) / (float.Parse(colorVals[1].Trim()) + ((float)currentFrame));
+
+                float xC = float.Parse(colorVals[2].Trim());
+                float yC = float.Parse(colorVals[3].Trim());
+                float zC = float.Parse(colorVals[4].Trim());
+                float wC = float.Parse(colorVals[5].Trim());
+
+                TweenColor(eC, new Color(xC, yC, zC, wC), durationC);
+                break;
+
             case AnimationSequenceAction.Action.TerminateAnimation:
                 active = false;
                 break;
@@ -151,16 +294,40 @@ public class AnimationSequence : Sequence
             y += rel.y;
             z += rel.z;
         }
-        Debug.Log(path);
+
         GameObject effect = GameObject.Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
         effect.transform.position = new Vector3(x, y, z);
-        effects.Add(effect);
+        effects.Add(effect.GetComponent<Entity>());
     }
 
 
     private void TerminateEffect(int id)
     {
-        effects[id].SetActive(false);
+        effects[id].gameObject.SetActive(false);
+    }
+
+
+    private void TweenPosition(Transform t, float x, float y, float z, float duration)
+    {
+        t.DOMove(new Vector3(x, y, z), duration);
+    }
+
+
+    private void TweenRotation(Transform t, float x, float y, float z, float duration)
+    {
+        t.DORotate(new Vector3(x, y, z), duration);
+    }
+
+
+    private void TweenScale(Transform t, float x, float y, float z, float duration)
+    {
+        t.DOScale(new Vector3(x, y, z), duration);
+    }
+
+
+    private void TweenColor(Entity e, Color c, float duration)
+    {
+        e.SetColorTween(c, duration);
     }
 
     #endregion
