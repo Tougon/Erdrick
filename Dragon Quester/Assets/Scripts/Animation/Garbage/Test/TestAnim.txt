@@ -1,0 +1,2 @@
+60|ChangeUserAnimation|attack
+300|TerminateAnimation

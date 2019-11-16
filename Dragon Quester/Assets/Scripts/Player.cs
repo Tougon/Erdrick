@@ -21,9 +21,16 @@ public class Player : MonoBehaviour
 
     bool canDoThings;
 
+    Animator anim;
+    PlayerControlSet controls;
+
     private void Awake()
     {
         canDoThings = false;
+        anim = GetComponent<Animator>();
+
+        controls = new PlayerControlSet();
+        controls.InitKeyboardcontrols(PlayerID+1);
     }
 
     private void Update()
@@ -31,32 +38,32 @@ public class Player : MonoBehaviour
         #region Garbage Input Test Stuff
         if (canDoThings)
         {
-            if ((Input.GetKeyDown(KeyCode.Q) && PlayerID == 0) || (Input.GetKeyDown(KeyCode.U) && PlayerID == 1))
+            if (controls.SelectAttack.WasPressed)
             {
                 Debug.Log("attak");
                 SelectAction(Command.Attack, 0);
             }
-            else if ((Input.GetKeyDown(KeyCode.E) && PlayerID == 0) || (Input.GetKeyDown(KeyCode.O) && PlayerID == 1))
+            else if (controls.SelectBlock.WasPressed)
             {
                 Debug.Log("blok");
                 SelectAction(Command.Block, 0);
             }
-            else if ((Input.GetKeyDown(KeyCode.W) && PlayerID == 0) || (Input.GetKeyDown(KeyCode.I) && PlayerID == 1))
+            else if (controls.SelectSpellUp.WasPressed)
             {
                 Debug.Log("spel up");
                 SelectAction(Command.Spell, 0);
             }
-            else if ((Input.GetKeyDown(KeyCode.D) && PlayerID == 0) || (Input.GetKeyDown(KeyCode.K) && PlayerID == 1))
+            else if (controls.SelectSpellDown.WasPressed)
             {
                 Debug.Log("spel down");
                 SelectAction(Command.Spell, 1);
             }
-            else if ((Input.GetKeyDown(KeyCode.A) && PlayerID == 0) || (Input.GetKeyDown(KeyCode.J) && PlayerID == 1))
+            else if (controls.SelectSpellLeft.WasPressed)
             {
                 Debug.Log("spel left");
                 SelectAction(Command.Spell, 2);
             }
-            else if ((Input.GetKeyDown(KeyCode.D) && PlayerID == 0) || (Input.GetKeyDown(KeyCode.L) && PlayerID == 1))
+            else if (controls.SelectSpellRight.WasPressed)
             {
                 Debug.Log("spel right");
                 SelectAction(Command.Spell, 3);
@@ -173,5 +180,11 @@ public class Player : MonoBehaviour
     void EndBattle()
     {
         
+    }
+
+
+    public void SetAnimation(string val)
+    {
+        anim.SetTrigger(val);
     }
 }

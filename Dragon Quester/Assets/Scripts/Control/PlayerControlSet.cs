@@ -26,6 +26,15 @@ public class PlayerControlSet : PlayerActionSet
     }
 
 
+    public void InitKeyboardcontrols(int val)
+    {
+        if (val == 1)
+            InitP1KeyboardControls();
+        else
+            InitP2KeyboardControls();
+    }
+
+
     public void InitP1KeyboardControls()
     {
         SelectAttack.AddDefaultBinding(Key.Q);

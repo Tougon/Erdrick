@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewSongList", menuName = "Song List", order = 1)]
+[CreateAssetMenu(fileName = "NewSongList", menuName = "Song List", order = 2)]
 public class SongList : ScriptableObject
 {
     public List<Song> songs = new List<Song>();
