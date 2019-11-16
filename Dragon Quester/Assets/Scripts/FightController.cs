@@ -54,6 +54,8 @@ public class FightController : MonoBehaviour
             Player2.TakeDamage(1);
             P1_CommandText.text = "Took 1 Damage!";
             P2_CommandText.text = "Took 1 Damage!";
+            Player1.RestoreMP(1);
+            Player2.RestoreMP(1);
         }
         else if (P1Command == Player.Command.Attack && P2Command == Player.Command.Block)
         {
@@ -63,6 +65,7 @@ public class FightController : MonoBehaviour
             Player1.TakeDamage(Player2.GetDamage());
             P1_CommandText.text = ("Took " + Player2.GetDamage().ToString() + " Damage!");
             P2_CommandText.text = "Counterattack!";
+            Player2.RestoreMP(15);
         }
         else if (P1Command == Player.Command.Attack && P2Command == Player.Command.Spell)
         {
@@ -73,6 +76,7 @@ public class FightController : MonoBehaviour
             P1_CommandText.text = "Interrupt!";
             P2_CommandText.text = ("Took " + Player1.GetSpell().GetDamage().ToString() + " Damage!");
             Player2.DrainMP(Player2.GetSpell().GetCost());
+            Player1.RestoreMP(Player1.GetDamage());
         }
         else if (P1Command == Player.Command.Block && P2Command == Player.Command.Attack)
         {
@@ -82,6 +86,7 @@ public class FightController : MonoBehaviour
             Player2.TakeDamage(Player1.GetDamage());
             P1_CommandText.text = "Counterattack!";
             P2_CommandText.text = ("Took " + Player1.GetDamage().ToString() + " Damage!");
+            Player1.RestoreMP(Player1.GetDamage());
         }
         else if (P1Command == Player.Command.Block && P2Command == Player.Command.Block)
         {
@@ -108,6 +113,7 @@ public class FightController : MonoBehaviour
             P1_CommandText.text = ("Took " + Player2.GetDamage().ToString() + " Damage!");
             P2_CommandText.text = "Interrupt!";
             Player1.DrainMP(Player1.GetSpell().GetCost());
+            Player2.RestoreMP(Player2.GetDamage());
         }
         else if (P1Command == Player.Command.Spell && P2Command == Player.Command.Block)
         {
