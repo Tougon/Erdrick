@@ -6,10 +6,13 @@ public class Player : MonoBehaviour
 {
     [SerializeField] FightController FC;
     [SerializeField] int PlayerID;
+    [SerializeField] GameObject UIelements;
 
     [HideInInspector] public enum Command { Attack, Block, Spell };
 
     float Health, MP;
+
+    float atkDamage;
 
     Command Action;
     Spell currentSpell;
@@ -19,18 +22,19 @@ public class Player : MonoBehaviour
 
     void StartBattle()
     {
-
+        atkDamage = 10.0f;
     }
 
-    void StartTurn()
+    public void StartTurn()
     {
         ShowUI();
+        canDoThings = true;
     }
 
     void ShowUI()
     {
         // show the ui here and the player can do anything
-        canDoThings = true;
+        UIelements.SetActive(true);
     }
 
     void SelectAction(Command selectedCommand, int selectedSpell)
@@ -57,6 +61,7 @@ public class Player : MonoBehaviour
     void HideUI()
     {
         // hide the ui here and the player can't do anything
+        UIelements.SetActive(true);
         canDoThings = false;
         SendCommand();
     }
@@ -69,6 +74,16 @@ public class Player : MonoBehaviour
     public Command GetAction()
     {
         return Action;
+    }
+
+    public string GetSpellName()
+    {
+        return currentSpell.GetName();
+    }
+
+    float GetDamage()
+    {
+        return atkDamage;
     }
 
     void TakeDamage(float damage)
