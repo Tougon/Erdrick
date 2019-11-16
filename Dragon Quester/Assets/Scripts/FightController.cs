@@ -13,22 +13,31 @@ public class FightController : MonoBehaviour
     
     int playersReady = 0;
 
+    private void Awake()
+    {
+        BeginBattle();
+    }
+
     void BeginBattle()
     {
         playersReady = 0;
+        Player1.StartBattle();
+        Player2.StartBattle();
     }
 
     void ReceiveCommand()
     {
+        Debug.Log("receive command");
         playersReady++;
         if(playersReady == 2)
         {
-            BeginTurn();
+            StartCoroutine(BeginTurn());
         }
     }
 
     IEnumerator BeginTurn()
     {
+        Debug.Log("start turn");
         yield return new WaitForSeconds(1.0f);
         battleUIElements.SetActive(true);
         P1Command = Player1.GetAction();
