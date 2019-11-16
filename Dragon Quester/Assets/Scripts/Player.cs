@@ -43,8 +43,23 @@ public class Player : MonoBehaviour
             }
             else if ((Input.GetKeyDown(KeyCode.W) && PlayerID == 0) || (Input.GetKeyDown(KeyCode.I) && PlayerID == 1))
             {
-                Debug.Log("spel");
+                Debug.Log("spel up");
                 SelectAction(Command.Spell, 0);
+            }
+            else if ((Input.GetKeyDown(KeyCode.D) && PlayerID == 0) || (Input.GetKeyDown(KeyCode.K) && PlayerID == 1))
+            {
+                Debug.Log("spel down");
+                SelectAction(Command.Spell, 1);
+            }
+            else if ((Input.GetKeyDown(KeyCode.A) && PlayerID == 0) || (Input.GetKeyDown(KeyCode.J) && PlayerID == 1))
+            {
+                Debug.Log("spel left");
+                SelectAction(Command.Spell, 2);
+            }
+            else if ((Input.GetKeyDown(KeyCode.D) && PlayerID == 0) || (Input.GetKeyDown(KeyCode.L) && PlayerID == 1))
+            {
+                Debug.Log("spel right");
+                SelectAction(Command.Spell, 3);
             }
         }
         #endregion
