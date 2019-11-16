@@ -9,8 +9,8 @@ public class FightController : MonoBehaviour
 
     [SerializeField] Player Player1, Player2;
     Player.Command P1Command, P2Command;
-    [SerializeField] GameObject battleUIElements;
-    [SerializeField] Text P1_CommandText, P2_CommandText, victoryText;
+    [SerializeField] GameObject battleUIElements, victory;
+    [SerializeField] Text P1_CommandText, P2_CommandText;
     public List<Spell> SpellList;
     
     int playersReady = 0;
@@ -157,7 +157,7 @@ public class FightController : MonoBehaviour
         else
         {
             // victory stuff
-            victoryText.gameObject.SetActive(true);
+            victory.SetActive(true);
             StartCoroutine(EndGameTimer());
         }
     }
@@ -172,15 +172,15 @@ public class FightController : MonoBehaviour
             switch (whomst)
             {
                 case 0:
-                    victoryText.text = "Player 2 Wins!";
+                    victory.GetComponentInChildren<Text>().text = "Player 2 Wins!";
                     break;
                 case 1:
-                    victoryText.text = "Player 1 Wins!";
+                    victory.GetComponentInChildren<Text>().text = "Player 1 Wins!";
                     break;
             }
         }
         else {
-            victoryText.text = "Draw!";
+            victory.GetComponentInChildren<Text>().text = "Draw!";
         }
     }
 
