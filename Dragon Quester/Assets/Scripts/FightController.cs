@@ -10,6 +10,7 @@ public class FightController : MonoBehaviour
     Player.Command P1Command, P2Command;
     [SerializeField] GameObject battleUIElements;
     [SerializeField] Text P1_CommandText, P2_CommandText;
+    public List<Spell> SpellList;
     
     int playersReady = 0;
 
@@ -91,6 +92,7 @@ public class FightController : MonoBehaviour
             P2_CommandText.text = Player2.GetSpell().GetName();
             Player1.TakeDamage(Player2.GetSpell().GetDamage());
             P1_CommandText.text = (Player2.GetSpell().GetDamage().ToString() + " Damage!");
+            Player2.MagicCastSuccess();
         }
         else if (P1Command == Player.Command.Spell && P2Command == Player.Command.Attack)
         {
@@ -108,6 +110,7 @@ public class FightController : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             Player2.TakeDamage(Player1.GetSpell().GetDamage());
             P2_CommandText.text = (Player1.GetSpell().GetDamage().ToString() + " Damage!");
+            Player1.MagicCastSuccess();
         }
         else if (P1Command == Player.Command.Spell && P2Command == Player.Command.Spell)
         {
@@ -118,6 +121,8 @@ public class FightController : MonoBehaviour
             Player2.TakeDamage(Player1.GetSpell().GetDamage());
             P1_CommandText.text = (Player2.GetSpell().GetDamage().ToString() + " Damage!");
             P2_CommandText.text = (Player1.GetSpell().GetDamage().ToString() + " Damage!");
+            Player1.MagicCastSuccess();
+            Player2.MagicCastSuccess();
         }
         else
         {
@@ -150,5 +155,10 @@ public class FightController : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
         EndTurn();
+    }
+
+    public Spell GetRandomSpell()
+    {
+        return SpellList[Random.Range(0, SpellList.Count)];
     }
 }

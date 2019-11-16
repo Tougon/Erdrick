@@ -834,6 +834,15 @@ MonoBehaviour:
   battleUIElements: {fileID: 1002667978}
   P1_CommandText: {fileID: 451807666}
   P2_CommandText: {fileID: 1195265299}
+  SpellList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &710825673
 Transform:
   m_ObjectHideFlags: 0

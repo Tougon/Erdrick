@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "NewSpell", menuName = "ScriptableObjects/Spell", order = 1)]
 public class Spell : ScriptableObject
 {
-    float MP_Cost;
-    string Spell_Name;
-    float Damage;
+    [SerializeField] float MP_Cost;
+    [SerializeField] string Spell_Name;
+    [SerializeField] float Damage;
 
     public float GetCost()
     {

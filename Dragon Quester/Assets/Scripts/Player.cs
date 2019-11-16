@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] FightController FC;
     [SerializeField] int PlayerID;
     [SerializeField] GameObject CommandUI;
-    [SerializeField] Text healthText, mpText;
+    [SerializeField] Text healthText, mpText, spellUp, spellDown, spellLeft, spellRight;
 
     [HideInInspector] public enum Command { Attack, Block, Spell };
 
@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
     Command Action;
     Spell currentSpell;
-    List<Spell> spellList;
+    [SerializeField] List<Spell> spellList;
 
     bool canDoThings;
 
@@ -55,19 +55,30 @@ public class Player : MonoBehaviour
         atkDamage = 10.0f;
         Health = 100.0f;
         MP = 100.0f;
-        canDoThings = true;
-        Debug.Log("do things");
+        StartTurn();
     }
 
     public void StartTurn()
     {
+        FillSpellList();
         ShowUI();
         canDoThings = true;
     }
 
+    void FillSpellList()
+    {
+        for(int i = 0; i < spellList.Count; i++)
+        {
+            spellList[i] = FC.GetRandomSpell();
+        }
+        spellUp.text = spellList[0].GetName();
+        spellDown.text = spellList[1].GetName();
+        spellLeft.text = spellList[2].GetName();
+        spellRight.text = spellList[3].GetName();
+    }
+
     void ShowUI()
     {
-        // show the ui here and the player can do anything
         CommandUI.SetActive(true);
     }
 
