@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
         if (Action == Command.Spell)
         {
             currentSpell = spellList[selectedSpell];
-            if(MP > currentSpell.GetCost())
+            if(MP >= currentSpell.GetCost())
             {
                 HideUI();
             }
