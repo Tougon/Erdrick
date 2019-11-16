@@ -8,19 +8,17 @@ public class Player : MonoBehaviour
     [SerializeField] int PlayerID;
     [SerializeField] GameObject CommandUI;
     [SerializeField] Text healthText, mpText, spellUp, spellDown, spellLeft, spellRight;
-    [SerializeField] RectTransform HealthBar, MPBar;
+    [SerializeField] RectTransform HealthBar, MPBar, HP_Pop, MP_Pop, HP_Pos, MP_Pos;
 
     [HideInInspector] public enum Command { Attack, Block, Spell };
 
-    float Health, MP;
-
-    float atkDamage;
+    float Health, MP, atkDamage;
 
     Command Action;
     Spell currentSpell;
     [SerializeField] List<Spell> spellList;
 
-    bool canDoThings;
+    bool canDoThings, shouldRestoreMP;
 
     Animator anim;
     PlayerControlSet controls;
@@ -75,6 +73,7 @@ public class Player : MonoBehaviour
 
     public void StartBattle()
     {
+        shouldRestoreMP = false;
         atkDamage = 10.0f;
         Health = 100.0f;
         MP = 100.0f;
@@ -84,8 +83,10 @@ public class Player : MonoBehaviour
     public void StartTurn()
     {
         FillSpellList();
-        RestoreMP(10);
+        if (shouldRestoreMP)
+            RestoreMP(10);
         ShowUI();
+        shouldRestoreMP = true;
         canDoThings = true;
     }
 
@@ -165,6 +166,8 @@ public class Player : MonoBehaviour
         Health = Mathf.Clamp(Health, 0.0f, 100.0f);
         healthText.text = Health.ToString() + " / 100 HP";
         ScaleHealthBar();
+        GameObject newPopup = Instantiate(HP_Pop, HP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
+        newPopup.GetComponentInChildren<Text>().text = ("-" + damage);
         if(Health <= 0.0f)
         {
             PlayerDied();
@@ -201,6 +204,8 @@ public class Player : MonoBehaviour
         MP += amt;
         MP = Mathf.Clamp(MP, 0.0f, 100.0f);
         mpText.text = MP.ToString() + " / 100 MP";
+        GameObject newPopup = Instantiate(MP_Pop, MP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
+        newPopup.GetComponentInChildren<Text>().text = ("+" + amt);
         ScaleMPBar();
     }
 
@@ -209,6 +214,8 @@ public class Player : MonoBehaviour
         MP -= amt;
         MP = Mathf.Clamp(MP, 0.0f, 100.0f);
         mpText.text = MP.ToString() + " / 100 MP";
+        GameObject newPopup = Instantiate(MP_Pop, MP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
+        newPopup.GetComponentInChildren<Text>().text = ("-" + amt);
         ScaleMPBar();
     }
 }
