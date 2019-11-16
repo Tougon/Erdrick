@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: 
   MP_Cost: 20
-  Spell_Name: Fireball
+  Spell_Name: Fire Ball
   Damage: 15

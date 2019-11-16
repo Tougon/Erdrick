@@ -76,6 +76,7 @@ public class Player : MonoBehaviour
     public void StartTurn()
     {
         FillSpellList();
+        RestoreMP(10);
         ShowUI();
         canDoThings = true;
     }
@@ -94,12 +95,15 @@ public class Player : MonoBehaviour
 
     void ShowUI()
     {
+        MP = Mathf.Clamp(MP, 0.0f, 100.0f);
+        Health = Mathf.Clamp(Health, 0.0f, 100.0f);
+        healthText.text = Health.ToString() + " / 100";
+        mpText.text = MP.ToString() + " / 100";
         CommandUI.SetActive(true);
     }
 
     void SelectAction(Command selectedCommand, int selectedSpell)
     {
-        Debug.Log("select action");
         Action = selectedCommand;
         if (Action == Command.Spell)
         {
@@ -123,7 +127,6 @@ public class Player : MonoBehaviour
     void HideUI()
     {
         // hide the ui here and the player can't do anything
-        Debug.Log("hide ui");
         CommandUI.SetActive(false);
         canDoThings = false;
         SendCommand();
@@ -131,7 +134,6 @@ public class Player : MonoBehaviour
 
     public void SendCommand()
     {
-        Debug.Log("send command");
         FC.SendMessage("ReceiveCommand", PlayerID);
     }
 
@@ -153,6 +155,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(float damage)
     {
         Health -= damage;
+        Health = Mathf.Clamp(Health, 0.0f, 100.0f);
         healthText.text = Health.ToString() + " / 100";
         if(Health <= 0.0f)
         {
@@ -173,5 +176,11 @@ public class Player : MonoBehaviour
     void EndBattle()
     {
         
+    }
+
+    public void RestoreMP(float amt)
+    {
+        MP += amt;
+        mpText.text = MP.ToString();
     }
 }

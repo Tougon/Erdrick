@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Grassball
   m_EditorClassIdentifier: 
   MP_Cost: 10
-  Spell_Name: Grassball
+  Spell_Name: Grass Ball
   Damage: 15
