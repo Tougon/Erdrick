@@ -95,18 +95,18 @@ public class Player : MonoBehaviour
         {
             spellList[i] = FC.GetRandomSpell();
         }
-        spellUp.text = spellList[0].GetName();
-        spellDown.text = spellList[1].GetName();
-        spellLeft.text = spellList[2].GetName();
-        spellRight.text = spellList[3].GetName();
+        spellUp.text = spellList[0].GetName() + " (" + spellList[0].GetCost().ToString() + " MP)";
+        spellDown.text = spellList[1].GetName() + " (" + spellList[1].GetCost().ToString() + " MP)";
+        spellLeft.text = spellList[2].GetName() + " (" + spellList[2].GetCost().ToString() + " MP)";
+        spellRight.text = spellList[3].GetName() + " (" + spellList[3].GetCost().ToString() + " MP)";
     }
 
     void ShowUI()
     {
         MP = Mathf.Clamp(MP, 0.0f, 100.0f);
         Health = Mathf.Clamp(Health, 0.0f, 100.0f);
-        healthText.text = Health.ToString() + " / 100";
-        mpText.text = MP.ToString() + " / 100";
+        healthText.text = Health.ToString() + " / 100 HP";
+        mpText.text = MP.ToString() + " / 100 MP";
         CommandUI.SetActive(true);
     }
 
@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
     {
         Health -= damage;
         Health = Mathf.Clamp(Health, 0.0f, 100.0f);
-        healthText.text = Health.ToString() + " / 100";
+        healthText.text = Health.ToString() + " / 100 HP";
         ScaleHealthBar();
         if(Health <= 0.0f)
         {
@@ -200,7 +200,7 @@ public class Player : MonoBehaviour
     {
         MP += amt;
         MP = Mathf.Clamp(MP, 0.0f, 100.0f);
-        mpText.text = MP.ToString() + " / 100";
+        mpText.text = MP.ToString() + " / 100 MP";
         ScaleMPBar();
     }
 
@@ -208,7 +208,7 @@ public class Player : MonoBehaviour
     {
         MP -= amt;
         MP = Mathf.Clamp(MP, 0.0f, 100.0f);
-        mpText.text = MP.ToString() + " / 100";
+        mpText.text = MP.ToString() + " / 100 MP";
         ScaleMPBar();
     }
 }
