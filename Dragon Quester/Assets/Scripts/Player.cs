@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] int PlayerID;
     [SerializeField] GameObject CommandUI;
     [SerializeField] Text healthText, mpText, spellUp, spellDown, spellLeft, spellRight;
+    [SerializeField] RectTransform HealthBar, MPBar;
 
     [HideInInspector] public enum Command { Attack, Block, Spell };
 
@@ -117,7 +118,6 @@ public class Player : MonoBehaviour
             currentSpell = spellList[selectedSpell];
             if (MP >= currentSpell.GetCost())
             {
-                MP -= currentSpell.GetCost();
                 HideUI();
             }
             else
@@ -164,15 +164,21 @@ public class Player : MonoBehaviour
         Health -= damage;
         Health = Mathf.Clamp(Health, 0.0f, 100.0f);
         healthText.text = Health.ToString() + " / 100";
+        ScaleHealthBar();
         if(Health <= 0.0f)
         {
             PlayerDied();
         }
     }
 
-    public void MagicCastSuccess()
+    void ScaleHealthBar()
     {
-        mpText.text = MP.ToString() + " / 100";
+        HealthBar.sizeDelta = new Vector2(Health * 10.0f, 50.0f);
+    }
+
+    void ScaleMPBar()
+    {
+        MPBar.sizeDelta = new Vector2(MP * 10.0f, 50.0f);
     }
 
     void PlayerDied()
@@ -193,6 +199,16 @@ public class Player : MonoBehaviour
     public void RestoreMP(float amt)
     {
         MP += amt;
-        mpText.text = MP.ToString();
+        MP = Mathf.Clamp(MP, 0.0f, 100.0f);
+        mpText.text = MP.ToString() + " / 100";
+        ScaleMPBar();
+    }
+
+    public void DrainMP(float amt)
+    {
+        MP -= amt;
+        MP = Mathf.Clamp(MP, 0.0f, 100.0f);
+        mpText.text = MP.ToString() + " / 100";
+        ScaleMPBar();
     }
 }
