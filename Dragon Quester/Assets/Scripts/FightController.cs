@@ -65,7 +65,7 @@ public class FightController : MonoBehaviour
             Player1.TakeDamage(Player2.GetDamage());
             P1_CommandText.text = ("Took " + Player2.GetDamage().ToString() + " Damage!");
             P2_CommandText.text = "Counterattack!";
-            Player2.RestoreMP(15);
+            Player2.RestoreMP(Player2.GetDamage() * 1.5f);
         }
         else if (P1Command == Player.Command.Attack && P2Command == Player.Command.Spell)
         {
@@ -86,7 +86,7 @@ public class FightController : MonoBehaviour
             Player2.TakeDamage(Player1.GetDamage());
             P1_CommandText.text = "Counterattack!";
             P2_CommandText.text = ("Took " + Player1.GetDamage().ToString() + " Damage!");
-            Player1.RestoreMP(Player1.GetDamage());
+            Player1.RestoreMP(Player1.GetDamage() * 1.5f);
         }
         else if (P1Command == Player.Command.Block && P2Command == Player.Command.Block)
         {
