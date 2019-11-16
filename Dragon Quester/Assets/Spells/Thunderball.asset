@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Thunderball
   m_EditorClassIdentifier: 
   MP_Cost: 40
-  Spell_Name: Thunderball
+  Spell_Name: Thunder Ball
   Damage: 50

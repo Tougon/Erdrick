@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Lightball
   m_EditorClassIdentifier: 
   MP_Cost: 35
-  Spell_Name: Lightball
+  Spell_Name: Light Ball
   Damage: 40

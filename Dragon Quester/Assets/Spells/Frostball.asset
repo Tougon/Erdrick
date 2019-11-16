@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Frostball
   m_EditorClassIdentifier: 
   MP_Cost: 25
-  Spell_Name: Frostball
+  Spell_Name: Frost Ball
   Damage: 20

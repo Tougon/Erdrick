@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Waterball
   m_EditorClassIdentifier: 
   MP_Cost: 20
-  Spell_Name: Waterball
+  Spell_Name: Water Ball
   Damage: 15

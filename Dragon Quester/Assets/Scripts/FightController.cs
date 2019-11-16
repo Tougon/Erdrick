@@ -15,7 +15,7 @@ public class FightController : MonoBehaviour
     
     int playersReady = 0;
 
-    bool battling;
+    bool battling, someoneDied;
 
     private void Awake()
     {
@@ -32,7 +32,6 @@ public class FightController : MonoBehaviour
 
     void ReceiveCommand()
     {
-        Debug.Log("receive command");
         playersReady++;
         if(playersReady == 2)
         {
@@ -42,7 +41,6 @@ public class FightController : MonoBehaviour
 
     IEnumerator BeginTurn()
     {
-        Debug.Log("start turn");
         yield return new WaitForSeconds(1.0f);
         battleUIElements.SetActive(true);
         P1Command = Player1.GetAction();
@@ -160,14 +158,21 @@ public class FightController : MonoBehaviour
     {
         //battling = false;
         EndBattle();
-        switch (whomst)
+        if (!someoneDied)
         {
-            case 0:
-                victoryText.text = "Player 2 Wins!";
-                break;
-            case 1:
-                victoryText.text = "Player 1 Wins!";
-                break;
+            someoneDied = true;
+            switch (whomst)
+            {
+                case 0:
+                    victoryText.text = "Player 2 Wins!";
+                    break;
+                case 1:
+                    victoryText.text = "Player 1 Wins!";
+                    break;
+            }
+        }
+        else {
+            victoryText.text = "Draw!";
         }
     }
 
