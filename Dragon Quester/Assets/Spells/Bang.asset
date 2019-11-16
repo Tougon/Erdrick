@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3035c98e58582764aa70e58bc68fdccf, type: 3}
-  m_Name: CockAndBall
+  m_Name: Bang
   m_EditorClassIdentifier: 
-  MP_Cost: 100
-  Spell_Name: CBT
-  Damage: 95
+  MP_Cost: 9
+  Spell_Name: Bang
+  Damage: 15.5
