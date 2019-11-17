@@ -294,6 +294,10 @@ public class Player : MonoBehaviour
                     currentEffects.Remove(currentEffects[i]);
                     i--;
                 }
+                if (currentEffects[i].turns <= 0)
+                {
+                    status.RemoveEffectFromList(currentEffects[i]);
+                }
             }
         }
         //CheckAlive();
