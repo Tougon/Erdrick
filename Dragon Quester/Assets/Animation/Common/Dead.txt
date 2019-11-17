@@ -1,2 +1,3 @@
+1|ChangeAnimationSpeed|User,1
 1|ChangeUserAnimation|Die
 10|TerminateAnimation
