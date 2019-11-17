@@ -453,6 +453,16 @@ public class FightController : MonoBehaviour
         return SpellList[Random.Range(0, SpellList.Count)];
     }
 
+    public void RemoveSpell(Spell s)
+    {
+        SpellList.Remove(s);
+    }
+
+    public void AddSpell(Spell s)
+    {
+        SpellList.Add(s);
+    }
+
     void ApplyEffect(Player p, Effect e)
     {
         p.AddEffect(e);

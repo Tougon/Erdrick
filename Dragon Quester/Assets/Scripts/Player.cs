@@ -123,11 +123,16 @@ public class Player : MonoBehaviour
         for(int i = 0; i < spellList.Count; i++)
         {
             spellList[i] = FC.GetRandomSpell();
+            FC.RemoveSpell(spellList[i]);
         }
         spellUp.text = spellList[0].GetName() + " (" + spellList[0].GetCost().ToString() + " MP)";
         spellDown.text = spellList[1].GetName() + " (" + spellList[1].GetCost().ToString() + " MP)";
         spellLeft.text = spellList[2].GetName() + " (" + spellList[2].GetCost().ToString() + " MP)";
         spellRight.text = spellList[3].GetName() + " (" + spellList[3].GetCost().ToString() + " MP)";
+        for (int i = 0; i < spellList.Count; i++)
+        {
+            FC.AddSpell(spellList[i]);
+        }
     }
 
     void ShowUI()
