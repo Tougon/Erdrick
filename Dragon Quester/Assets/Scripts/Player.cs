@@ -225,12 +225,16 @@ public class Player : MonoBehaviour
 
     public void Heal(float healing)
     {
-        Health += healing;
-        Health = Mathf.Clamp(Health, 0.0f, 100.0f);
-        healthText.text = Health.ToString() + " / 100 HP";
-        ScaleHealthBar();
-        GameObject newPopup = Instantiate(HP_Pop, HP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
-        newPopup.GetComponentInChildren<Text>().text = ("+" + healing);
+        if (Health < 100)
+        {
+            if (Health > 90) healing = 100 - Health;
+            Health += healing;
+            Health = Mathf.Clamp(Health, 0.0f, 100.0f);
+            healthText.text = Health.ToString() + " / 100 HP";
+            ScaleHealthBar();
+            GameObject newPopup = Instantiate(HP_Pop, HP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
+            newPopup.GetComponentInChildren<Text>().text = ("+" + healing);
+        }
 
         SoundManager.Instance.PlaySound("Sounds/heal");
     }
@@ -339,23 +343,29 @@ public class Player : MonoBehaviour
 
     public void RestoreMP(float amt)
     {
-        MP += amt;
-        MP = Mathf.Clamp(MP, 0.0f, 100.0f);
-        mpText.text = MP.ToString() + " / 100 MP";
-        GameObject newPopup = Instantiate(MP_Pop, MP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
-        newPopup.GetComponentInChildren<Text>().text = ("+" + amt);
-        ScaleMPBar();
+        if (MP < 100)
+        {
+            if (MP > 90) amt = 100 - MP;
+            MP += amt;
+            MP = Mathf.Clamp(MP, 0.0f, 100.0f);
+            mpText.text = MP.ToString() + " / 100 MP";
+            GameObject newPopup = Instantiate(MP_Pop, MP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
+            newPopup.GetComponentInChildren<Text>().text = ("+" + amt);
+            ScaleMPBar();
+        }
     }
 
     public void DrainMP(float amt)
     {
-        MP -= amt;
-        MP = Mathf.Clamp(MP, 0.0f, 100.0f);
-        mpText.text = MP.ToString() + " / 100 MP";
-        GameObject newPopup = Instantiate(MP_Pop, MP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
-        newPopup.GetComponentInChildren<Text>().text = ("-" + amt);
-        SoundManager.Instance.PlaySound("Sounds/mp_consume");
-        ScaleMPBar();
+        if (amt != 0)
+        {
+            MP -= amt;
+            MP = Mathf.Clamp(MP, 0.0f, 100.0f);
+            mpText.text = MP.ToString() + " / 100 MP";
+            GameObject newPopup = Instantiate(MP_Pop, MP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
+            newPopup.GetComponentInChildren<Text>().text = ("-" + amt);
+            ScaleMPBar();
+        }
     }
 
     public void CantAct()

@@ -447,8 +447,8 @@ public class FightController : MonoBehaviour
 
     IEnumerator EndGameTimer()
     {
+        TweenVictoryUIIn();
         yield return new WaitForSeconds(3.0f);
-        victory.SetActive(true);
 
         GameObject mp = GameObject.Find("MusicPlayer");
         if (mp != null)
@@ -497,5 +497,10 @@ public class FightController : MonoBehaviour
     void TweenBattleUIOut()
     {
         battleUIElements.transform.DOLocalMoveY(375.0f, 0.6f, true);
+    }
+
+    void TweenVictoryUIIn()
+    {
+        victory.transform.DOLocalMoveY(390, 1.0f, true);
     }
 }
