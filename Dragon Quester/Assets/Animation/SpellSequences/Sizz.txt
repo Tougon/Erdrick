@@ -1,0 +1,11 @@
+1|ChangeUserAnimation|Spell
+15|GenerateEffect|Effects/Fireball, User, 2, -1, 0, 4, 4, 4, true
+15|Rotate|Fireball,0,0,0,50,0
+15|Move|Fireball,10,15,0,0,0
+18|ChangeTargetAnimation|Hit
+18|Vibrate|Target,10,6,0,40
+18|Color|Target,12,1,0,0,1
+39|Color|Target,20,1,1,1,1
+41|TerminateEffect|0
+48|ChangeAnimationSpeed|User,0
+60|TerminateAnimation

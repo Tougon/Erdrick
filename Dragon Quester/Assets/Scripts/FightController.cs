@@ -187,8 +187,8 @@ public class FightController : MonoBehaviour
             P2_CommandText.text = "Block!";
             Player1.DrainMP(Player1.GetSpell().GetCost());
             
-            StartAnimationSequence(animations[2], p1, p2);
-            StartAnimationSequence(animations[4], p2, p1);
+            StartAnimationSequence(animations[4], p1, p2);
+            StartAnimationSequence(animations[2], p2, p1);
 
             yield return new WaitForSeconds(1.0f);
             Player2.TakeDamage(Player1.GetSpell().GetDamage());
@@ -390,8 +390,8 @@ public class FightController : MonoBehaviour
         playersReady = 0;
         if (battling)
         {
-            Player1.EndTurn(animations[5], p1);
-            Player2.EndTurn(animations[5], p2);
+            Player1.EndTurn(animations[5], p1, animations[7]);
+            Player2.EndTurn(animations[5], p2, animations[7]);
         }
         else
         {
@@ -412,11 +412,13 @@ public class FightController : MonoBehaviour
             {
                 case 0:
                     victory.GetComponentInChildren<Text>().text = "Player 2 Wins!";
+                    StartAnimationSequence(animations[6], p1, p2);
                     Debug.Log(2);
                     break;
                 case 1:
                     Debug.Log(1);
                     victory.GetComponentInChildren<Text>().text = "Player 1 Wins!";
+                    StartAnimationSequence(animations[6], p2, p1);
                     break;
             }
         }

@@ -228,23 +228,48 @@ public class Player : MonoBehaviour
         FC.PlayerDied(PlayerID);
     }
 
-    public void EndTurn(AnimationSequenceObject aso, Entity entity)
+    public void EndTurn(AnimationSequenceObject aso, Entity entity, AnimationSequenceObject restore)
     {
+        bool isDead = false;
+        int numSnooze = 0;
+
         if (currentEffects.Count >= 1)
         {
             for(int i = 0; i < currentEffects.Count; i++)
             {
-                if(currentEffects[i].turns <= 0)
+
+                if (currentEffects[i].gameObject.name.Contains("Kamikazee"))
+                    isDead = true;
+                
+                if (currentEffects[i].gameObject.name.Contains("Snooze"))
+                    numSnooze++;
+
+                if (currentEffects[i].turns <= 0)
                 {
+                    if (currentEffects[i].gameObject.name.Contains("Snooze"))
+                        numSnooze--;
+
                     currentEffects.Remove(currentEffects[i]);
                     i--;
                 }
             }
         }
         //CheckAlive();
-        AnimationSequence seq = new AnimationSequence(aso, entity, null);
-        seq.SequenceStart();
-        StartCoroutine(seq.SequenceLoop());
+
+        if(numSnooze <= 0)
+        {
+            AnimationSequence seq = new AnimationSequence(restore, entity, null);
+            seq.SequenceStart();
+            StartCoroutine(seq.SequenceLoop());
+        }
+
+
+        if(Health > 0 && !isDead)
+        {
+            AnimationSequence seq = new AnimationSequence(aso, entity, null);
+            seq.SequenceStart();
+            StartCoroutine(seq.SequenceLoop());
+        }
 
         StartTurn();
     }

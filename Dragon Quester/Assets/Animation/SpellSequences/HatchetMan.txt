@@ -1,0 +1,17 @@
+1|ChangeUserAnimation|Attack
+1|ChangeAnimationSpeed|User,0.4
+20|ChangeAnimationSpeed|User,0
+30|ChangeAnimationSpeed|User,1
+30|Move|User,4,1,0,0
+35|ChangeTargetAnimation|Hit
+35|GenerateEffect|Effects/Slash, Target, -2.5, 0, 0, 2, 2, 2, true
+35|GenerateEffect|Effects/FireCircle, Target, 0, 0, 0, 4, 4, 4, false
+35|Scale|E,20,5,5,5,1
+36|Vibrate|Target,45,1,0,60
+40|Color|E,15,0.4,0.4,0.4,0,1
+46|Color|Slash,0,0,0,0,0,0
+51|TerminateEffect|0
+60|TerminateEffect|0
+60|ChangeAnimationSpeed|User,0
+80|Move|User,4,-1,0,0
+120|TerminateAnimation
