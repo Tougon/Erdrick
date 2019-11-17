@@ -8,7 +8,6 @@ public class E_Kaheal : Effect
 
     private void Start()
     {
-        turns = 4;
         onSelf = true;
     }
 

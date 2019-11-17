@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField] Text healthText, mpText, spellUp, spellDown, spellLeft, spellRight;
     [SerializeField] RectTransform HealthBar, MPBar, HP_Pop, MP_Pop, HP_Pos, MP_Pos;
 
+    [SerializeField] Status_Popup status;
+
     [HideInInspector] public enum Command { Attack, Block, Spell, None };
 
     float Health, MP, atkDamage;
@@ -39,7 +41,6 @@ public class Player : MonoBehaviour
         #region Garbage Input Test Stuff
         if (canDoThings)
         {
-            Debug.Log("Whaddafock");
             if (controls.SelectAttack.WasPressed)
             {
                 Debug.Log("attak");
@@ -95,16 +96,26 @@ public class Player : MonoBehaviour
         {
             for (int i = 0; i < currentEffects.Count; i++)
             {
-                if (currentEffects[i].turns >= 0)
+                if (currentEffects[i].turns >= 1)
                 {
                     currentEffects[i].ActivateEffect();
                     currentEffects[i].turns--;
+                }
+                else if (currentEffects[i].turns == 0)
+                {
+                    currentEffects.Remove(currentEffects[i]);
+                    i--;
+                }
+                else if (currentEffects[i].turns <= -1)
+                {
+                    currentEffects[i].ActivateEffect();
+                    currentEffects.Remove(currentEffects[i]);
+                    i--;
                 }
             }
         }
         if(canDoThings)
             ShowUI();
-        Debug.Log("Sure");
     }
 
     void FillSpellList()
@@ -224,20 +235,24 @@ public class Player : MonoBehaviour
 
     void PlayerDied()
     {
+        foreach(Effect e in currentEffects)
+        {
+            status.RemoveEffectFromList(e);
+        }
         Debug.Log("i died " + PlayerID);
         FC.PlayerDied(PlayerID);
     }
 
     public void EndTurn(AnimationSequenceObject aso, Entity entity)
     {
+        
         if (currentEffects.Count >= 1)
         {
             for(int i = 0; i < currentEffects.Count; i++)
             {
-                if(currentEffects[i].turns <= 0)
+                if (currentEffects[i].turns <= 0)
                 {
-                    currentEffects.Remove(currentEffects[i]);
-                    i--;
+                    status.RemoveEffectFromList(currentEffects[i]);
                 }
             }
         }
@@ -281,6 +296,7 @@ public class Player : MonoBehaviour
 
     public void CantAct()
     {
+        Debug.Log("cant move");
         canDoThings = false;
         SelectAction(Command.None, 0);
         Debug.Log("shouldnt act " + PlayerID);
@@ -290,6 +306,7 @@ public class Player : MonoBehaviour
     {
         currentEffects.Add(Instantiate(effect));
         currentEffects[currentEffects.Count - 1].ApplyEffect(gameObject.GetComponent<Player>());
+        status.AddEffectToList(effect);
     }
 
     void CheckAlive()

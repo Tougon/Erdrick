@@ -9,7 +9,6 @@ public class E_Heal : Effect
 
     private void Start()
     {
-        turns = 1;
         onSelf = true;
     }
 

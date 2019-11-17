@@ -244,7 +244,7 @@ public class FightController : MonoBehaviour
                         ApplyEffect(Player2, Player2.GetSpell().GetEffect());
                         break;
                     case false:
-                        Player1.AddEffect(Player2.GetSpell().GetEffect());
+                        ApplyEffect(Player1, Player2.GetSpell().GetEffect());
                         break;
                 }
             }

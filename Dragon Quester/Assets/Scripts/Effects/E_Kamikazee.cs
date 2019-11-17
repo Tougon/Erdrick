@@ -8,7 +8,6 @@ public class E_Kamikazee : Effect
 
     private void Start()
     {
-        turns = 1;
         onSelf = false;
     }
 

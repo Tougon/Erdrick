@@ -46,4 +46,6 @@ MonoBehaviour:
   turns: 4
   onSelf: 1
   player: {fileID: 0}
+  eff1: {fileID: 21300000, guid: 31416d8cfb2a4b1459c7390f78303d98, type: 3}
+  eff2: {fileID: 21300000, guid: 41de9f671f9354d44a34624e30cb3eae, type: 3}
   HealAmount: 8

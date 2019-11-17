@@ -46,3 +46,5 @@ MonoBehaviour:
   turns: 1
   onSelf: 0
   player: {fileID: 0}
+  eff1: {fileID: 21300000, guid: e9af04e6e8b7b6546a38966138ca6f43, type: 3}
+  eff2: {fileID: 21300000, guid: 2fba4a9339c1a0740a32d8f558a4b4e5, type: 3}

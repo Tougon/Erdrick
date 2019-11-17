@@ -46,4 +46,6 @@ MonoBehaviour:
   turns: 5
   onSelf: 0
   player: {fileID: 0}
+  eff1: {fileID: 21300000, guid: 67ef9b2b5ea6ccf43ac296e7d962ac2f, type: 3}
+  eff2: {fileID: 21300000, guid: 1dc30d7fcd4d02147866f2d41f94a5c8, type: 3}
   PoisonAmount: 5
