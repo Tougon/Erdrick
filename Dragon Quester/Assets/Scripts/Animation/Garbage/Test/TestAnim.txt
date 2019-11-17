@@ -1,4 +1,4 @@
-20|Move|User,10, 3.0, 2.0, 0.0
+20|Move|User,28, 3.0, 2.0, 0.0
 60|ChangeUserAnimation|Attack
 80|GenerateEffect|Placeholder/E,User,-1.0,0.1,-0.5
 81|Color|E,60, 1.0, 1.0, 1.0, 0.0, 0

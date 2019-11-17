@@ -10,7 +10,7 @@ public class AnimationSequence : Sequence
     public class AnimationSequenceAction
     {
         public enum Action { ChangeUserAnimation, ChangeTargetAnimation, TerminateAnimation, GenerateEffect, TerminateEffect,
-           Move, Rotate, Scale, Color, Vibrate}
+           Move, Rotate, Scale, Color, Vibrate, ChangeAnimationSpeed, ChangeAnimationState }
 
         public int frame;
         public Action action;
@@ -21,6 +21,8 @@ public class AnimationSequence : Sequence
     private bool active = false;
     private bool initialized = false;
     private int currentFrame = 0;
+    private float directionX = 1;
+    private float directionY = 1;
 
     public string sequenceName { get; private set; }
 
@@ -52,8 +54,10 @@ public class AnimationSequence : Sequence
         userScale = user.transform.localScale;
         userSprite = user.GetSpriteRenderer();
         userColor = userSprite.color;
+        directionX = user.transform.localScale.x / Mathf.Abs(user.transform.localScale.x);
+        directionY = user.transform.localScale.y / Mathf.Abs(user.transform.localScale.y);
 
-        if(target!= null)
+        if (target!= null)
         {
             targetPosition = target.transform.position;
             targetRotation = target.transform.eulerAngles;
@@ -150,6 +154,7 @@ public class AnimationSequence : Sequence
             case AnimationSequenceAction.Action.ChangeUserAnimation:
                 ChangeUserAnimation(param);
                 break;
+
             case AnimationSequenceAction.Action.GenerateEffect:
                 string[] effectVals = param.Split(',');
 
@@ -159,10 +164,12 @@ public class AnimationSequence : Sequence
                 GenerateEffect(effectVals[0], effectVals[1], 
                     float.Parse(effectVals[2].Trim()), float.Parse(effectVals[3].Trim()), float.Parse(effectVals[4].Trim()));
                 break;
+
             case AnimationSequenceAction.Action.TerminateEffect:
                 int id = int.Parse(param);
                 TerminateEffect(id);
                 break;
+
             case AnimationSequenceAction.Action.Move:
                 string[] moveVals = param.Split(',');
 
@@ -181,8 +188,8 @@ public class AnimationSequence : Sequence
 
                 float durationM = ((float.Parse(moveVals[1].Trim())) / 60.0f);
 
-                float xM = float.Parse(moveVals[2].Trim()) + tM.position.x;
-                float yM = float.Parse(moveVals[3].Trim()) + tM.position.y;
+                float xM = (float.Parse(moveVals[2].Trim()) * directionX) + tM.position.x;
+                float yM = (float.Parse(moveVals[3].Trim()) * directionY) + tM.position.y;
                 float zM = float.Parse(moveVals[4].Trim()) + tM.position.z;
 
                 TweenPosition(tM, xM, yM, zM, durationM);
@@ -231,8 +238,8 @@ public class AnimationSequence : Sequence
 
                 float durationS = ((float.Parse(scaleVals[1].Trim())) / 60.0f); ;
 
-                float xS = float.Parse(scaleVals[2].Trim()) + tS.position.x;
-                float yS = float.Parse(scaleVals[3].Trim()) + tS.position.y;
+                float xS = (float.Parse(scaleVals[2].Trim()) * directionX) * Mathf.Abs(tS.localScale.x);
+                float yS = (float.Parse(scaleVals[3].Trim()) * directionY) * Mathf.Abs(tS.localScale.y);
                 float zS = float.Parse(scaleVals[4].Trim()) + tS.position.z;
 
                 TweenScale(tS, xS, yS, zS, durationS);
@@ -288,6 +295,43 @@ public class AnimationSequence : Sequence
                 Vibrate(tV, durationV, strengthV, vibratoV);
                 break;
 
+            case AnimationSequenceAction.Action.ChangeAnimationSpeed:
+                string[] speedVals = param.Split(',');
+
+                if (speedVals.Length > 3 && speedVals.Length < 2)
+                    Debug.LogError("Invalid param count for Speed!");
+                
+                string sSp = speedVals[0].Trim();
+                float sSpeed = float.Parse(speedVals[1].Trim());
+
+                if (sSp.Equals("User"))
+                    user.FrameSpeedModify(sSpeed);
+                else if (sSp.Equals("Target"))
+                    target.FrameSpeedModify(sSpeed);
+                else
+                    effects[int.Parse(speedVals[2].Trim())].FrameSpeedModify(sSpeed);
+                break;
+
+            case AnimationSequenceAction.Action.ChangeAnimationState:
+                string[] stateVals = param.Split(',');
+
+                if (stateVals.Length > 4 && stateVals.Length < 3)
+                    Debug.LogError("Invalid param count for State Change!");
+
+                Entity eAS;
+                string sAS = stateVals[0].Trim();
+
+                if (sAS.Equals("User"))
+                    eAS = user;
+                else if (sAS.Equals("Target"))
+                    eAS = target;
+                else
+                    eAS = effects[int.Parse(stateVals[3].Trim())];
+
+                eAS.SetAnimationState(stateVals[1].Trim(), bool.Parse(stateVals[2].Trim()));
+
+                break;
+
             case AnimationSequenceAction.Action.TerminateAnimation:
                 active = false;
                 break;
@@ -306,16 +350,16 @@ public class AnimationSequence : Sequence
         {
             Vector3 rel = user.transform.position;
 
-            x += rel.x;
-            y += rel.y;
+            x = (rel.x) + (x * directionX);
+            y = (rel.y) + (y * directionY);
             z += rel.z;
         }
         else if(relative == "Target")
         {
             Vector3 rel = target.transform.position;
 
-            x += rel.x;
-            y += rel.y;
+            x = (rel.x) + (x * directionX);
+            y = (rel.y) + (y * directionY);
             z += rel.z;
         }
 

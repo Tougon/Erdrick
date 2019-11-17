@@ -12,13 +12,19 @@ public class Entity : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
 
     public void SetAnimation(string val)
     {
         anim.SetTrigger(val);
+    }
+
+
+    public void SetAnimationState(string val, bool b)
+    {
+        anim.SetBool(val, b);
     }
 
 
@@ -31,5 +37,11 @@ public class Entity : MonoBehaviour
     public SpriteRenderer GetSpriteRenderer()
     {
         return sprite;
+    }
+
+
+    public void FrameSpeedModify(float t)
+    {
+        anim.speed = t;
     }
 }
