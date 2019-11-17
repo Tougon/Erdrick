@@ -101,7 +101,8 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        ShowUI();
+        if(canDoThings)
+            ShowUI();
     }
 
     void FillSpellList()
