@@ -468,7 +468,7 @@ public class FightController : MonoBehaviour
         GameObject mp = GameObject.Find("MusicPlayer");
         if (mp != null)
             mp.SetActive(false);
-        SoundManager.Instance.PlaySound("Sounds/HOES_MAD");
+        SoundManager.Instance.PlaySound("Sounds/SC_Fanfare");
 
         yield return new WaitForSeconds(7.0f);
         SceneManager.LoadScene(0);
