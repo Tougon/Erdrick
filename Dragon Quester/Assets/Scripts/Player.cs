@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        canDoThings = false;
+        //canDoThings = false;
         anim = GetComponent<Animator>();
 
         controls = new PlayerControlSet();
@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
         #region Garbage Input Test Stuff
         if (canDoThings)
         {
+            Debug.Log("Whaddafock");
             if (controls.SelectAttack.WasPressed)
             {
                 Debug.Log("attak");
@@ -103,6 +104,7 @@ public class Player : MonoBehaviour
         }
         if(canDoThings)
             ShowUI();
+        Debug.Log("Sure");
     }
 
     void FillSpellList()
