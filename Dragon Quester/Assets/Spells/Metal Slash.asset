@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3035c98e58582764aa70e58bc68fdccf, type: 3}
   m_Name: Metal Slash
   m_EditorClassIdentifier: 
-  MP_Cost: 6
   Spell_Name: Metal Slash
   Damage: 1
+  MP_Cost: 6
+  Description: Took 1 Damage!
+  effect: {fileID: 0}

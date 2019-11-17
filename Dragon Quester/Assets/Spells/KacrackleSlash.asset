@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3035c98e58582764aa70e58bc68fdccf, type: 3}
   m_Name: KacrackleSlash
   m_EditorClassIdentifier: 
-  MP_Cost: 11
   Spell_Name: Kacrackle Slash
   Damage: 17
+  MP_Cost: 11
+  Description: Take 17 Damage!
+  effect: {fileID: 0}

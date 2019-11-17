@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] Text healthText, mpText, spellUp, spellDown, spellLeft, spellRight;
     [SerializeField] RectTransform HealthBar, MPBar, HP_Pop, MP_Pop, HP_Pos, MP_Pos;
 
-    [HideInInspector] public enum Command { Attack, Block, Spell };
+    [HideInInspector] public enum Command { Attack, Block, Spell, None };
 
     float Health, MP, atkDamage;
 
@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
 
     Animator anim;
     PlayerControlSet controls;
+
+    [SerializeField] List<Effect> currentEffects;
 
     private void Awake()
     {
@@ -73,6 +75,7 @@ public class Player : MonoBehaviour
 
     public void StartBattle()
     {
+        currentEffects = new List<Effect>();
         shouldRestoreMP = false;
         atkDamage = 10.0f;
         Health = 100.0f;
@@ -88,6 +91,17 @@ public class Player : MonoBehaviour
         ShowUI();
         shouldRestoreMP = true;
         canDoThings = true;
+        if (currentEffects.Count >= 1)
+        {
+            for (int i = 0; i < currentEffects.Count; i++)
+            {
+                if (currentEffects[i].turns >= 0)
+                {
+                    currentEffects[i].ActivateEffect();
+                    currentEffects[i].turns--;
+                }
+            }
+        }
     }
 
     void FillSpellList()
@@ -142,6 +156,7 @@ public class Player : MonoBehaviour
 
     public void SendCommand()
     {
+        if (!FC) FC = GameObject.Find("FightController").GetComponent<FightController>();
         FC.SendMessage("ReceiveCommand", PlayerID);
     }
 
@@ -189,6 +204,22 @@ public class Player : MonoBehaviour
         FC.PlayerDied(PlayerID);
     }
 
+    public void EndTurn()
+    {
+        if (currentEffects.Count >= 1)
+        {
+            for(int i = 0; i < currentEffects.Count; i++)
+            {
+                if(currentEffects[i].turns <= 0)
+                {
+                    currentEffects.Remove(currentEffects[i]);
+                    i--;
+                }
+            }
+        }
+        StartTurn();
+    }
+
     void EndBattle()
     {
         
@@ -217,5 +248,18 @@ public class Player : MonoBehaviour
         GameObject newPopup = Instantiate(MP_Pop, MP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
         newPopup.GetComponentInChildren<Text>().text = ("-" + amt);
         ScaleMPBar();
+    }
+
+    public void CantAct()
+    {
+        canDoThings = false;
+        SelectAction(Command.None, 0);
+        Debug.Log("shouldnt act " + PlayerID);
+    }
+
+    public void AddEffect(Effect effect)
+    {
+        currentEffects.Add(Instantiate(effect));
+        currentEffects[currentEffects.Count - 1].ApplyEffect(gameObject.GetComponent<Player>());
     }
 }

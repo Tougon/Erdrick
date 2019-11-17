@@ -11,7 +11,7 @@ public class Popup : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.AddForce(new Vector2(Random.Range(-250.0f, 250.0f), Random.Range(300.0f, 500.0f)));
+        rb.AddForce(new Vector2(Random.Range(-250.0f, 250.0f), Random.Range(250.0f, 400.0f)));
         StartCoroutine(KillSelf());
     }
 

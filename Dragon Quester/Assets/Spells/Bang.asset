@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3035c98e58582764aa70e58bc68fdccf, type: 3}
   m_Name: Bang
   m_EditorClassIdentifier: 
-  MP_Cost: 9
   Spell_Name: Bang
   Damage: 15.5
+  MP_Cost: 9
+  Description: Took 15.5 Damage!
