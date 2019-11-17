@@ -244,7 +244,7 @@ public class FightController : MonoBehaviour
                         ApplyEffect(Player2, Player2.GetSpell().GetEffect());
                         break;
                     case false:
-                        Player1.AddEffect(Player2.GetSpell().GetEffect());
+                        ApplyEffect(Player1, Player2.GetSpell().GetEffect());
                         break;
                 }
             }
@@ -453,6 +453,16 @@ public class FightController : MonoBehaviour
     public Spell GetRandomSpell()
     {
         return SpellList[Random.Range(0, SpellList.Count)];
+    }
+
+    public void RemoveSpell(Spell s)
+    {
+        SpellList.Remove(s);
+    }
+
+    public void AddSpell(Spell s)
+    {
+        SpellList.Add(s);
     }
 
     void ApplyEffect(Player p, Effect e)

@@ -8,7 +8,6 @@ public class E_Snooze : Effect
 
     private void Start()
     {
-        turns = 1;
         onSelf = false;
     }
 

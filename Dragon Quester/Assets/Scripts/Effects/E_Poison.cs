@@ -8,7 +8,6 @@ public class E_Poison : Effect
 
     private void Start()
     {
-        turns = 5;
         onSelf = false;
     }
 
