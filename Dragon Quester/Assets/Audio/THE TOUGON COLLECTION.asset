@@ -33,3 +33,5 @@ MonoBehaviour:
     song: {fileID: 8300000, guid: 8e284a39640e2694da5d38583f60a07d, type: 3}
   - name: Gangnam Style - PSY
     song: {fileID: 8300000, guid: 186b774a0f5edf0479a0d1e4c4d21d15, type: 3}
+  - name: Black Tar - Xenoblade Chronicles X
+    song: {fileID: 8300000, guid: 4247ea7ca48b46044ba41b795a30a3e4, type: 3}
