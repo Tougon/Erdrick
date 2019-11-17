@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     Spell currentSpell;
     [SerializeField] List<Spell> spellList;
 
-    bool canDoThings, shouldRestoreMP;
+    bool canDoThings, shouldRestoreMP, alreadyDead;
 
     Animator anim;
     PlayerControlSet controls;
@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     {
         //canDoThings = false;
         anim = GetComponent<Animator>();
+
+        alreadyDead = false;
 
         controls = new PlayerControlSet();
         controls.InitKeyboardcontrols(PlayerID+1);
@@ -186,6 +188,7 @@ public class Player : MonoBehaviour
 
     public void HideUIGameEnd()
     {
+        CommandUI.SetActive(false);
         TweenUIOut();
         canDoThings = false;
     }
@@ -259,8 +262,12 @@ public class Player : MonoBehaviour
         {
             status.RemoveEffectFromList(e);
         }
-        Debug.Log("i died " + PlayerID);
-        FC.PlayerDied(PlayerID);
+        if (!alreadyDead)
+        {
+            Debug.Log("i died " + PlayerID);
+            alreadyDead = true;
+            FC.PlayerDied(PlayerID);
+        }
     }
 
     public void EndTurn(AnimationSequenceObject aso, Entity entity, AnimationSequenceObject restore)
@@ -293,10 +300,6 @@ public class Player : MonoBehaviour
                     status.RemoveEffectFromList(currentEffects[i]);
                     currentEffects.Remove(currentEffects[i]);
                     i--;
-                }
-                if (currentEffects[i].turns <= 0)
-                {
-                    status.RemoveEffectFromList(currentEffects[i]);
                 }
             }
         }
