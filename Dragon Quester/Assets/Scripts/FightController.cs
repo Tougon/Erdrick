@@ -424,6 +424,8 @@ public class FightController : MonoBehaviour
         else {
             victory.GetComponentInChildren<Text>().text = "Draw!";
             Debug.Log("nobody");
+            StartAnimationSequence(animations[6], p1, p2);
+            StartAnimationSequence(animations[6], p2, p1);
         }
         StartCoroutine(EndGameTimer());
     }
@@ -446,8 +448,14 @@ public class FightController : MonoBehaviour
     IEnumerator EndGameTimer()
     {
         TweenVictoryUIIn();
-        yield return new WaitForSeconds(1.0f);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(3.0f);
+
+        GameObject mp = GameObject.Find("MusicPlayer");
+        if (mp != null)
+            mp.SetActive(false);
+        SoundManager.Instance.PlaySound("Sounds/HOES_MAD");
+
+        yield return new WaitForSeconds(7.0f);
         SceneManager.LoadScene(0);
     }
 

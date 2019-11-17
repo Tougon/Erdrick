@@ -3,15 +3,19 @@
 15|Vibrate|Target,60,6,0,65
 15|GenerateEffect|Effects/FireCircle, Target, 0, 0, 0, 2.5, 2.5, 2.5, false
 15|Scale|E,25,5,5,5,0
-25|Color|E,15,0.4,0.4,0.4,0,0
+15|PlaySound|Sounds/explosion_1
 20|GenerateEffect|Effects/FireCircle, Target, 0.5, 0, 0, 2.5, 2.5, 2.5, false
 20|Scale|E,25,5,5,5,1
-30|Color|E,15,0.4,0.4,0.4,0,1
+20|PlaySound|Sounds/explosion_1
+25|Color|E,15,0.4,0.4,0.4,0,0
 25|GenerateEffect|Effects/FireCircle, Target, -0.5, 0, 0, 2.5, 2.5, 2.5, false
 25|Scale|E,25,5,5,5,2
-35|Color|E,15,0.4,0.4,0.4,0,2
+25|PlaySound|Sounds/explosion_1
 30|GenerateEffect|Effects/FireCircle, Target, -0.5, 0, 0, 2.5, 2.5, 2.5, false
 30|Scale|E,25,5,5,5,3
+30|Color|E,15,0.4,0.4,0.4,0,1
+30|PlaySound|Sounds/explosion_1
+35|Color|E,15,0.4,0.4,0.4,0,2
 40|Color|E,15,0.4,0.4,0.4,0,3
 48|ChangeAnimationSpeed|User,0
 56|TerminateEffect|0

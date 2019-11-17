@@ -3,6 +3,7 @@
 15|ChangeTargetAnimation|Hit
 15|Vibrate|Target,50,6,0,60
 15|Scale|E,25,2,2,2,0
+15|PlaySound|Sounds/e
 25|Color|E,15,0.4,0.4,0.4,0,0
 41|TerminateEffect|0
 48|ChangeAnimationSpeed|User,0

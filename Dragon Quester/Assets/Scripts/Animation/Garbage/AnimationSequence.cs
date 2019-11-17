@@ -421,7 +421,7 @@ public class AnimationSequence : Sequence
 
     private void PlaySound(string s)
     {
-        SoundManager.Instance.PlaySound(s);
+        SoundManager.Instance.PlaySound(s.Trim());
     }
 
     #endregion

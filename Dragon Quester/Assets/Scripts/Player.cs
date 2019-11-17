@@ -167,6 +167,7 @@ public class Player : MonoBehaviour
 
     void SelectAction(Command selectedCommand, int selectedSpell)
     {
+        SoundManager.Instance.PlaySound("Sounds/move_select");
         Action = selectedCommand;
         if (Action == Command.Spell)
         {
@@ -234,6 +235,8 @@ public class Player : MonoBehaviour
             GameObject newPopup = Instantiate(HP_Pop, HP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
             newPopup.GetComponentInChildren<Text>().text = ("+" + healing);
         }
+
+        SoundManager.Instance.PlaySound("Sounds/heal");
     }
 
     public void TakeDamage(float damage)

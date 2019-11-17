@@ -46,8 +46,13 @@ public class SoundManager : MonoBehaviour
 
         if(clip != null)
         {
+            Debug.Log("DD");
             target.clip = clip;
             target.Play();
+        }
+        else
+        {
+            Debug.Log("FF");
         }
     }
 }
