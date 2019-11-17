@@ -445,8 +445,8 @@ public class FightController : MonoBehaviour
 
     IEnumerator EndGameTimer()
     {
+        TweenVictoryUIIn();
         yield return new WaitForSeconds(1.0f);
-        victory.SetActive(true);
         yield return new WaitForSeconds(2.0f);
         SceneManager.LoadScene(0);
     }
@@ -489,5 +489,10 @@ public class FightController : MonoBehaviour
     void TweenBattleUIOut()
     {
         battleUIElements.transform.DOLocalMoveY(375.0f, 0.6f, true);
+    }
+
+    void TweenVictoryUIIn()
+    {
+        victory.transform.DOLocalMoveY(390, 1.0f, true);
     }
 }
