@@ -21,7 +21,15 @@ MonoBehaviour:
     song: {fileID: 8300000, guid: f42504ea9ca007e4aab7be490a2a7068, type: 3}
   - name: Psycho Soldier Theme - Super Smash Bros. Ultimate
     song: {fileID: 8300000, guid: f40c3a5e884fcb54fb08a380e3ee48ed, type: 3}
-  - name: Psycho Soldier Theme (Overseas Version) - Super Smash Bros. Ultimate
-    song: {fileID: 8300000, guid: a3220aec15c74084489c85f58d6faf17, type: 3}
+  - name: Battle 1 - Fate/Extra
+    song: {fileID: 8300000, guid: db23c84df83fe7647b6c9b4b59178618, type: 3}
   - name: Butterfly Effect - fox capture plan
     song: {fileID: 8300000, guid: 350e46a9661fa23499a9eb8a380160fb, type: 3}
+  - name: Fighting Spirits - Dragon Quest III
+    song: {fileID: 8300000, guid: f03a0d2f33f6f1644b4987100536c975, type: 3}
+  - name: Battle for the Glory - Dragon Quest IV
+    song: {fileID: 8300000, guid: 53d727ddb63c2c74e842e114a04552d3, type: 3}
+  - name: Unflinching Courage - Dragon Quest XI
+    song: {fileID: 8300000, guid: 8e284a39640e2694da5d38583f60a07d, type: 3}
+  - name: Gangnam Style - PSY
+    song: {fileID: 8300000, guid: 186b774a0f5edf0479a0d1e4c4d21d15, type: 3}
