@@ -10,7 +10,7 @@ public class AnimationSequence : Sequence
     public class AnimationSequenceAction
     {
         public enum Action { ChangeUserAnimation, ChangeTargetAnimation, TerminateAnimation, GenerateEffect, TerminateEffect,
-           Move, Rotate, Scale, Color}
+           Move, Rotate, Scale, Color, Vibrate}
 
         public int frame;
         public Action action;
@@ -179,7 +179,7 @@ public class AnimationSequence : Sequence
                 else
                     tM = effects[int.Parse(moveVals[5].Trim())].transform;
 
-                float durationM = ((float)currentFrame) / (float.Parse(moveVals[1].Trim()) + ((float)currentFrame));
+                float durationM = ((float.Parse(moveVals[1].Trim())) / 60.0f);
 
                 float xM = float.Parse(moveVals[2].Trim()) + tM.position.x;
                 float yM = float.Parse(moveVals[3].Trim()) + tM.position.y;
@@ -204,7 +204,7 @@ public class AnimationSequence : Sequence
                 else
                     tR = effects[int.Parse(rotateVals[5].Trim())].transform;
 
-                float durationR = ((float)currentFrame) / (float.Parse(rotateVals[1].Trim()) + ((float)currentFrame));
+                float durationR = ((float.Parse(rotateVals[1].Trim())) / 60.0f); ;
 
                 float xR = float.Parse(rotateVals[2].Trim()) + tR.position.x;
                 float yR = float.Parse(rotateVals[3].Trim()) + tR.position.y;
@@ -229,7 +229,7 @@ public class AnimationSequence : Sequence
                 else
                     tS = effects[int.Parse(scaleVals[5].Trim())].transform;
 
-                float durationS = ((float)currentFrame) / (float.Parse(scaleVals[1].Trim()) + ((float)currentFrame));
+                float durationS = ((float.Parse(scaleVals[1].Trim())) / 60.0f); ;
 
                 float xS = float.Parse(scaleVals[2].Trim()) + tS.position.x;
                 float yS = float.Parse(scaleVals[3].Trim()) + tS.position.y;
@@ -254,7 +254,7 @@ public class AnimationSequence : Sequence
                 else
                     eC = effects[int.Parse(colorVals[6].Trim())];
 
-                float durationC = ((float)currentFrame) / (float.Parse(colorVals[1].Trim()) + ((float)currentFrame));
+                float durationC = ((float.Parse(colorVals[1].Trim())) / 60.0f);
 
                 float xC = float.Parse(colorVals[2].Trim());
                 float yC = float.Parse(colorVals[3].Trim());
@@ -262,6 +262,30 @@ public class AnimationSequence : Sequence
                 float wC = float.Parse(colorVals[5].Trim());
 
                 TweenColor(eC, new Color(xC, yC, zC, wC), durationC);
+                break;
+
+            case AnimationSequenceAction.Action.Vibrate:
+                string[] vibrateVals = param.Split(',');
+
+                if (vibrateVals.Length > 6 && vibrateVals.Length < 5)
+                    Debug.LogError("Invalid param count for Vibration!");
+
+                Transform tV;
+                string sV = vibrateVals[0].Trim();
+
+                if (sV.Equals("User"))
+                    tV = user.transform;
+                else if (sV.Equals("Target"))
+                    tV = target.transform;
+                else
+                    tV= effects[int.Parse(vibrateVals[5].Trim())].transform;
+
+                float durationV = ((float.Parse(vibrateVals[1].Trim())) / 60.0f);
+                Debug.Log(durationV);
+                Vector3 strengthV = new Vector3(float.Parse(vibrateVals[2]), float.Parse(vibrateVals[3]), 0.0f);
+                int vibratoV = int.Parse(vibrateVals[4]);
+
+                Vibrate(tV, durationV, strengthV, vibratoV);
                 break;
 
             case AnimationSequenceAction.Action.TerminateAnimation:
@@ -328,6 +352,12 @@ public class AnimationSequence : Sequence
     private void TweenColor(Entity e, Color c, float duration)
     {
         e.SetColorTween(c, duration);
+    }
+
+
+    private void Vibrate(Transform t, float duration, Vector3 strength, int vibrato)
+    {
+        t.transform.DOShakePosition(duration, strength, vibrato);
     }
 
     #endregion

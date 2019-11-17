@@ -304,9 +304,9 @@ GameObject:
   m_Component:
   - component: {fileID: 453335292}
   - component: {fileID: 453335291}
+  - component: {fileID: 453335295}
   - component: {fileID: 453335294}
   - component: {fileID: 453335293}
-  - component: {fileID: 453335295}
   m_Layer: 0
   m_Name: PToed
   m_TagString: Untagged
