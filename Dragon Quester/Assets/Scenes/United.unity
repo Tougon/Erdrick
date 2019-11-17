@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -528,7 +528,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -59}
+  m_AnchoredPosition: {x: 0, y: -150}
   m_SizeDelta: {x: 500, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &574398971
@@ -623,7 +623,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -329}
+  m_AnchoredPosition: {x: 0, y: -400}
   m_SizeDelta: {x: 1524.93, y: 418.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &744345116
@@ -676,7 +676,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Type-Moon / Kinoku Nasu / Shinji Hosoe\nSQUARE ENIX CO. LTD./ARMOR PROJECT/BIRD
     STUDIO \xA9SUGIYAMA KOBO \u2117SUGIYAMA KOBO\nNintendo / MONOLITHSOFT / Hiroyuki
-    Sawano\nLUCKY LAND COMMUNICATIONS, INC.\nUMG Recordings, Inc.\nSNK CORPORATION\nPSY\n"
+    Sawano\nLUCKY LAND COMMUNICATIONS, INC.\nUMG Recordings, Inc.\nSNK CORPORATION\nPSY\nFacebook
+    / Dreamworks / Markiplier\n"
 --- !u!222 &744345118
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -932,7 +933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1444970876
 RectTransform:
   m_ObjectHideFlags: 0

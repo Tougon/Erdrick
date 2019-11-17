@@ -14,6 +14,9 @@ public class FightController : MonoBehaviour
     [SerializeField] GameObject battleUIElements, victory;
     [SerializeField] Text P1_CommandText, P2_CommandText;
     public List<Spell> SpellList;
+    [SerializeField] Transform TurnCount;
+    Text TurnText;
+    int turns;
     
     [SerializeField] int playersReady = 0;
 
@@ -25,6 +28,7 @@ public class FightController : MonoBehaviour
 
     private void Awake()
     {
+        turns = 0;
         p1 = Player1.GetComponent<Entity>();
         p2 = Player2.GetComponent<Entity>();
         BeginBattle();
@@ -32,6 +36,9 @@ public class FightController : MonoBehaviour
 
     void BeginBattle()
     {
+        TurnText = TurnCount.GetComponentInChildren<Text>();
+        turns++;
+        TurnText.text = "Turn " + turns;
         battling = true;
         playersReady = 0;
         Player1.StartBattle();
@@ -52,6 +59,7 @@ public class FightController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         TweenBattleUIIn();
+        TweenTurnUIOut();
         yield return new WaitForSeconds(0.8f);
         P1Command = Player1.GetAction();
         P2Command = Player2.GetAction();
@@ -391,6 +399,12 @@ public class FightController : MonoBehaviour
         {
             Player1.EndTurn(animations[5], p1, animations[7]);
             Player2.EndTurn(animations[5], p2, animations[7]);
+            turns++;
+            TurnText.text = "Turn " + turns;
+            if (Player1.GetHealth() > 0 && Player2.GetHealth() > 0)
+            {
+                TweenTurnUIIn();
+            }
         }
         else
         {
@@ -448,6 +462,7 @@ public class FightController : MonoBehaviour
     IEnumerator EndGameTimer()
     {
         TweenVictoryUIIn();
+        TweenTurnUIOut();
         yield return new WaitForSeconds(3.0f);
 
         GameObject mp = GameObject.Find("MusicPlayer");
@@ -502,5 +517,15 @@ public class FightController : MonoBehaviour
     void TweenVictoryUIIn()
     {
         victory.transform.DOLocalMoveY(390, 1.0f, true);
+    }
+
+    void TweenTurnUIOut()
+    {
+        TurnCount.DOLocalMoveY(600, 0.6f, true);
+    }
+
+    void TweenTurnUIIn()
+    {
+        TurnCount.DOLocalMoveY(450, 0.6f, true);
     }
 }

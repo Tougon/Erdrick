@@ -167,7 +167,10 @@ public class Player : MonoBehaviour
 
     void SelectAction(Command selectedCommand, int selectedSpell)
     {
-        SoundManager.Instance.PlaySound("Sounds/move_select");
+        if (canDoThings)
+        {
+            SoundManager.Instance.PlaySound("Sounds/move_select");
+        }
         Action = selectedCommand;
         if (Action == Command.Spell)
         {
