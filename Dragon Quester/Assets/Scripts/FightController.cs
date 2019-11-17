@@ -483,11 +483,11 @@ public class FightController : MonoBehaviour
     {
         P1_CommandText.text = "";
         P2_CommandText.text = "";
-        battleUIElements.transform.DOMoveY(225.0f, 0.6f, true);
+        battleUIElements.transform.DOLocalMoveY(-10.0f, 0.6f, true);
     }
 
     void TweenBattleUIOut()
     {
-        battleUIElements.transform.DOMoveY(400, 0.6f, true);
+        battleUIElements.transform.DOLocalMoveY(375.0f, 0.6f, true);
     }
 }

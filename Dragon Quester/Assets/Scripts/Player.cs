@@ -156,12 +156,12 @@ public class Player : MonoBehaviour
     void TweenUIIn()
     {
         //CommandUI.SetActive(true);
-        CommandUI.transform.DOMoveY(230.0f, 1.0f, true);
+        CommandUI.transform.DOLocalMoveY(0.0f, 1.0f, true);
     }
 
     void TweenUIOut()
     {
-        CommandUI.transform.DOMoveY(90.0f, 0.5f, true);
+        CommandUI.transform.DOLocalMoveY(-300.0f, 0.5f, true);
         //CommandUI.SetActive(false);
     }
 
