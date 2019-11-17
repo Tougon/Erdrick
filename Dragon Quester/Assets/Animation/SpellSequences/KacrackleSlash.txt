@@ -1,5 +1,7 @@
 1|ChangeUserAnimation|Attack
 5|Move|User,4,1,0,0
+10|PlaySound|Sounds/sword_swing_2
+12|PlaySound|Sounds/sword_hit
 12|ChangeTargetAnimation|Hit
 12|GenerateEffect|Effects/Slash, Target, -2.5, 0, 0, 2, 2, 2, true
 12|Color|Slash,0,0,0.78,1,1,0

@@ -2,6 +2,7 @@
 15|GenerateEffect|Effects/Fireball, User, 2, -1, 0, 4, 4, 4, true
 15|Rotate|Fireball,0,0,0,50,0
 15|Move|Fireball,10,15,0,0,0
+15|PlaySound|Sounds/sizzle
 18|ChangeTargetAnimation|Hit
 18|Vibrate|Target,25,6,0,60
 18|Color|Target,12,1,0,0,1

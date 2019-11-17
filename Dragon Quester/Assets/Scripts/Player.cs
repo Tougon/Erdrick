@@ -167,6 +167,7 @@ public class Player : MonoBehaviour
 
     void SelectAction(Command selectedCommand, int selectedSpell)
     {
+        SoundManager.Instance.PlaySound("Sounds/move_select");
         Action = selectedCommand;
         if (Action == Command.Spell)
         {
@@ -230,6 +231,8 @@ public class Player : MonoBehaviour
         ScaleHealthBar();
         GameObject newPopup = Instantiate(HP_Pop, HP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
         newPopup.GetComponentInChildren<Text>().text = ("+" + healing);
+
+        SoundManager.Instance.PlaySound("Sounds/heal");
     }
 
     public void TakeDamage(float damage)
@@ -350,6 +353,7 @@ public class Player : MonoBehaviour
         mpText.text = MP.ToString() + " / 100 MP";
         GameObject newPopup = Instantiate(MP_Pop, MP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
         newPopup.GetComponentInChildren<Text>().text = ("-" + amt);
+        SoundManager.Instance.PlaySound("Sounds/mp_consume");
         ScaleMPBar();
     }
 

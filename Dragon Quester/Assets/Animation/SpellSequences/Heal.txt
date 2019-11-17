@@ -2,6 +2,7 @@
 15|Color|User,20,0.4,0.85,0.42,1
 15|GenerateEffect|Effects/Heal, User, 0, 0, 0, 2.5, 2.5, 2.5, false
 15|Move|Heal,30,0,1,0,0
+15|PlaySound|Sounds/heal
 30|Color|Heal,15,0.4,0.4,0.4,0,0
 40|Color|User,10,1,1,1,1
 48|TerminateEffect|0
