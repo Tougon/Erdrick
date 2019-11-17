@@ -1,5 +1,9 @@
+20|Move|User,10, 3.0, 2.0, 0.0
 60|ChangeUserAnimation|Attack
-80|GenerateEffect|Placeholder/E,User,-1.0,0.1,-0.5 
+80|GenerateEffect|Placeholder/E,User,-1.0,0.1,-0.5
 150|TerminateEffect|0
+160|Rotate|User,10, 0.0, 0.0, 180.0
+180|Scale|User,10, 2.0, 1.5, 0.0
+200|Color|User,90, 0.0, 1.0, 0.0, 1.0
 300|ChangeUserAnimation|Idle
 300|TerminateAnimation
