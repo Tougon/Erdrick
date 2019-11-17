@@ -10,7 +10,7 @@ public class AnimationSequence : Sequence
     public class AnimationSequenceAction
     {
         public enum Action { ChangeUserAnimation, ChangeTargetAnimation, TerminateAnimation, GenerateEffect, TerminateEffect,
-           Move, Rotate, Scale, Color, Vibrate, ChangeAnimationSpeed, ChangeAnimationState }
+           Move, Rotate, Scale, Color, Vibrate, ChangeAnimationSpeed, ChangeAnimationState, PlaySound }
 
         public int frame;
         public Action action;
@@ -340,6 +340,10 @@ public class AnimationSequence : Sequence
 
                 break;
 
+            case AnimationSequenceAction.Action.PlaySound:
+                PlaySound(param);
+                break;
+
             case AnimationSequenceAction.Action.TerminateAnimation:
                 active = false;
                 break;
@@ -413,6 +417,11 @@ public class AnimationSequence : Sequence
     private void Vibrate(Transform t, float duration, Vector3 strength, int vibrato)
     {
         t.transform.DOShakePosition(duration, strength, vibrato);
+    }
+
+    private void PlaySound(string s)
+    {
+        SoundManager.Instance.PlaySound(s);
     }
 
     #endregion

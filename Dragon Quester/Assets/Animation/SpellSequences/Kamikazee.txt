@@ -1,9 +1,12 @@
 1|Color|User,28,1,1,0,1
+1|PlaySound|Sounds/kamikazee_1
 30|Color|User,20,1,0,0,1
 60|GenerateEffect|Effects/Crater, User, 0, 0, 0, 5, 5, 5, false
 60|GenerateEffect|Effects/FireCircle, User, 0, 0, 0, 7, 7, 7, false
 60|Scale|Fire,10,9,9,9,1
 60|Color|User,1,0,0,0,0
+60|PlaySound|Sounds/kamikazee_2
+60|PlaySound|Sounds/explosion_1
 61|ChangeTargetAnimation|Hit
 61|Vibrate|Target,60,6,0,68
 62|ChangeUserAnimation|Die
