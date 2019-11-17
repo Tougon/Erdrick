@@ -105,11 +105,13 @@ public class Player : MonoBehaviour
                 }
                 else if (currentEffects[i].turns == 0)
                 {
+                    status.RemoveEffectFromList(currentEffects[i]);
                     currentEffects.Remove(currentEffects[i]);
                     i--;
                 }
                 else if (currentEffects[i].turns <= -1)
                 {
+                    status.RemoveEffectFromList(currentEffects[i]);
                     currentEffects[i].ActivateEffect();
                     currentEffects.Remove(currentEffects[i]);
                     i--;
@@ -270,8 +272,15 @@ public class Player : MonoBehaviour
         {
             for(int i = 0; i < currentEffects.Count; i++)
             {
+                if (currentEffects[i].gameObject.name.Contains("_Heal"))
+                {
+                    currentEffects[i].ActivateEffect();
+                }
                 if (currentEffects[i].gameObject.name.Contains("Kamikazee"))
+                {
                     isDead = true;
+                    currentEffects[i].ActivateEffect();
+                }
                 
                 if (currentEffects[i].gameObject.name.Contains("Snooze"))
                     numSnooze++;
@@ -281,12 +290,9 @@ public class Player : MonoBehaviour
                     if (currentEffects[i].gameObject.name.Contains("Snooze"))
                         numSnooze--;
 
+                    status.RemoveEffectFromList(currentEffects[i]);
                     currentEffects.Remove(currentEffects[i]);
                     i--;
-
-                if (currentEffects[i].turns <= 0)
-                {
-                    status.RemoveEffectFromList(currentEffects[i]);
                 }
             }
         }
