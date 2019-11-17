@@ -68,12 +68,12 @@ public class Status_Popup : MonoBehaviour
         if (mySprites.Count >= 2)
         {
             me.sprite = mySprites[iterator];
+            yield return new WaitForSeconds(0.5f);
             iterator++;
             if (iterator >= mySprites.Count)
             {
                 iterator = 0;
             }
-            yield return new WaitForSeconds(0.5f);
             if (mySprites.Count >= 2)
             {
                 StartCoroutine(CycleEffects());

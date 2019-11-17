@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     Spell currentSpell;
     [SerializeField] List<Spell> spellList;
 
-    bool canDoThings, shouldRestoreMP;
+    bool canDoThings, shouldRestoreMP, alreadyDead;
 
     Animator anim;
     PlayerControlSet controls;
@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     {
         //canDoThings = false;
         anim = GetComponent<Animator>();
+
+        alreadyDead = false;
 
         controls = new PlayerControlSet();
         controls.InitKeyboardcontrols(PlayerID+1);
@@ -105,11 +107,13 @@ public class Player : MonoBehaviour
                 }
                 else if (currentEffects[i].turns == 0)
                 {
+                    status.RemoveEffectFromList(currentEffects[i]);
                     currentEffects.Remove(currentEffects[i]);
                     i--;
                 }
                 else if (currentEffects[i].turns <= -1)
                 {
+                    status.RemoveEffectFromList(currentEffects[i]);
                     currentEffects[i].ActivateEffect();
                     currentEffects.Remove(currentEffects[i]);
                     i--;
@@ -184,6 +188,7 @@ public class Player : MonoBehaviour
 
     public void HideUIGameEnd()
     {
+        CommandUI.SetActive(false);
         TweenUIOut();
         canDoThings = false;
     }
@@ -257,8 +262,12 @@ public class Player : MonoBehaviour
         {
             status.RemoveEffectFromList(e);
         }
-        Debug.Log("i died " + PlayerID);
-        FC.PlayerDied(PlayerID);
+        if (!alreadyDead)
+        {
+            Debug.Log("i died " + PlayerID);
+            alreadyDead = true;
+            FC.PlayerDied(PlayerID);
+        }
     }
 
     public void EndTurn(AnimationSequenceObject aso, Entity entity, AnimationSequenceObject restore)
@@ -270,8 +279,15 @@ public class Player : MonoBehaviour
         {
             for(int i = 0; i < currentEffects.Count; i++)
             {
+                if (currentEffects[i].gameObject.name.Contains("_Heal"))
+                {
+                    currentEffects[i].ActivateEffect();
+                }
                 if (currentEffects[i].gameObject.name.Contains("Kamikazee"))
+                {
                     isDead = true;
+                    currentEffects[i].ActivateEffect();
+                }
                 
                 if (currentEffects[i].gameObject.name.Contains("Snooze"))
                     numSnooze++;
@@ -281,12 +297,9 @@ public class Player : MonoBehaviour
                     if (currentEffects[i].gameObject.name.Contains("Snooze"))
                         numSnooze--;
 
+                    status.RemoveEffectFromList(currentEffects[i]);
                     currentEffects.Remove(currentEffects[i]);
                     i--;
-                }
-                if (currentEffects[i].turns <= 0)
-                {
-                    status.RemoveEffectFromList(currentEffects[i]);
                 }
             }
         }
