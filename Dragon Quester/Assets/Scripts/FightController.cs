@@ -13,7 +13,7 @@ public class FightController : MonoBehaviour
     [SerializeField] Text P1_CommandText, P2_CommandText;
     public List<Spell> SpellList;
     
-    int playersReady = 0;
+    [SerializeField] int playersReady = 0;
 
     bool battling, someoneDied;
 
@@ -32,6 +32,7 @@ public class FightController : MonoBehaviour
 
     void ReceiveCommand()
     {
+        Debug.Log("command get");
         playersReady++;
         if(playersReady == 2)
         {
@@ -75,7 +76,7 @@ public class FightController : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             Player2.TakeDamage(Player1.GetDamage());
             P1_CommandText.text = "Interrupt!";
-            P2_CommandText.text = ("Took " + Player1.GetSpell().GetDamage().ToString() + " Damage!");
+            P2_CommandText.text = Player1.GetSpell().GetDescription();
             Player1.RestoreMP(Player1.GetDamage());
         }
         else if (P1Command == Player.Command.Block && P2Command == Player.Command.Attack)
@@ -103,7 +104,19 @@ public class FightController : MonoBehaviour
             Player2.DrainMP(Player2.GetSpell().GetCost());
             yield return new WaitForSeconds(1.0f);
             Player1.TakeDamage(Player2.GetSpell().GetDamage());
-            P1_CommandText.text = ("Took " + Player2.GetSpell().GetDamage().ToString() + " Damage!");
+            P1_CommandText.text = Player2.GetSpell().GetDescription();
+            if (Player2.GetSpell().GetEffect() != null)
+            {
+                switch (Player2.GetSpell().GetEffect().onSelf)
+                {
+                    case true:
+                        ApplyEffect(Player2, Player2.GetSpell().GetEffect());
+                        break;
+                    case false:
+                        ApplyEffect(Player1, Player2.GetSpell().GetEffect());
+                        break;
+                }
+            }
         }
         else if (P1Command == Player.Command.Spell && P2Command == Player.Command.Attack)
         {
@@ -123,7 +136,19 @@ public class FightController : MonoBehaviour
             Player1.DrainMP(Player1.GetSpell().GetCost());
             yield return new WaitForSeconds(1.0f);
             Player2.TakeDamage(Player1.GetSpell().GetDamage());
-            P2_CommandText.text = ("Took " + Player1.GetSpell().GetDamage().ToString() + " Damage!");
+            P2_CommandText.text = Player1.GetSpell().GetDescription();
+            if (Player1.GetSpell().GetEffect() != null)
+            {
+                switch (Player1.GetSpell().GetEffect().onSelf)
+                {
+                    case true:
+                        ApplyEffect(Player1, Player1.GetSpell().GetEffect());
+                        break;
+                    case false:
+                        ApplyEffect(Player2, Player1.GetSpell().GetEffect());
+                        break;
+                }
+            }
         }
         else if (P1Command == Player.Command.Spell && P2Command == Player.Command.Spell)
         {
@@ -134,8 +159,126 @@ public class FightController : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             Player1.TakeDamage(Player2.GetSpell().GetDamage());
             Player2.TakeDamage(Player1.GetSpell().GetDamage());
-            P1_CommandText.text = ("Took " + Player2.GetSpell().GetDamage().ToString() + " Damage!");
-            P2_CommandText.text = ("Took " + Player1.GetSpell().GetDamage().ToString() + " Damage!");
+            P1_CommandText.text = Player2.GetSpell().GetDescription();
+            P2_CommandText.text = Player1.GetSpell().GetDescription();
+            if (Player1.GetSpell().GetEffect() != null)
+            {
+                switch (Player1.GetSpell().GetEffect().onSelf)
+                {
+                    case true:
+                        ApplyEffect(Player1, Player1.GetSpell().GetEffect());
+                        break;
+                    case false:
+                        ApplyEffect(Player2, Player1.GetSpell().GetEffect());
+                        break;
+                }
+            }
+            if (Player2.GetSpell().GetEffect() != null)
+            {
+                switch (Player2.GetSpell().GetEffect().onSelf)
+                {
+                    case true:
+                        ApplyEffect(Player2, Player2.GetSpell().GetEffect());
+                        break;
+                    case false:
+                        Player1.AddEffect(Player2.GetSpell().GetEffect());
+                        break;
+                }
+            }
+        }
+        else if(P1Command == Player.Command.None)
+        {
+            P1_CommandText.text = "Can't Act!";
+            switch (P2Command)
+            {
+                case Player.Command.Attack:
+                    P2_CommandText.text = "Attack!";
+                    yield return new WaitForSeconds(1.0f);
+                    Player1.TakeDamage(Player2.GetDamage());
+                    P1_CommandText.text = ("Took " + Player2.GetDamage().ToString() + " Damage!");
+                    Player2.RestoreMP(Player2.GetDamage());
+                    break;
+                case Player.Command.Block:
+                    P2_CommandText.text = "Block!";
+                    yield return new WaitForSeconds(1.0f);
+                    P2_CommandText.text = "wow FUCKING nothing";
+                    break;
+                case Player.Command.Spell:
+                    P2_CommandText.text = Player2.GetSpell().GetName();
+                    Player2.DrainMP(Player2.GetSpell().GetCost());
+                    yield return new WaitForSeconds(1.0f);
+                    Player1.TakeDamage(Player2.GetSpell().GetDamage());
+                    P1_CommandText.text = Player2.GetSpell().GetDescription();
+                    if (Player2.GetSpell().GetEffect() != null)
+                    {
+                        switch (Player2.GetSpell().GetEffect().onSelf)
+                        {
+                            case true:
+                                ApplyEffect(Player2, Player2.GetSpell().GetEffect());
+                                break;
+                            case false:
+                                ApplyEffect(Player1, Player2.GetSpell().GetEffect());
+                                break;
+                        }
+                    }
+                    break;
+                case Player.Command.None:
+                    P2_CommandText.text = "Can't Act!";
+                    yield return new WaitForSeconds(1.0f);
+                    P1_CommandText.text = "wow FUCKING nothing";
+                    P2_CommandText.text = "wow FUCKING nothing";
+                    break;
+                default:
+                    Debug.LogError("uhhhhhh");
+                    break;
+            }
+        }
+        else if (P2Command == Player.Command.None)
+        {
+            P2_CommandText.text = "Can't Act!";
+            switch (P1Command)
+            {
+                case Player.Command.Attack:
+                    P1_CommandText.text = "Attack!";
+                    yield return new WaitForSeconds(1.0f);
+                    Player2.TakeDamage(Player1.GetDamage());
+                    P2_CommandText.text = ("Took " + Player1.GetDamage().ToString() + " Damage!");
+                    Player1.RestoreMP(Player1.GetDamage());
+                    break;
+                case Player.Command.Block:
+                    P1_CommandText.text = "Block!";
+                    yield return new WaitForSeconds(1.0f);
+                    P1_CommandText.text = "wow FUCKING nothing";
+                    break;
+                case Player.Command.Spell:
+                    P1_CommandText.text = Player1.GetSpell().GetName();
+                    Player1.DrainMP(Player1.GetSpell().GetCost());
+                    yield return new WaitForSeconds(1.0f);
+                    Player2.TakeDamage(Player1.GetSpell().GetDamage());
+                    P2_CommandText.text = Player1.GetSpell().GetDescription();
+                    if (Player1.GetSpell().GetEffect() != null)
+                    {
+                        switch (Player1.GetSpell().GetEffect().onSelf)
+                        {
+                            case true:
+                                ApplyEffect(Player1, Player1.GetSpell().GetEffect());
+                                break;
+                            case false:
+                                ApplyEffect(Player2, Player1.GetSpell().GetEffect());
+                                break;
+                        }
+                    }
+                    break;
+                case Player.Command.None:
+                    P1_CommandText.text = "Can't Act!";
+                    yield return new WaitForSeconds(1.0f);
+                    P1_CommandText.text = "wow FUCKING nothing";
+                    P2_CommandText.text = "wow FUCKING nothing";
+                    break;
+                default:
+                    Debug.LogError("uhhhhhh");
+                    break;
+            }
         }
         else
         {
@@ -152,8 +295,8 @@ public class FightController : MonoBehaviour
         playersReady = 0;
         if (battling)
         {
-            Player1.StartTurn();
-            Player2.StartTurn();
+            Player1.EndTurn();
+            Player2.EndTurn();
         }
         else
         {
@@ -205,5 +348,10 @@ public class FightController : MonoBehaviour
     public Spell GetRandomSpell()
     {
         return SpellList[Random.Range(0, SpellList.Count)];
+    }
+
+    void ApplyEffect(Player p, Effect e)
+    {
+        p.AddEffect(e);
     }
 }

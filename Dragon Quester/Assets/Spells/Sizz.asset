@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3035c98e58582764aa70e58bc68fdccf, type: 3}
   m_Name: Sizz
   m_EditorClassIdentifier: 
-  MP_Cost: 8
   Spell_Name: Sizz
   Damage: 13.5
+  MP_Cost: 8
+  Description: Took 13.5 Damage!
+  effect: {fileID: 0}
