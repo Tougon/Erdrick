@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3035c98e58582764aa70e58bc68fdccf, type: 3}
-  m_Name: Bang
+  m_Name: Kaheal
   m_EditorClassIdentifier: 
-  Spell_Name: Bang
-  Damage: 15.5
-  MP_Cost: 9
-  Description: Took 15.5 Damage!
+  Spell_Name: Kaheal
+  Damage: 0
+  MP_Cost: 30
+  Description: Heal 8 for 4 Turns!
+  effect: {fileID: 8445329836493468157, guid: b8bf424f41614e045bab8f8a525ff518, type: 3}

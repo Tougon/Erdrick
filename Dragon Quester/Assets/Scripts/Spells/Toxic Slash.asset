@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3035c98e58582764aa70e58bc68fdccf, type: 3}
-  m_Name: Sizzle
+  m_Name: Toxic Slash
   m_EditorClassIdentifier: 
-  Spell_Name: Sizzle
-  Damage: 25
+  Spell_Name: Toxic Slash
+  Damage: 5
   MP_Cost: 20
-  Description: Took 25 Damage!
-  effect: {fileID: 0}
+  Description: Deal 5 Damage! Poison 5 turns!
+  effect: {fileID: 2627935324158386650, guid: 55168c833321bf54490abd17fb76e007, type: 3}

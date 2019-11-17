@@ -15,7 +15,8 @@ public class FightController : MonoBehaviour
     
     [SerializeField] int playersReady = 0;
 
-    bool battling, someoneDied;
+    bool battling;
+    public bool someoneDied;
 
     private void Awake()
     {
@@ -53,8 +54,8 @@ public class FightController : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             Player1.TakeDamage(1);
             Player2.TakeDamage(1);
-            P1_CommandText.text = "Took 1 Damage!";
-            P2_CommandText.text = "Took 1 Damage!";
+            P1_CommandText.text = "Deal 1 Damage!";
+            P2_CommandText.text = "Deal 1 Damage!";
             Player1.RestoreMP(1);
             Player2.RestoreMP(1);
         }
@@ -64,8 +65,8 @@ public class FightController : MonoBehaviour
             P2_CommandText.text = "Block!";
             yield return new WaitForSeconds(1.0f);
             Player1.TakeDamage(Player2.GetDamage());
-            P1_CommandText.text = ("Took " + Player2.GetDamage().ToString() + " Damage!");
-            P2_CommandText.text = "Counterattack!";
+            P1_CommandText.text = "Parried! No Damage!";
+            P2_CommandText.text = ("Deal " + Player2.GetDamage().ToString() + " Damage!");
             Player2.RestoreMP(Player2.GetDamage() * 1.5f);
         }
         else if (P1Command == Player.Command.Attack && P2Command == Player.Command.Spell)
@@ -75,8 +76,8 @@ public class FightController : MonoBehaviour
             Player2.DrainMP(Player2.GetSpell().GetCost());
             yield return new WaitForSeconds(1.0f);
             Player2.TakeDamage(Player1.GetDamage());
-            P1_CommandText.text = "Interrupt!";
-            P2_CommandText.text = Player1.GetSpell().GetDescription();
+            P1_CommandText.text = "Deal " + Player1.GetDamage() + " Damage!";
+            P2_CommandText.text = "Interrupted!";
             Player1.RestoreMP(Player1.GetDamage());
         }
         else if (P1Command == Player.Command.Block && P2Command == Player.Command.Attack)
@@ -85,8 +86,8 @@ public class FightController : MonoBehaviour
             P2_CommandText.text = "Attack!";
             yield return new WaitForSeconds(1.0f);
             Player2.TakeDamage(Player1.GetDamage());
-            P1_CommandText.text = "Counterattack!";
-            P2_CommandText.text = ("Took " + Player1.GetDamage().ToString() + " Damage!");
+            P1_CommandText.text = ("Deal " + Player1.GetDamage().ToString() + " Damage!");
+            P2_CommandText.text = ("Parried! No Damage!");
             Player1.RestoreMP(Player1.GetDamage() * 1.5f);
         }
         else if (P1Command == Player.Command.Block && P2Command == Player.Command.Block)
@@ -104,7 +105,8 @@ public class FightController : MonoBehaviour
             Player2.DrainMP(Player2.GetSpell().GetCost());
             yield return new WaitForSeconds(1.0f);
             Player1.TakeDamage(Player2.GetSpell().GetDamage());
-            P1_CommandText.text = Player2.GetSpell().GetDescription();
+            P1_CommandText.text = "wow FUCKING nothing";
+            P2_CommandText.text = Player2.GetSpell().GetDescription();
             if (Player2.GetSpell().GetEffect() != null)
             {
                 switch (Player2.GetSpell().GetEffect().onSelf)
@@ -125,8 +127,8 @@ public class FightController : MonoBehaviour
             Player1.DrainMP(Player1.GetSpell().GetCost());
             yield return new WaitForSeconds(1.0f);
             Player1.TakeDamage(Player2.GetDamage());
-            P1_CommandText.text = ("Took " + Player2.GetDamage().ToString() + " Damage!");
-            P2_CommandText.text = "Interrupt!";
+            P1_CommandText.text = ("Interrupted!");
+            P2_CommandText.text = ("Deal " + Player2.GetDamage().ToString() + " Damage!");
             Player2.RestoreMP(Player2.GetDamage());
         }
         else if (P1Command == Player.Command.Spell && P2Command == Player.Command.Block)
@@ -136,7 +138,8 @@ public class FightController : MonoBehaviour
             Player1.DrainMP(Player1.GetSpell().GetCost());
             yield return new WaitForSeconds(1.0f);
             Player2.TakeDamage(Player1.GetSpell().GetDamage());
-            P2_CommandText.text = Player1.GetSpell().GetDescription();
+            P1_CommandText.text = Player1.GetSpell().GetDescription();
+            P2_CommandText.text = "wow FUCKING nothing";
             if (Player1.GetSpell().GetEffect() != null)
             {
                 switch (Player1.GetSpell().GetEffect().onSelf)
@@ -159,8 +162,8 @@ public class FightController : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             Player1.TakeDamage(Player2.GetSpell().GetDamage());
             Player2.TakeDamage(Player1.GetSpell().GetDamage());
-            P1_CommandText.text = Player2.GetSpell().GetDescription();
-            P2_CommandText.text = Player1.GetSpell().GetDescription();
+            P1_CommandText.text = Player1.GetSpell().GetDescription();
+            P2_CommandText.text = Player2.GetSpell().GetDescription();
             if (Player1.GetSpell().GetEffect() != null)
             {
                 switch (Player1.GetSpell().GetEffect().onSelf)
@@ -195,7 +198,7 @@ public class FightController : MonoBehaviour
                     P2_CommandText.text = "Attack!";
                     yield return new WaitForSeconds(1.0f);
                     Player1.TakeDamage(Player2.GetDamage());
-                    P1_CommandText.text = ("Took " + Player2.GetDamage().ToString() + " Damage!");
+                    P2_CommandText.text = ("Deal " + Player2.GetDamage().ToString() + " Damage!");
                     Player2.RestoreMP(Player2.GetDamage());
                     break;
                 case Player.Command.Block:
@@ -208,7 +211,7 @@ public class FightController : MonoBehaviour
                     Player2.DrainMP(Player2.GetSpell().GetCost());
                     yield return new WaitForSeconds(1.0f);
                     Player1.TakeDamage(Player2.GetSpell().GetDamage());
-                    P1_CommandText.text = Player2.GetSpell().GetDescription();
+                    P2_CommandText.text = Player2.GetSpell().GetDescription();
                     if (Player2.GetSpell().GetEffect() != null)
                     {
                         switch (Player2.GetSpell().GetEffect().onSelf)
@@ -242,7 +245,7 @@ public class FightController : MonoBehaviour
                     P1_CommandText.text = "Attack!";
                     yield return new WaitForSeconds(1.0f);
                     Player2.TakeDamage(Player1.GetDamage());
-                    P2_CommandText.text = ("Took " + Player1.GetDamage().ToString() + " Damage!");
+                    P1_CommandText.text = ("Deal " + Player1.GetDamage().ToString() + " Damage!");
                     Player1.RestoreMP(Player1.GetDamage());
                     break;
                 case Player.Command.Block:
@@ -255,7 +258,7 @@ public class FightController : MonoBehaviour
                     Player1.DrainMP(Player1.GetSpell().GetCost());
                     yield return new WaitForSeconds(1.0f);
                     Player2.TakeDamage(Player1.GetSpell().GetDamage());
-                    P2_CommandText.text = Player1.GetSpell().GetDescription();
+                    P1_CommandText.text = Player1.GetSpell().GetDescription();
                     if (Player1.GetSpell().GetEffect() != null)
                     {
                         switch (Player1.GetSpell().GetEffect().onSelf)
@@ -301,36 +304,42 @@ public class FightController : MonoBehaviour
         else
         {
             // victory stuff
-            victory.SetActive(true);
-            StartCoroutine(EndGameTimer());
         }
     }
 
     public void PlayerDied(int whomst)
     {
+        Debug.Log("died");
         //battling = false;
         EndBattle();
         if (!someoneDied)
         {
+            Debug.Log("a" + whomst);
             someoneDied = true;
             switch (whomst)
             {
                 case 0:
                     victory.GetComponentInChildren<Text>().text = "Player 2 Wins!";
+                    Debug.Log(2);
                     break;
                 case 1:
+                    Debug.Log(1);
                     victory.GetComponentInChildren<Text>().text = "Player 1 Wins!";
                     break;
             }
         }
         else {
             victory.GetComponentInChildren<Text>().text = "Draw!";
+            Debug.Log("nobody");
         }
+        StartCoroutine(EndGameTimer());
     }
 
     void EndBattle()
     {
         battling = false;
+        Player1.HideUIGameEnd();
+        Player2.HideUIGameEnd();
     }
 
     IEnumerator EndTurnTimer()
@@ -341,6 +350,8 @@ public class FightController : MonoBehaviour
 
     IEnumerator EndGameTimer()
     {
+        yield return new WaitForSeconds(1.0f);
+        victory.SetActive(true);
         yield return new WaitForSeconds(2.0f);
         SceneManager.LoadScene(0);
     }

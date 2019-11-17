@@ -15,4 +15,5 @@ MonoBehaviour:
   Spell_Name: Flame Slash
   Damage: 22
   MP_Cost: 12
-  Description: Took 22 Damage!
+  Description: Deal 22 Damage!
+  effect: {fileID: 0}
