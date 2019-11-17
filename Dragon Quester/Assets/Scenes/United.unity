@@ -674,8 +674,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Kinoku Nasu, Type-Moon, Shinji Hosoe\nSQUARE ENIX CO. LTD./ARMOR PROJECT/BIRD
-    STUDIO \xA9SUGIYAMA KOBO \u2117SUGIYAMA KOBO\nNintendo / MONOLOTHSOFT / Hiroyuki
+  m_Text: "Type-Moon / Kinoku Nasu / Shinji Hosoe\nSQUARE ENIX CO. LTD./ARMOR PROJECT/BIRD
+    STUDIO \xA9SUGIYAMA KOBO \u2117SUGIYAMA KOBO\nNintendo / MONOLITHSOFT / Hiroyuki
     Sawano\nLUCKY LAND COMMUNICATIONS, INC.\nUMG Recordings, Inc.\nSNK CORPORATION\nPSY\n"
 --- !u!222 &744345118
 CanvasRenderer:
