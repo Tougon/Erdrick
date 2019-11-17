@@ -13,25 +13,5 @@ MonoBehaviour:
   m_Name: THE TOUGON COLLECTION
   m_EditorClassIdentifier: 
   songs:
-  - name: War Cry - Dragon Quest VII
-    song: {fileID: 8300000, guid: 2146addcea2ab8f479d3683c69ad1860, type: 3}
-  - name: Main Theme - TOUGON PRESENTS
-    song: {fileID: 8300000, guid: 3177443d291f65c4e85c11fd7ab87c1e, type: 3}
-  - name: Heist - Ben Folds
-    song: {fileID: 8300000, guid: f42504ea9ca007e4aab7be490a2a7068, type: 3}
-  - name: Psycho Soldier Theme - Super Smash Bros. Ultimate
-    song: {fileID: 8300000, guid: f40c3a5e884fcb54fb08a380e3ee48ed, type: 3}
-  - name: Battle 1 - Fate/Extra
-    song: {fileID: 8300000, guid: db23c84df83fe7647b6c9b4b59178618, type: 3}
-  - name: Butterfly Effect - fox capture plan
-    song: {fileID: 8300000, guid: 350e46a9661fa23499a9eb8a380160fb, type: 3}
-  - name: Fighting Spirits - Dragon Quest III
-    song: {fileID: 8300000, guid: f03a0d2f33f6f1644b4987100536c975, type: 3}
-  - name: Battle for the Glory - Dragon Quest IV
-    song: {fileID: 8300000, guid: 53d727ddb63c2c74e842e114a04552d3, type: 3}
-  - name: Unflinching Courage - Dragon Quest XI
-    song: {fileID: 8300000, guid: 8e284a39640e2694da5d38583f60a07d, type: 3}
-  - name: Gangnam Style - PSY
-    song: {fileID: 8300000, guid: 186b774a0f5edf0479a0d1e4c4d21d15, type: 3}
-  - name: Black Tar - Xenoblade Chronicles X
-    song: {fileID: 8300000, guid: 4247ea7ca48b46044ba41b795a30a3e4, type: 3}
+  - name: the song
+    song: {fileID: 8300000, guid: 1f35c7c84a4e2394194ce84f4c51e3ff, type: 3}
