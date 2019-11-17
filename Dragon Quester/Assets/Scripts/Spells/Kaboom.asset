@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3035c98e58582764aa70e58bc68fdccf, type: 3}
-  m_Name: Hatchetman
+  m_Name: Kaboom
   m_EditorClassIdentifier: 
-  Spell_Name: Hatchet Man
-  Damage: 35
-  MP_Cost: 15
-  Description: Took 35 Damage!
+  Spell_Name: Kaboom
+  Damage: 28
+  MP_Cost: 37
+  Description: Deal 28 Damage!
+  effect: {fileID: 0}

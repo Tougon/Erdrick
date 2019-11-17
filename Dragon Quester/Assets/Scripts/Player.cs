@@ -88,7 +88,6 @@ public class Player : MonoBehaviour
         FillSpellList();
         if (shouldRestoreMP)
             RestoreMP(10);
-        ShowUI();
         shouldRestoreMP = true;
         canDoThings = true;
         if (currentEffects.Count >= 1)
@@ -102,6 +101,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        ShowUI();
     }
 
     void FillSpellList()
@@ -118,11 +118,15 @@ public class Player : MonoBehaviour
 
     void ShowUI()
     {
-        MP = Mathf.Clamp(MP, 0.0f, 100.0f);
-        Health = Mathf.Clamp(Health, 0.0f, 100.0f);
-        healthText.text = Health.ToString() + " / 100 HP";
-        mpText.text = MP.ToString() + " / 100 MP";
-        CommandUI.SetActive(true);
+        if (!FC.someoneDied)
+        {
+            Debug.Log("b" + PlayerID);
+            MP = Mathf.Clamp(MP, 0.0f, 100.0f);
+            Health = Mathf.Clamp(Health, 0.0f, 100.0f);
+            healthText.text = Health.ToString() + " / 100 HP";
+            mpText.text = MP.ToString() + " / 100 MP";
+            CommandUI.SetActive(true);
+        }
     }
 
     void SelectAction(Command selectedCommand, int selectedSpell)
@@ -133,7 +137,7 @@ public class Player : MonoBehaviour
             currentSpell = spellList[selectedSpell];
             if (MP >= currentSpell.GetCost())
             {
-                HideUI();
+                HideUICommand();
             }
             else
             {
@@ -142,11 +146,17 @@ public class Player : MonoBehaviour
         }
         else
         {
-            HideUI();
+            HideUICommand();
         }
     }
 
-    void HideUI()
+    public void HideUIGameEnd()
+    {
+        CommandUI.SetActive(false);
+        canDoThings = false;
+    }
+
+    void HideUICommand()
     {
         // hide the ui here and the player can't do anything
         CommandUI.SetActive(false);
@@ -175,17 +185,27 @@ public class Player : MonoBehaviour
         return atkDamage;
     }
 
-    public void TakeDamage(float damage)
+    public void Heal(float healing)
     {
-        Health -= damage;
+        Health += healing;
         Health = Mathf.Clamp(Health, 0.0f, 100.0f);
         healthText.text = Health.ToString() + " / 100 HP";
         ScaleHealthBar();
         GameObject newPopup = Instantiate(HP_Pop, HP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
-        newPopup.GetComponentInChildren<Text>().text = ("-" + damage);
-        if(Health <= 0.0f)
+        newPopup.GetComponentInChildren<Text>().text = ("+" + healing);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (damage != 0)
         {
-            PlayerDied();
+            Health -= damage;
+            Health = Mathf.Clamp(Health, 0.0f, 100.0f);
+            healthText.text = Health.ToString() + " / 100 HP";
+            ScaleHealthBar();
+            GameObject newPopup = Instantiate(HP_Pop, HP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
+            newPopup.GetComponentInChildren<Text>().text = ("-" + damage);
+            CheckAlive();
         }
     }
 
@@ -201,6 +221,7 @@ public class Player : MonoBehaviour
 
     void PlayerDied()
     {
+        Debug.Log("i died " + PlayerID);
         FC.PlayerDied(PlayerID);
     }
 
@@ -217,6 +238,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        //CheckAlive();
         StartTurn();
     }
 
@@ -261,5 +283,14 @@ public class Player : MonoBehaviour
     {
         currentEffects.Add(Instantiate(effect));
         currentEffects[currentEffects.Count - 1].ApplyEffect(gameObject.GetComponent<Player>());
+    }
+
+    void CheckAlive()
+    {
+        if(Health <= 0)
+        {
+            Debug.Log("died");
+            PlayerDied();
+        }
     }
 }

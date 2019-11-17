@@ -15,5 +15,5 @@ MonoBehaviour:
   Spell_Name: Sizz
   Damage: 13.5
   MP_Cost: 8
-  Description: Took 13.5 Damage!
+  Description: Deal 13.5 Damage!
   effect: {fileID: 0}
