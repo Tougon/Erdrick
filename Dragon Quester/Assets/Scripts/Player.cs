@@ -248,12 +248,13 @@ public class Player : MonoBehaviour
 
     void ScaleHealthBar()
     {
-        HealthBar.sizeDelta = new Vector2(Health * 10.0f, 50.0f);
+        HealthBar.transform.DOScaleX(0.01f * Health, 0.3f);
     }
 
     void ScaleMPBar()
     {
-        MPBar.sizeDelta = new Vector2(MP * 10.0f, 50.0f);
+        MPBar.transform.DOScaleX(0.01f * MP, 0.3f);
+        //MPBar.sizeDelta = new Vector2(MP * 10.0f, 50.0f);
     }
 
     void PlayerDied()
@@ -375,5 +376,10 @@ public class Player : MonoBehaviour
             Debug.Log("died");
             PlayerDied();
         }
+    }
+
+    public float GetHealth()
+    {
+        return Health;
     }
 }

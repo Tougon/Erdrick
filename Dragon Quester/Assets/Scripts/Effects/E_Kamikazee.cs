@@ -13,6 +13,6 @@ public class E_Kamikazee : Effect
 
     public override void ActivateEffect()
     {
-        player.TakeDamage(500);
+        player.TakeDamage(player.GetHealth());
     }
 }
