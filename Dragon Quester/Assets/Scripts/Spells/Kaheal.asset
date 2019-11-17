@@ -17,3 +17,4 @@ MonoBehaviour:
   MP_Cost: 30
   Description: Heal 8 for 4 Turns!
   effect: {fileID: 8445329836493468157, guid: b8bf424f41614e045bab8f8a525ff518, type: 3}
+  animation: {fileID: 11400000, guid: 4be86a68ccf38f340b6c17eb7f1e59e8, type: 2}

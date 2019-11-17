@@ -18,6 +18,7 @@ public class Entity : MonoBehaviour
 
     public void SetAnimation(string val)
     {
+        Debug.Log(val);
         anim.SetTrigger(val);
     }
 

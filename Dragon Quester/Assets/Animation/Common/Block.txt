@@ -1,0 +1,13 @@
+1|ChangeUserAnimation|Block
+1|ChangeTargetAnimation|Attack
+13|Vibrate|User,5,0.5,0,60
+13|ChangeAnimationSpeed|Target,0
+13|Vibrate|Target,17,1,0,60
+18|ChangeUserAnimation|Attack
+30|ChangeTargetAnimation|Hit
+59|ChangeAnimationSpeed|User,0
+100|ChangeTargetAnimation|Idle
+120|ChangeUserAnimation|Idle
+120|ChangeAnimationSpeed|User,1
+120|ChangeAnimationSpeed|Target,1
+120|TerminateAnimation

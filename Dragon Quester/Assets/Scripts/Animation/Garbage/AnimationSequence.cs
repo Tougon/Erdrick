@@ -155,14 +155,19 @@ public class AnimationSequence : Sequence
                 ChangeUserAnimation(param);
                 break;
 
+            case AnimationSequenceAction.Action.ChangeTargetAnimation:
+                ChangeTargetAnimation(param);
+                break;
+
             case AnimationSequenceAction.Action.GenerateEffect:
                 string[] effectVals = param.Split(',');
 
-                if (effectVals.Length != 5)
+                if (effectVals.Length != 8)
                     Debug.LogError("Invalid param count for Effect Generation!");
 
                 GenerateEffect(effectVals[0], effectVals[1], 
-                    float.Parse(effectVals[2].Trim()), float.Parse(effectVals[3].Trim()), float.Parse(effectVals[4].Trim()));
+                    float.Parse(effectVals[2].Trim()), float.Parse(effectVals[3].Trim()), float.Parse(effectVals[4].Trim()),
+                    float.Parse(effectVals[5].Trim()), float.Parse(effectVals[6].Trim()), float.Parse(effectVals[7].Trim()));
                 break;
 
             case AnimationSequenceAction.Action.TerminateEffect:
@@ -238,8 +243,10 @@ public class AnimationSequence : Sequence
 
                 float durationS = ((float.Parse(scaleVals[1].Trim())) / 60.0f); ;
 
-                float xS = (float.Parse(scaleVals[2].Trim()) * directionX) * Mathf.Abs(tS.localScale.x);
-                float yS = (float.Parse(scaleVals[3].Trim()) * directionY) * Mathf.Abs(tS.localScale.y);
+                float xS = !(sS.Equals("User") || sS.Equals("Target")) ? (float.Parse(scaleVals[2].Trim())) :
+                    (float.Parse(scaleVals[2].Trim()) * directionX) * Mathf.Abs(tS.localScale.x);
+                float yS = !(sS.Equals("User") || sS.Equals("Target")) ? (float.Parse(scaleVals[3].Trim())) :
+                    (float.Parse(scaleVals[3].Trim()) * directionY) * Mathf.Abs(tS.localScale.y);
                 float zS = float.Parse(scaleVals[4].Trim()) + tS.position.z;
 
                 TweenScale(tS, xS, yS, zS, durationS);
@@ -341,7 +348,7 @@ public class AnimationSequence : Sequence
     private void ChangeUserAnimation(string t) { user.SetAnimation(t.Trim()); }
     private void ChangeTargetAnimation(string t) { target.SetAnimation(t.Trim()); }
     
-    private void GenerateEffect(string path, string relative, float x, float y, float z)
+    private void GenerateEffect(string path, string relative, float x, float y, float z, float scaleX, float scaleY, float scaleZ)
     {
         path = path.Trim();
         relative = relative.Trim();
@@ -365,6 +372,8 @@ public class AnimationSequence : Sequence
 
         GameObject effect = GameObject.Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
         effect.transform.position = new Vector3(x, y, z);
+        effect.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
+        Debug.Log(effect.transform.localScale);
         effects.Add(effect.GetComponent<Entity>());
     }
 

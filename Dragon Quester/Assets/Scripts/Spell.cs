@@ -10,6 +10,7 @@ public class Spell : ScriptableObject
     [SerializeField] float MP_Cost;
     [SerializeField] string Description;
     [SerializeField] Effect effect;
+    [SerializeField] AnimationSequenceObject animation;
 
     public float GetCost()
     {
@@ -34,5 +35,10 @@ public class Spell : ScriptableObject
     public Effect GetEffect()
     {
         return effect;
+    }
+
+    public AnimationSequenceObject GetAnimation()
+    {
+        return animation;
     }
 }

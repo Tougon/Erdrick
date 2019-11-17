@@ -17,3 +17,4 @@ MonoBehaviour:
   MP_Cost: 1
   Description: Explode!
   effect: {fileID: 7488249435847556357, guid: 9a5ccd6a6f16e5e469ce0e0577a0f881, type: 3}
+  animation: {fileID: 11400000, guid: 4be86a68ccf38f340b6c17eb7f1e59e8, type: 2}

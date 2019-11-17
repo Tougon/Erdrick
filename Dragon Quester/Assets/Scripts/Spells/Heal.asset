@@ -17,3 +17,4 @@ MonoBehaviour:
   MP_Cost: 12
   Description: Heal 10!
   effect: {fileID: 2918536584135505878, guid: a4a26289dd526144a8472b543ad55b78, type: 3}
+  animation: {fileID: 11400000, guid: 4be86a68ccf38f340b6c17eb7f1e59e8, type: 2}

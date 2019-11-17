@@ -17,3 +17,4 @@ MonoBehaviour:
   MP_Cost: 16
   Description: Enemy Slept! Can't Act!
   effect: {fileID: 2800524922872182947, guid: a62e3e9a49e173446a7c229f12b0e6f1, type: 3}
+  animation: {fileID: 11400000, guid: 4be86a68ccf38f340b6c17eb7f1e59e8, type: 2}

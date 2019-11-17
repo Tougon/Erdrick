@@ -1,0 +1,2 @@
+1|ChangeUserAnimation|SpellSelect
+10|TerminateAnimation

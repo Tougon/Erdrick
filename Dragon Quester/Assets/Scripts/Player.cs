@@ -225,7 +225,7 @@ public class Player : MonoBehaviour
         FC.PlayerDied(PlayerID);
     }
 
-    public void EndTurn()
+    public void EndTurn(AnimationSequenceObject aso, Entity entity)
     {
         if (currentEffects.Count >= 1)
         {
@@ -239,6 +239,10 @@ public class Player : MonoBehaviour
             }
         }
         //CheckAlive();
+        AnimationSequence seq = new AnimationSequence(aso, entity, null);
+        seq.SequenceStart();
+        StartCoroutine(seq.SequenceLoop());
+
         StartTurn();
     }
 

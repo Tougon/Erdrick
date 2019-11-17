@@ -1,0 +1,2 @@
+1|ChangeUserAnimation|BlockSelect
+10|TerminateAnimation

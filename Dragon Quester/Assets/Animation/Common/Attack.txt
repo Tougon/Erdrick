@@ -1,0 +1,7 @@
+1|ChangeUserAnimation|Attack
+12|ChangeTargetAnimation|Hit
+59|ChangeAnimationSpeed|User,0
+100|ChangeTargetAnimation|Idle
+120|ChangeUserAnimation|Idle
+120|ChangeAnimationSpeed|User,1
+120|TerminateAnimation
