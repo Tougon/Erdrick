@@ -1,0 +1,9 @@
+1|ChangeUserAnimation|Spell
+15|GenerateEffect|Effects/FireCircle, Target, 0, 0, 0, 1.5, 1.5, 1.5, false
+15|ChangeTargetAnimation|Hit
+15|Vibrate|Target,25,6,0,40
+15|Scale|E,25,3,3,3,0
+25|Color|E,15,0.4,0.4,0.4,0,0
+41|TerminateEffect|0
+48|ChangeAnimationSpeed|User,0
+60|TerminateAnimation

@@ -17,4 +17,4 @@ MonoBehaviour:
   MP_Cost: 12
   Description: Deal 22 Damage!
   effect: {fileID: 0}
-  animation: {fileID: 11400000, guid: 4be86a68ccf38f340b6c17eb7f1e59e8, type: 2}
+  animation: {fileID: 11400000, guid: a26385750aa914346bb5b520877aec73, type: 2}

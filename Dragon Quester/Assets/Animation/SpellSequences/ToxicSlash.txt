@@ -1,0 +1,17 @@
+1|ChangeUserAnimation|Attack
+5|Move|User,4,1,0,0
+12|ChangeTargetAnimation|Hit
+12|GenerateEffect|Effects/Slash, Target, -2.5, 0, 0, 2, 2, 2, true
+12|Color|Slash,0,0.78,0,1,1,0
+13|Vibrate|Target,17,1,0,40
+13|Color|Target,18,0.78,0,1,1
+15|GenerateEffect|Effects/Poison, Target, 0, 0, 0, 5.5, 5.5, 5.5, false
+15|ChangeTargetAnimation|Hit
+17|Color|Slash,0,0,0,0,0,0
+45|Color|E,15,0.4,0.4,0.4,0,1
+49|Color|Target,50,1,1,1,1
+59|ChangeAnimationSpeed|User,0
+70|TerminateEffect|0
+70|TerminateEffect|0
+80|Move|User,4,-1,0,0
+90|TerminateAnimation

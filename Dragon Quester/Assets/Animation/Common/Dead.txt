@@ -1,0 +1,2 @@
+1|ChangeUserAnimation|Die
+10|TerminateAnimation

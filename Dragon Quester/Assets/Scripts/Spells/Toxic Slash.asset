@@ -17,4 +17,4 @@ MonoBehaviour:
   MP_Cost: 20
   Description: Deal 5 Damage! Poison 5 turns!
   effect: {fileID: 2627935324158386650, guid: 55168c833321bf54490abd17fb76e007, type: 3}
-  animation: {fileID: 11400000, guid: 4be86a68ccf38f340b6c17eb7f1e59e8, type: 2}
+  animation: {fileID: 11400000, guid: 7337652db28e9f542a3a971c594f5ca7, type: 2}

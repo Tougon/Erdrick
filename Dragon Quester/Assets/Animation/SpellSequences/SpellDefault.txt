@@ -1,10 +1,9 @@
 1|ChangeUserAnimation|Spell
-15|GenerateEffect|Placeholder/E, Target, 0, 0, 0, 1.5, 1.5, 1.5
-15|ChangeTargetAnimation|Hurt
+15|GenerateEffect|Placeholder/E, Target, 0, 0, 0, 1.5, 1.5, 1.5, false
+15|ChangeTargetAnimation|Hit
 15|Vibrate|Target,50,6,0,60
 15|Scale|E,25,2,2,2,0
 25|Color|E,15,0.4,0.4,0.4,0,0
 41|TerminateEffect|0
-59|ChangeAnimationSpeed|User,0
-120|ChangeUserAnimation|Idle
-120|TerminateAnimation
+48|ChangeAnimationSpeed|User,0
+60|TerminateAnimation

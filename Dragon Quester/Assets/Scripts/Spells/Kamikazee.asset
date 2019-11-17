@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3035c98e58582764aa70e58bc68fdccf, type: 3}
   m_Name: Kamikazee
   m_EditorClassIdentifier: 
-  Spell_Name: Kamikaze
+  Spell_Name: Kamikazee
   Damage: 75
   MP_Cost: 1
   Description: Explode!
   effect: {fileID: 7488249435847556357, guid: 9a5ccd6a6f16e5e469ce0e0577a0f881, type: 3}
-  animation: {fileID: 11400000, guid: 4be86a68ccf38f340b6c17eb7f1e59e8, type: 2}
+  animation: {fileID: 11400000, guid: 9f40c48e72c4fb743896c285ac8665f7, type: 2}
