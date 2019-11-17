@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
 
         controls = new PlayerControlSet();
         controls.InitKeyboardcontrols(PlayerID+1);
+        DOTween.Init();
     }
 
     private void Update()
@@ -139,13 +141,24 @@ public class Player : MonoBehaviour
     {
         if (!FC.someoneDied)
         {
-            Debug.Log("b" + PlayerID);
             MP = Mathf.Clamp(MP, 0.0f, 100.0f);
             Health = Mathf.Clamp(Health, 0.0f, 100.0f);
             healthText.text = Health.ToString() + " / 100 HP";
             mpText.text = MP.ToString() + " / 100 MP";
-            CommandUI.SetActive(true);
+            TweenUIIn();
         }
+    }
+
+    void TweenUIIn()
+    {
+        //CommandUI.SetActive(true);
+        CommandUI.transform.DOMoveY(230.0f, 1.0f, true);
+    }
+
+    void TweenUIOut()
+    {
+        CommandUI.transform.DOMoveY(90.0f, 0.5f, true);
+        //CommandUI.SetActive(false);
     }
 
     void SelectAction(Command selectedCommand, int selectedSpell)
@@ -171,14 +184,14 @@ public class Player : MonoBehaviour
 
     public void HideUIGameEnd()
     {
-        CommandUI.SetActive(false);
+        TweenUIOut();
         canDoThings = false;
     }
 
     void HideUICommand()
     {
         // hide the ui here and the player can't do anything
-        CommandUI.SetActive(false);
+        TweenUIOut();
         canDoThings = false;
         SendCommand();
     }

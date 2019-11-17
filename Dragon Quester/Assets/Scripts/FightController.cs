@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class FightController : MonoBehaviour
 {
@@ -49,8 +50,9 @@ public class FightController : MonoBehaviour
 
     IEnumerator BeginTurn()
     {
-        yield return new WaitForSeconds(1.0f);
-        battleUIElements.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        TweenBattleUIIn();
+        yield return new WaitForSeconds(0.8f);
         P1Command = Player1.GetAction();
         P2Command = Player2.GetAction();
         if(P1Command == Player.Command.Attack && P2Command == Player.Command.Attack)
@@ -384,9 +386,6 @@ public class FightController : MonoBehaviour
 
     void EndTurn()
     {
-        battleUIElements.SetActive(false);
-        P1_CommandText.text = "test";
-        P2_CommandText.text = "test";
         playersReady = 0;
         if (battling)
         {
@@ -438,7 +437,9 @@ public class FightController : MonoBehaviour
 
     IEnumerator EndTurnTimer()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.5f);
+        TweenBattleUIOut();
+        yield return new WaitForSeconds(0.5f);
         EndTurn();
     }
 
@@ -476,5 +477,17 @@ public class FightController : MonoBehaviour
         AnimationSequence seq = new AnimationSequence(aso, e1, e2);
         seq.SequenceStart();
         StartCoroutine(seq.SequenceLoop());
+    }
+
+    void TweenBattleUIIn()
+    {
+        P1_CommandText.text = "";
+        P2_CommandText.text = "";
+        battleUIElements.transform.DOMoveY(225.0f, 0.6f, true);
+    }
+
+    void TweenBattleUIOut()
+    {
+        battleUIElements.transform.DOMoveY(400, 0.6f, true);
     }
 }
