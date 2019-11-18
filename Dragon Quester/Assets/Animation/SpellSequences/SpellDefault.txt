@@ -1,5 +1,5 @@
 1|ChangeUserAnimation|Spell
-15|GenerateEffect|Placeholder/Poison, Target, 0, 0, 0, 1.5, 1.5, 1.5, false
+15|GenerateEffect|Placeholder/E, Target, 0, 0, 0, 1.5, 1.5, 1.5, false
 15|ChangeTargetAnimation|Hit
 15|Vibrate|Target,50,6,0,60
 15|Scale|E,25,2,2,2,0
