@@ -628,8 +628,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.1, y: 0.6}
-  m_SizeDelta: {x: 90, y: 60}
+  m_AnchoredPosition: {x: 0, y: 1}
+  m_SizeDelta: {x: 121.49, y: 80.99}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &199803431
 MonoBehaviour:
@@ -2153,6 +2153,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eec9fbfaa5f18ba43856478aa3aeabf7, type: 2}
   TurnCount: {fileID: 839385528}
   attackTriange: {fileID: 1868906339}
+  P1Status: {fileID: 580698360}
+  P2Status: {fileID: 1229464385}
+  mainCamera: {fileID: 1724199681}
   playersReady: 0
   someoneDied: 0
   animations:
@@ -6838,7 +6841,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054994810}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 299}
+  m_LocalPosition: {x: 0, y: 0, z: 71}
   m_LocalScale: {x: 0.88595, y: 0.88595, z: 0.88595}
   m_Children:
   - {fileID: 199803430}

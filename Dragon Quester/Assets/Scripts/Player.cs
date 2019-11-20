@@ -108,6 +108,7 @@ public class Player : MonoBehaviour
         if (shouldRestoreMP)
             RestoreMP(MPRestoreAmount);
         shouldRestoreMP = true;
+        canDoThings = true;
         if (currentEffects.Count >= 1)
         {
             for (int i = 0; i < currentEffects.Count; i++)
@@ -134,7 +135,6 @@ public class Player : MonoBehaviour
         }
         if (!FC.someoneDied)
         {
-            canDoThings = true;
             if (canDoThings)
                 ShowUI();
         }

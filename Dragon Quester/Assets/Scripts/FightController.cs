@@ -14,13 +14,14 @@ public class FightController : MonoBehaviour
     [SerializeField] GameObject battleUIElements, victory;
     [SerializeField] Text P1_CommandText, P2_CommandText;
     public List<Spell> SpellList;
-    [SerializeField] Transform TurnCount, attackTriange;
+    [SerializeField] Transform TurnCount, attackTriange, P1Status, P2Status;
+    [SerializeField] Camera mainCamera;
     Text TurnText;
-    int turns;
+    int turns, victor;
     
     [SerializeField] int playersReady = 0;
 
-    bool battling;
+    bool battling, zoomCam;
     public bool someoneDied;
 
     [SerializeField]
@@ -36,6 +37,7 @@ public class FightController : MonoBehaviour
 
     void BeginBattle()
     {
+        zoomCam = true;
         TurnText = TurnCount.GetComponentInChildren<Text>();
         turns++;
         TurnText.text = "Turn " + turns;
@@ -61,6 +63,8 @@ public class FightController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         TweenBattleUIIn();
+        StartCoroutine(TweenCameraIn());
+        TweenPlayerStatusIn();
         TweenTurnUIOut();
         attackTriange.DOLocalMoveY(-720.0f, 0.6f, true);
         yield return new WaitForSeconds(0.8f);
@@ -72,6 +76,8 @@ public class FightController : MonoBehaviour
 
     void EndTurn()
     {
+        StartCoroutine(TweenCameraOut());
+        TweenPlayerStatusOut();
         playersReady = 0;
         if (battling)
         {
@@ -93,7 +99,7 @@ public class FightController : MonoBehaviour
     public void PlayerDied(int whomst, bool immediate)
     {
         Debug.Log("now " + immediate);
-        //battling = false;
+        zoomCam = false;
         EndBattle();
         if (!someoneDied)
         {
@@ -104,20 +110,23 @@ public class FightController : MonoBehaviour
                 case 0:
                     victory.GetComponentInChildren<Text>().text = "Player 2 Wins!";
                     StartAnimationSequence(animations[6], p1, p2);
-                    Debug.Log(2);
+                    victor = 2;
                     break;
                 case 1:
                     Debug.Log(1);
                     victory.GetComponentInChildren<Text>().text = "Player 1 Wins!";
                     StartAnimationSequence(animations[6], p2, p1);
+                    victor = 1;
                     break;
             }
         }
         else {
             victory.GetComponentInChildren<Text>().text = "Draw!";
             Debug.Log("nobody");
+            victor = 0;
             StartAnimationSequence(animations[6], p1, p2);
             StartAnimationSequence(animations[6], p2, p1);
+            zoomCam = true;
         }
         if (!immediate)
         {
@@ -134,6 +143,7 @@ public class FightController : MonoBehaviour
         battling = false;
         Player1.HideUIGameEnd();
         Player2.HideUIGameEnd();
+        TurnCount.gameObject.SetActive(false);
     }
 
     IEnumerator EndTurnTimer()
@@ -147,17 +157,29 @@ public class FightController : MonoBehaviour
 
     IEnumerator EndGameTimer()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
         TweenVictoryUIIn();
         TweenTurnUIOut();
         EndBattle();
+
+        switch (victor)
+        {
+            case 1:
+                Player1_Victory();
+                break;
+            case 2:
+                Player2_Victory();
+                break;
+            default:
+                break;
+        }
 
         GameObject mp = GameObject.Find("MusicPlayer");
         if (mp != null)
             mp.SetActive(false);
         SoundManager.Instance.PlaySound("Sounds/HOES_MAD");
 
-        yield return new WaitForSeconds(7.0f);
+        yield return new WaitForSeconds(6.0f);
         SceneManager.LoadScene(0);
     }
 
@@ -167,12 +189,29 @@ public class FightController : MonoBehaviour
         TweenTurnUIOut();
         EndBattle();
 
+        yield return new WaitForSeconds(Time.deltaTime);
+        switch (victor)
+        {
+            case 1:
+                Debug.Log("player 1 win");
+                Player1_Victory();
+                break;
+            case 2:
+                Debug.Log("player 2 win");
+                Player2_Victory();
+                break;
+            default:
+                Debug.Log("nobody win");
+                break;
+        }
+        Debug.Log("victor" + victor);
+
         GameObject mp = GameObject.Find("MusicPlayer");
         if (mp != null)
             mp.SetActive(false);
         SoundManager.Instance.PlaySound("Sounds/HOES_MAD");
 
-        yield return new WaitForSeconds(7.0f);
+        yield return new WaitForSeconds(6.0f);
         SceneManager.LoadScene(0);
     }
 
@@ -229,6 +268,76 @@ public class FightController : MonoBehaviour
     void TweenTurnUIIn()
     {
         TurnCount.DOLocalMoveY(450, 0.6f, true);
+    }
+
+    IEnumerator TweenCameraIn()
+    {
+        if (zoomCam)
+        {
+            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, 2.5f, Time.deltaTime);
+            yield return null;
+            if (mainCamera.orthographicSize >= 4.1f)
+            {
+                StartCoroutine(TweenCameraIn());
+            }
+        }
+    }
+
+    IEnumerator TweenCameraOut()
+    {
+        if (zoomCam)
+        {
+            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, 6.5f, Time.deltaTime);
+            yield return null;
+            if (mainCamera.orthographicSize <= 5.1f)
+            {
+                StartCoroutine(TweenCameraOut());
+            }
+        }
+    }
+
+    void Player1_Victory()
+    {
+        if (victor == 1)
+        {
+            StopCoroutine(TweenCameraIn());
+            StopCoroutine(TweenCameraOut());
+            StartCoroutine(CameraVictoryZoom());
+            mainCamera.transform.DOLocalMoveX(-5.0f, 1.0f, false);
+        }
+    }
+
+    void Player2_Victory()
+    {
+        if (victor == 2)
+        {
+            StopCoroutine(TweenCameraIn());
+            StopCoroutine(TweenCameraOut());
+            StartCoroutine(CameraVictoryZoom());
+            mainCamera.transform.DOLocalMoveX(5.0f, 1.0f, false);
+        }
+    }
+
+    IEnumerator CameraVictoryZoom()
+    {
+        mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, 2.5f, Time.deltaTime);
+        yield return null;
+        if (mainCamera.orthographicSize >= 3.1f)
+        {
+            StartCoroutine(CameraVictoryZoom());
+        }
+    }
+
+    void TweenPlayerStatusIn()
+    {
+        P1Status.DOLocalMove(new Vector3(-800.0f, 230.0f, 0.0f), 0.6f, true);
+        P2Status.DOLocalMove(new Vector3(800.0f, 230.0f, 0.0f), 0.6f, true);
+    }
+
+    void TweenPlayerStatusOut()
+    {
+        P1Status.DOLocalMove(new Vector3(-750.0f, 200.0f, 0.0f), 0.6f, true);
+        P2Status.DOLocalMove(new Vector3(750.0f, 200.0f, 0.0f), 0.6f, true);
     }
 
     IEnumerator AttackChecks()
