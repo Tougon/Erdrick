@@ -48,3 +48,4 @@ MonoBehaviour:
   player: {fileID: 0}
   eff1: {fileID: 21300000, guid: 58c72b7d73aae084a9ee338d614404ae, type: 3}
   eff2: {fileID: 21300000, guid: 61d01dad7301fb6468a4bc16ee39e4d8, type: 3}
+  isKamikazee: 1

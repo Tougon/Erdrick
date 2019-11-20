@@ -58,8 +58,8 @@ public class PlayerControlSet : PlayerActionSet
         SelectAttack.AddDefaultBinding(Key.U);
         SelectBlock.AddDefaultBinding(Key.O);
         SelectSpellUp.AddDefaultBinding(Key.I);
-        SelectSpellDown.AddDefaultBinding(Key.J);
-        SelectSpellLeft.AddDefaultBinding(Key.K);
+        SelectSpellDown.AddDefaultBinding(Key.K);
+        SelectSpellLeft.AddDefaultBinding(Key.J);
         SelectSpellRight.AddDefaultBinding(Key.L);
     }
 

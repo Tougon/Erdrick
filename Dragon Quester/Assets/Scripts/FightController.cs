@@ -14,7 +14,7 @@ public class FightController : MonoBehaviour
     [SerializeField] GameObject battleUIElements, victory;
     [SerializeField] Text P1_CommandText, P2_CommandText;
     public List<Spell> SpellList;
-    [SerializeField] Transform TurnCount;
+    [SerializeField] Transform TurnCount, attackTriange;
     Text TurnText;
     int turns;
     
@@ -43,6 +43,8 @@ public class FightController : MonoBehaviour
         playersReady = 0;
         Player1.StartBattle();
         Player2.StartBattle();
+        
+        attackTriange.DOLocalMoveY(0.0f, 1.0f, true);
     }
 
     void ReceiveCommand()
@@ -60,6 +62,7 @@ public class FightController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         TweenBattleUIIn();
         TweenTurnUIOut();
+        attackTriange.DOLocalMoveY(-720.0f, 0.6f, true);
         yield return new WaitForSeconds(0.8f);
         P1Command = Player1.GetAction();
         P2Command = Player2.GetAction();
@@ -412,9 +415,9 @@ public class FightController : MonoBehaviour
         }
     }
 
-    public void PlayerDied(int whomst)
+    public void PlayerDied(int whomst, bool immediate)
     {
-        Debug.Log("died");
+        Debug.Log("now " + immediate);
         //battling = false;
         EndBattle();
         if (!someoneDied)
@@ -441,7 +444,14 @@ public class FightController : MonoBehaviour
             StartAnimationSequence(animations[6], p1, p2);
             StartAnimationSequence(animations[6], p2, p1);
         }
-        StartCoroutine(EndGameTimer());
+        if (!immediate)
+        {
+            StartCoroutine(EndGameTimer());
+        }
+        else
+        {
+            StartCoroutine(EndGameTimerImmediate());
+        }
     }
 
     void EndBattle()
@@ -461,9 +471,23 @@ public class FightController : MonoBehaviour
 
     IEnumerator EndGameTimer()
     {
+        yield return new WaitForSeconds(3.0f);
         TweenVictoryUIIn();
         TweenTurnUIOut();
-        yield return new WaitForSeconds(3.0f);
+
+        GameObject mp = GameObject.Find("MusicPlayer");
+        if (mp != null)
+            mp.SetActive(false);
+        SoundManager.Instance.PlaySound("Sounds/HOES_MAD");
+
+        yield return new WaitForSeconds(7.0f);
+        SceneManager.LoadScene(0);
+    }
+
+    IEnumerator EndGameTimerImmediate()
+    {
+        TweenVictoryUIIn();
+        TweenTurnUIOut();
 
         GameObject mp = GameObject.Find("MusicPlayer");
         if (mp != null)

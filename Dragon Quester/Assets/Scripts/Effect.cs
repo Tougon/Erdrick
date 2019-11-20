@@ -9,6 +9,7 @@ public class Effect : MonoBehaviour
     public bool onSelf;
     public Player player;
     public Sprite eff1, eff2;
+    public bool isKamikazee;
 
     public virtual void ApplyEffect(Player p)
     {

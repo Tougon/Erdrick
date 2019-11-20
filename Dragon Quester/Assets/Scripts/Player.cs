@@ -280,15 +280,18 @@ public class Player : MonoBehaviour
 
     void PlayerDied()
     {
+        bool kamikazee = false;
+
         foreach(Effect e in currentEffects)
         {
+            if (e.isKamikazee) kamikazee = true;
             status.RemoveEffectFromList(e);
         }
         if (!alreadyDead)
         {
             Debug.Log("i died " + PlayerID);
             alreadyDead = true;
-            FC.PlayerDied(PlayerID);
+            FC.PlayerDied(PlayerID, kamikazee);
         }
     }
 
