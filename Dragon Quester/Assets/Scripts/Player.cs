@@ -28,6 +28,11 @@ public class Player : MonoBehaviour
 
     [SerializeField] List<Effect> currentEffects;
 
+    [SerializeField] private bool P2NumPadControls;
+
+    [SerializeField] Image SpellImage, AtkImage, BlkImage;
+    [SerializeField] Sprite NumSpell, NumAtk, NumBlk;
+
     private void Awake()
     {
         //canDoThings = false;
@@ -36,7 +41,13 @@ public class Player : MonoBehaviour
         alreadyDead = false;
 
         controls = new PlayerControlSet();
-        controls.InitKeyboardcontrols(PlayerID+1);
+        controls.InitKeyboardcontrols(PlayerID+1, P2NumPadControls);
+        if(P2NumPadControls && PlayerID == 1)
+        {
+            SpellImage.sprite = NumSpell;
+            AtkImage.sprite = NumAtk;
+            BlkImage.sprite = NumBlk;
+        }
         DOTween.Init();
     }
 

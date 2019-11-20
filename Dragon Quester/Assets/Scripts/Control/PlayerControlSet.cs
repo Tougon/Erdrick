@@ -26,12 +26,19 @@ public class PlayerControlSet : PlayerActionSet
     }
 
 
-    public void InitKeyboardcontrols(int val)
+    public void InitKeyboardcontrols(int val, bool P2NumPad)
     {
         if (val == 1)
             InitP1KeyboardControls();
         else
+            if (P2NumPad)
+            {
+                InitP2NumpadControls();
+            }
+            else
+            {
             InitP2KeyboardControls();
+            }
     }
 
 
@@ -51,8 +58,18 @@ public class PlayerControlSet : PlayerActionSet
         SelectAttack.AddDefaultBinding(Key.U);
         SelectBlock.AddDefaultBinding(Key.O);
         SelectSpellUp.AddDefaultBinding(Key.I);
-        SelectSpellDown.AddDefaultBinding(Key.K);
-        SelectSpellLeft.AddDefaultBinding(Key.J);
+        SelectSpellDown.AddDefaultBinding(Key.J);
+        SelectSpellLeft.AddDefaultBinding(Key.K);
         SelectSpellRight.AddDefaultBinding(Key.L);
+    }
+
+    public void InitP2NumpadControls()
+    {
+        SelectAttack.AddDefaultBinding(Key.Pad7);
+        SelectBlock.AddDefaultBinding(Key.Pad9);
+        SelectSpellUp.AddDefaultBinding(Key.Pad8);
+        SelectSpellDown.AddDefaultBinding(Key.Pad5);
+        SelectSpellLeft.AddDefaultBinding(Key.Pad4);
+        SelectSpellRight.AddDefaultBinding(Key.Pad6);
     }
 }
