@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
     [SerializeField] Image SpellImage, AtkImage, BlkImage;
     [SerializeField] Sprite NumSpell, NumAtk, NumBlk;
 
+    [SerializeField] float MPRestoreAmount;
+
     private void Awake()
     {
         //canDoThings = false;
@@ -104,9 +106,8 @@ public class Player : MonoBehaviour
     {
         FillSpellList();
         if (shouldRestoreMP)
-            RestoreMP(10);
+            RestoreMP(MPRestoreAmount);
         shouldRestoreMP = true;
-        canDoThings = true;
         if (currentEffects.Count >= 1)
         {
             for (int i = 0; i < currentEffects.Count; i++)
@@ -131,8 +132,12 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        if(canDoThings)
-            ShowUI();
+        if (!FC.someoneDied)
+        {
+            canDoThings = true;
+            if (canDoThings)
+                ShowUI();
+        }
     }
 
     void FillSpellList()
@@ -204,6 +209,10 @@ public class Player : MonoBehaviour
     public void HideUIGameEnd()
     {
         CommandUI.SetActive(false);
+        foreach (Effect e in currentEffects)
+        {
+            status.RemoveEffectFromList(e);
+        }
         TweenUIOut();
         canDoThings = false;
     }
@@ -280,11 +289,13 @@ public class Player : MonoBehaviour
 
     void PlayerDied()
     {
+        CommandUI.SetActive(false);
+        TweenUIOut();
         bool kamikazee = false;
 
         foreach(Effect e in currentEffects)
         {
-            if (e.isKamikazee) kamikazee = true;
+            if (e.endTurnDamage) kamikazee = true;
             status.RemoveEffectFromList(e);
         }
         if (!alreadyDead)
@@ -348,9 +359,15 @@ public class Player : MonoBehaviour
         StartTurn();
     }
 
-    void EndBattle()
+    public void EndBattle()
     {
-        
+
+        TweenUIOut();
+        canDoThings = false;
+        foreach (Effect e in currentEffects)
+        {
+            status.RemoveEffectFromList(e);
+        }
     }
 
     public void SetAnimation(string val)
@@ -362,7 +379,7 @@ public class Player : MonoBehaviour
     {
         if (MP < 100)
         {
-            if (MP > 90) amt = 100 - MP;
+            if (MP > (100 - MPRestoreAmount)) amt = 100 - MP;
             MP += amt;
             MP = Mathf.Clamp(MP, 0.0f, 100.0f);
             mpText.text = MP.ToString() + " / 100 MP";
