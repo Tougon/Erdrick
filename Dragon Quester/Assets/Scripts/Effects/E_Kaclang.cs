@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class E_Kaheal : Effect
+public class E_Kaclang : Effect
 {
-    public float HealAmount;
 
     private void Start()
     {
@@ -13,6 +12,6 @@ public class E_Kaheal : Effect
 
     public override void ActivateEffect()
     {
-        player.Heal(HealAmount);
+        player.MakeInvincible();
     }
 }

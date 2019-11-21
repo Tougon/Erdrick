@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6288790075546937225
+--- !u!1 &4135352078581078217
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5300376413931238838}
-  - component: {fileID: 7303616760282820277}
+  - component: {fileID: 7526390799607334923}
+  - component: {fileID: 7447948169350584468}
   m_Layer: 0
-  m_Name: Effect_Kaheal
+  m_Name: Effect_Kaclang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5300376413931238838
+--- !u!4 &7526390799607334923
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6288790075546937225}
+  m_GameObject: {fileID: 4135352078581078217}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 163.06473, y: 90.15571, z: 0}
+  m_LocalPosition: {x: 124.978745, y: -289.96683, z: 533.1557}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7303616760282820277
+--- !u!114 &7447948169350584468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6288790075546937225}
+  m_GameObject: {fileID: 4135352078581078217}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19595a141a56f9b4aa389bd017ac05c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 688053fe8cac6a640938b173956331db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turns: 4
+  turns: 1
   onSelf: 1
   player: {fileID: 0}
-  eff1: {fileID: 21300000, guid: 31416d8cfb2a4b1459c7390f78303d98, type: 3}
-  eff2: {fileID: 21300000, guid: 41de9f671f9354d44a34624e30cb3eae, type: 3}
+  eff1: {fileID: 21300000, guid: 3a91f3334a9b09d4394eaa9a9556d6f6, type: 3}
+  eff2: {fileID: 21300000, guid: c93f5e855dbb73349aa886d920055a3a, type: 3}
   endTurnDamage: 0
-  HealAmount: 8
+  HealAmount: 0

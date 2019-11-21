@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3035c98e58582764aa70e58bc68fdccf, type: 3}
+  m_Name: Rest
+  m_EditorClassIdentifier: 
+  Spell_Name: Rest
+  Damage: 0
+  MP_Cost: 30
+  Description: Heal 100! Can't Act!
+  effect: {fileID: 5884067176547178431, guid: 334fbba9729b8db4298c6d9fadbed75a, type: 3}
+  animation: {fileID: 11400000, guid: c7d1e6564c59f374488a822b4ae381bb, type: 2}

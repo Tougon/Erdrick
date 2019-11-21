@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     Spell currentSpell;
     [SerializeField] List<Spell> spellList;
 
-    bool canDoThings, shouldRestoreMP, alreadyDead;
+    bool canDoThings, shouldRestoreMP, alreadyDead, isInvincible;
 
     Animator anim;
     PlayerControlSet controls;
@@ -94,6 +94,7 @@ public class Player : MonoBehaviour
 
     public void StartBattle()
     {
+        isInvincible = false;
         currentEffects = new List<Effect>();
         shouldRestoreMP = false;
         atkDamage = 10.0f;
@@ -104,6 +105,7 @@ public class Player : MonoBehaviour
 
     public void StartTurn()
     {
+        isInvincible = false;
         FillSpellList();
         if (shouldRestoreMP)
             RestoreMP(MPRestoreAmount);
@@ -264,7 +266,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (damage != 0)
+        if (damage != 0 && !isInvincible)
         {
             Health -= damage;
             Health = Mathf.Clamp(Health, 0.0f, 100.0f);
@@ -429,5 +431,15 @@ public class Player : MonoBehaviour
     public float GetHealth()
     {
         return Health;
+    }
+
+    public bool GetInvincible()
+    {
+        return isInvincible;
+    }
+
+    public void MakeInvincible()
+    {
+        isInvincible = true;
     }
 }
