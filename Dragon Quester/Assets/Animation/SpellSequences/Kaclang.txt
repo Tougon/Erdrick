@@ -1,0 +1,7 @@
+1|ChangeUserAnimation|Spell
+15|Color|User,15,0.52,0.65,0.65,1
+15|PlaySound|Sounds/kaclang_1
+15|PlaySound|Sounds/kaclang_2
+48|ChangeAnimationSpeed|User,0
+54|Color|User,5,1,1,1,1
+60|TerminateAnimation

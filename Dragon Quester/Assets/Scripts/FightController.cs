@@ -476,6 +476,8 @@ public class FightController : MonoBehaviour
                             Player1.TakeDamage(100.0f);
                             P1_CommandText.text = "Shattered!";
                             P2_CommandText.text = "Max Damage!";
+
+                            StartAnimationSequence(animations[8], p1, p2);
                         }
                         else
                         {
@@ -547,6 +549,8 @@ public class FightController : MonoBehaviour
                             Player2.TakeDamage(100.0f);
                             P2_CommandText.text = "Shattered!";
                             P1_CommandText.text = "Max Damage!";
+
+                            StartAnimationSequence(animations[8], p2, p1);
                         }
                         else
                         {
@@ -588,6 +592,9 @@ public class FightController : MonoBehaviour
                             Player2.TakeDamage(100.0f);
                             P1_CommandText.text = "Max Damage";
                             P2_CommandText.text = "Max Damage!";
+
+                            StartAnimationSequence(animations[8], p1, p2);
+                            StartAnimationSequence(animations[8], p2, p1);
                         }
                         else if (Player1.GetInvincible() || Player2.GetInvincible())
                         {
@@ -597,6 +604,8 @@ public class FightController : MonoBehaviour
                                 Player2.TakeDamage(100.0f);
                                 P2_CommandText.text = "Shattered!";
                                 P1_CommandText.text = "Max Damage!";
+
+                                StartAnimationSequence(animations[8], p2, p1);
                             }
                             if (Player1.GetInvincible() && Player2.GetSpell().GetName() == "Metal Slash")
                             {
@@ -604,6 +613,8 @@ public class FightController : MonoBehaviour
                                 Player1.TakeDamage(100.0f);
                                 P1_CommandText.text = "Shattered!";
                                 P2_CommandText.text = "Max Damage!";
+
+                                StartAnimationSequence(animations[8], p1, p2);
                             }
                         }
                         else
@@ -655,6 +666,8 @@ public class FightController : MonoBehaviour
                             Player2.TakeDamage(100.0f);
                             P2_CommandText.text = "Shattered!";
                             P1_CommandText.text = "Max Damage!";
+
+                            StartAnimationSequence(animations[8], p2, p1);
                         }
                         else
                         {
@@ -720,6 +733,8 @@ public class FightController : MonoBehaviour
                             Player1.TakeDamage(100.0f);
                             P1_CommandText.text = "Shattered!";
                             P2_CommandText.text = "Max Damage!";
+
+                            StartAnimationSequence(animations[8], p1, p2);
                         }
                         else
                         {

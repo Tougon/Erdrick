@@ -4,7 +4,7 @@
 30|ChangeAnimationSpeed|User,1
 30|Move|User,4,1,0,0
 32|PlaySound|Sounds/sword_swing_2
-15|PlaySound|Sounds/critical
+35|PlaySound|Sounds/critical
 35|ChangeTargetAnimation|Hit
 35|GenerateEffect|Effects/Slash, Target, -2.5, 0, 0, 2, 2, 2, true
 35|GenerateEffect|Effects/FireCircle, Target, 0, 0, 0, 4, 4, 4, false

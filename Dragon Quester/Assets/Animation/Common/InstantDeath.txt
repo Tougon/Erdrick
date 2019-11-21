@@ -1,0 +1,6 @@
+15|ChangeUserAnimation|Hit
+15|Vibrate|User,60,6,0,90
+15|PlaySound|Sounds/critical
+60|PlaySound|Sounds/kamikazee_2
+75|ChangeUserAnimation|Die
+80|TerminateAnimation
