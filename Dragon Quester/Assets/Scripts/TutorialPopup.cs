@@ -19,7 +19,7 @@ public class TutorialPopup : MonoBehaviour
         P1Ready = false;
         P2Ready = false;
         P2Alt = false;
-        takeInputs = false;
+        //takeInputs = false;
     }
 
     public void TakeInputs(bool should)

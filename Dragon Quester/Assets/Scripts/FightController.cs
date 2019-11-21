@@ -27,6 +27,8 @@ public class FightController : MonoBehaviour
     [SerializeField]
     List<AnimationSequenceObject> animations = new List<AnimationSequenceObject>();
 
+    [SerializeField] Transform victoryEmitter;
+
     private void Awake()
     {
         turns = 0;
@@ -43,7 +45,7 @@ public class FightController : MonoBehaviour
     void TweenTutorialUIIn()
     {
         tutorialPopup.DOLocalMoveY(0.0f, 1.0f, false);
-        tutorialPopup.GetComponent<TutorialPopup>().takeInputs = true;
+        tutorialPopup.GetComponent<TutorialPopup>().TakeInputs(true);
     }
 
     void TweenTutorialUIOut()
@@ -317,6 +319,8 @@ public class FightController : MonoBehaviour
         {
             VictoryCameraZoom();
             mainCamera.transform.DOLocalMoveX(-5.0f, 1.0f, false);
+            victoryEmitter.position = new Vector3(Player1.transform.position.x, victoryEmitter.position.y, victoryEmitter.position.z);
+            victoryEmitter.GetComponent<ParticleSystem>().Play();
         }
     }
     void Player2_Victory()
@@ -326,6 +330,8 @@ public class FightController : MonoBehaviour
         {
             VictoryCameraZoom();
             mainCamera.transform.DOLocalMoveX(5.0f, 1.0f, false);
+            victoryEmitter.position = new Vector3(Player2.transform.position.x, victoryEmitter.position.y, victoryEmitter.position.z);
+            victoryEmitter.GetComponent<ParticleSystem>().Play();
         }
     }
 

@@ -36,13 +36,17 @@ public class Player : MonoBehaviour
 
     [SerializeField] float MPRestoreAmount;
 
+    ParticleSystem PS;
+
     private void Awake()
     {
+        InitControls();
         //canDoThings = false;
         anim = GetComponent<Animator>();
-
+        controls = new PlayerControlSet();
         alreadyDead = false;
         DOTween.Init();
+        PS = GetComponent<ParticleSystem>();
     }
 
     public void InitControls()
@@ -120,25 +124,23 @@ public class Player : MonoBehaviour
         canDoThings = true;
         if (currentEffects.Count >= 1)
         {
-            for (int i = 0; i < currentEffects.Count; i++)
+            for (int i = currentEffects.Count; i > 0; i--)
             {
-                if (currentEffects[i].turns >= 1)
+                if (currentEffects[i-1].turns >= 1)
                 {
-                    currentEffects[i].ActivateEffect();
-                    currentEffects[i].turns--;
+                    currentEffects[i-1].ActivateEffect();
+                    currentEffects[i-1].turns--;
                 }
-                else if (currentEffects[i].turns == 0)
+                else if (currentEffects[i-1].turns == 0)
                 {
-                    status.RemoveEffectFromList(currentEffects[i]);
-                    currentEffects.Remove(currentEffects[i]);
-                    i--;
+                    status.RemoveEffectFromList(currentEffects[i-1]);
+                    currentEffects.Remove(currentEffects[i-1]);
                 }
-                else if (currentEffects[i].turns <= -1)
+                else if (currentEffects[i-1].turns <= -1)
                 {
-                    status.RemoveEffectFromList(currentEffects[i]);
-                    currentEffects[i].ActivateEffect();
-                    currentEffects.Remove(currentEffects[i]);
-                    i--;
+                    status.RemoveEffectFromList(currentEffects[i-1]);
+                    currentEffects[i-1].ActivateEffect();
+                    currentEffects.Remove(currentEffects[i-1]);
                 }
             }
         }
@@ -286,6 +288,7 @@ public class Player : MonoBehaviour
             ScaleHealthBar();
             GameObject newPopup = Instantiate(HP_Pop, HP_Pos.position, Quaternion.identity, GameObject.Find("Canvas").GetComponent<RectTransform>()).gameObject;
             newPopup.GetComponentInChildren<Text>().text = ("-" + damage);
+            PS.Emit((int) damage);
             CheckAlive();
         }
     }
@@ -327,29 +330,29 @@ public class Player : MonoBehaviour
 
         if (currentEffects.Count >= 1)
         {
-            for(int i = 0; i < currentEffects.Count; i++)
+            for(int i = currentEffects.Count; i > 0; i--)
             {
-                if (currentEffects[i].gameObject.name.Contains("_Heal"))
+                if (currentEffects[i-1].gameObject.name.Contains("_Heal"))
                 {
-                    currentEffects[i].ActivateEffect();
+                    currentEffects[i-1].ActivateEffect();
                 }
-                if (currentEffects[i].gameObject.name.Contains("Kamikazee"))
+                if (currentEffects[i-1].gameObject.name.Contains("Kamikazee"))
                 {
                     isDead = true;
-                    currentEffects[i].ActivateEffect();
+                    currentEffects[i-1].ActivateEffect();
                 }
                 
-                if (currentEffects[i].gameObject.name.Contains("Snooze"))
+                if (currentEffects[i-1].gameObject.name.Contains("Snooze"))
                     numSnooze++;
 
-                if (currentEffects[i].turns <= 0)
+                if (currentEffects[i-1].turns <= 0)
                 {
-                    if (currentEffects[i].gameObject.name.Contains("Snooze"))
+                    if (currentEffects[i-1].gameObject.name.Contains("Snooze"))
                         numSnooze--;
 
-                    status.RemoveEffectFromList(currentEffects[i]);
-                    currentEffects.Remove(currentEffects[i]);
-                    i--;
+                    status.RemoveEffectFromList(currentEffects[i-1]);
+                    currentEffects.Remove(currentEffects[i-1]);
+                    //i++;
                 }
             }
         }
