@@ -63,7 +63,7 @@ public class FightController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         TweenBattleUIIn();
-        StartCoroutine(TweenCameraIn());
+        TweenCameraIn();
         TweenPlayerStatusIn();
         TweenTurnUIOut();
         attackTriange.DOLocalMoveY(-720.0f, 0.6f, true);
@@ -76,11 +76,11 @@ public class FightController : MonoBehaviour
 
     void EndTurn()
     {
-        StartCoroutine(TweenCameraOut());
         TweenPlayerStatusOut();
-        playersReady = 0;
         if (battling)
         {
+            TweenCameraOut();
+            playersReady = 0;
             Player1.EndTurn(animations[5], p1, animations[7]);
             Player2.EndTurn(animations[5], p2, animations[7]);
             turns++;
@@ -245,6 +245,7 @@ public class FightController : MonoBehaviour
 
     void TweenBattleUIIn()
     {
+        battleUIElements.transform.DOKill();
         P1_CommandText.text = "";
         P2_CommandText.text = "";
         battleUIElements.transform.DOLocalMoveY(-10.0f, 0.6f, true);
@@ -252,79 +253,61 @@ public class FightController : MonoBehaviour
 
     void TweenBattleUIOut()
     {
+        battleUIElements.transform.DOKill();
         battleUIElements.transform.DOLocalMoveY(375.0f, 0.6f, true);
     }
 
     void TweenVictoryUIIn()
     {
+        victory.transform.DOKill();
         victory.transform.DOLocalMoveY(390, 1.0f, true);
     }
 
     void TweenTurnUIOut()
     {
+        TurnCount.DOKill();
         TurnCount.DOLocalMoveY(600, 0.6f, true);
     }
 
     void TweenTurnUIIn()
     {
+        TurnCount.DOKill();
         TurnCount.DOLocalMoveY(450, 0.6f, true);
     }
 
-    IEnumerator TweenCameraIn()
+    void TweenCameraIn()
     {
-        if (zoomCam)
-        {
-            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, 2.5f, Time.deltaTime);
-            yield return null;
-            if (mainCamera.orthographicSize >= 4.1f)
-            {
-                StartCoroutine(TweenCameraIn());
-            }
-        }
+        mainCamera.transform.DOKill();
+        mainCamera.transform.DOLocalMoveZ(-8.0f, 1.0f, false);
     }
 
-    IEnumerator TweenCameraOut()
+    void TweenCameraOut()
     {
-        if (zoomCam)
-        {
-            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, 6.5f, Time.deltaTime);
-            yield return null;
-            if (mainCamera.orthographicSize <= 5.1f)
-            {
-                StartCoroutine(TweenCameraOut());
-            }
-        }
+        mainCamera.transform.DOKill();
+        mainCamera.transform.DOLocalMoveZ(-10.0f, 1.0f, false);
+    }
+
+    void VictoryCameraZoom()
+    {
+        mainCamera.transform.DOLocalMoveZ(-6.0f, 1.0f, false);
     }
 
     void Player1_Victory()
     {
+        mainCamera.transform.DOKill();
         if (victor == 1)
         {
-            StopCoroutine(TweenCameraIn());
-            StopCoroutine(TweenCameraOut());
-            StartCoroutine(CameraVictoryZoom());
+            VictoryCameraZoom();
             mainCamera.transform.DOLocalMoveX(-5.0f, 1.0f, false);
         }
     }
-
     void Player2_Victory()
     {
+        mainCamera.transform.DOKill();
         if (victor == 2)
         {
-            StopCoroutine(TweenCameraIn());
-            StopCoroutine(TweenCameraOut());
-            StartCoroutine(CameraVictoryZoom());
+            VictoryCameraZoom();
             mainCamera.transform.DOLocalMoveX(5.0f, 1.0f, false);
-        }
-    }
-
-    IEnumerator CameraVictoryZoom()
-    {
-        mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, 2.5f, Time.deltaTime);
-        yield return null;
-        if (mainCamera.orthographicSize >= 3.1f)
-        {
-            StartCoroutine(CameraVictoryZoom());
         }
     }
 

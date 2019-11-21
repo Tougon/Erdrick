@@ -621,15 +621,15 @@ RectTransform:
   m_GameObject: {fileID: 199803429}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.37708333, y: 0.37708333, z: 0.37708333}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 2054994814}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1}
-  m_SizeDelta: {x: 121.49, y: 80.99}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 669.8, y: 409.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &199803431
 MonoBehaviour:
@@ -2141,6 +2141,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0e67214b892c8424eaf7469d602c9a9d, type: 2}
   - {fileID: 11400000, guid: 6609f0893cee99445a7ebdae40f8b60d, type: 2}
   - {fileID: 11400000, guid: 1a0e088f77a166b47983e255a3fcba66, type: 2}
+  - {fileID: 11400000, guid: 23479ceb1ab280746a1715fe9d5f7da0, type: 2}
   TurnCount: {fileID: 839385528}
   attackTriange: {fileID: 1868906339}
   P1Status: {fileID: 580698360}
@@ -5370,7 +5371,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -6832,7 +6833,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054994810}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 71}
+  m_LocalPosition: {x: 0, y: 0, z: 12}
   m_LocalScale: {x: 0.88595, y: 0.88595, z: 0.88595}
   m_Children:
   - {fileID: 199803430}
