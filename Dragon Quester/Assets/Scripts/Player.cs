@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -162,6 +163,7 @@ public class Player : MonoBehaviour
 
     void ShowUI()
     {
+        StartCoroutine(AllowCommands());
         if (!FC.someoneDied)
         {
             MP = Mathf.Clamp(MP, 0.0f, 100.0f);
@@ -451,5 +453,12 @@ public class Player : MonoBehaviour
     public void MakeVincible()
     {
         isInvincible = false;
+    }
+
+    IEnumerator AllowCommands()
+    {
+        canDoThings = false;
+        yield return new WaitForSeconds(1.0f);
+        canDoThings = true;
     }
 }

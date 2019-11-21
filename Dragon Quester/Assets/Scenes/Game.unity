@@ -2414,7 +2414,7 @@ MonoBehaviour:
   NumSpell: {fileID: 0}
   NumAtk: {fileID: 0}
   NumBlk: {fileID: 0}
-  MPRestoreAmount: 2
+  MPRestoreAmount: 5
 --- !u!1 &823009511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,7 +2528,7 @@ MonoBehaviour:
   NumSpell: {fileID: 21300000, guid: 558387908327320499cba9449c9375e3, type: 3}
   NumAtk: {fileID: 21300000, guid: 08071e45109be9e44b02d2f21c35b71a, type: 3}
   NumBlk: {fileID: 21300000, guid: c2b99928695cbd94b973d1eec7af6837, type: 3}
-  MPRestoreAmount: 2
+  MPRestoreAmount: 5
 --- !u!1 &838724551
 GameObject:
   m_ObjectHideFlags: 0
