@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     Spell currentSpell;
     [SerializeField] List<Spell> spellList;
 
-    bool canDoThings, shouldRestoreMP, alreadyDead, isInvincible;
+    bool canDoThings, shouldRestoreMP, alreadyDead, isInvincible, sentAction;
 
     Animator anim;
     PlayerControlSet controls;
@@ -105,6 +105,7 @@ public class Player : MonoBehaviour
 
     public void StartTurn()
     {
+        sentAction = false;
         isInvincible = false;
         FillSpellList();
         if (shouldRestoreMP)
@@ -229,8 +230,12 @@ public class Player : MonoBehaviour
 
     public void SendCommand()
     {
-        if (!FC) FC = GameObject.Find("FightController").GetComponent<FightController>();
-        FC.SendMessage("ReceiveCommand", PlayerID);
+        if (!sentAction)
+        {
+            if (!FC) FC = GameObject.Find("FightController").GetComponent<FightController>();
+            FC.SendMessage("ReceiveCommand", PlayerID);
+            sentAction = true;
+        }
     }
 
     public Command GetAction()
