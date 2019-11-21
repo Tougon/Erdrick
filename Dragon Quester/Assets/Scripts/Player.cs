@@ -442,4 +442,9 @@ public class Player : MonoBehaviour
     {
         isInvincible = true;
     }
+
+    public void MakeVincible()
+    {
+        isInvincible = false;
+    }
 }

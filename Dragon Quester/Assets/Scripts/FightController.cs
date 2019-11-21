@@ -470,19 +470,29 @@ public class FightController : MonoBehaviour
                         StartAnimationSequence(animations[4], p2, p1);
 
                         yield return new WaitForSeconds(1.0f);
-                        Player1.TakeDamage(Player2.GetSpell().GetDamage());
-                        P1_CommandText.text = "wow FUCKING nothing";
-                        P2_CommandText.text = Player2.GetSpell().GetDescription();
-                        if (Player2.GetSpell().GetEffect() != null)
+                        if (Player1.GetInvincible() && Player2.GetSpell().GetName() == "Metal Slash")
                         {
-                            switch (Player2.GetSpell().GetEffect().onSelf)
+                            Player1.MakeVincible();
+                            Player1.TakeDamage(100.0f);
+                            P1_CommandText.text = "Shattered!";
+                            P2_CommandText.text = "Max Damage!";
+                        }
+                        else
+                        {
+                            Player1.TakeDamage(Player2.GetSpell().GetDamage());
+                            P1_CommandText.text = "wow FUCKING nothing";
+                            P2_CommandText.text = Player2.GetSpell().GetDescription();
+                            if (Player2.GetSpell().GetEffect() != null)
                             {
-                                case true:
-                                    ApplyEffect(Player2, Player2.GetSpell().GetEffect());
-                                    break;
-                                case false:
-                                    ApplyEffect(Player1, Player2.GetSpell().GetEffect());
-                                    break;
+                                switch (Player2.GetSpell().GetEffect().onSelf)
+                                {
+                                    case true:
+                                        ApplyEffect(Player2, Player2.GetSpell().GetEffect());
+                                        break;
+                                    case false:
+                                        if(!Player1.GetInvincible()) ApplyEffect(Player1, Player2.GetSpell().GetEffect());
+                                        break;
+                                }
                             }
                         }
 
@@ -531,22 +541,31 @@ public class FightController : MonoBehaviour
                         StartAnimationSequence(animations[2], p2, p1);
 
                         yield return new WaitForSeconds(1.0f);
-                        Player2.TakeDamage(Player1.GetSpell().GetDamage());
-                        P1_CommandText.text = Player1.GetSpell().GetDescription();
-                        P2_CommandText.text = "wow FUCKING nothing";
-                        if (Player1.GetSpell().GetEffect() != null)
+                        if (Player2.GetInvincible() && Player1.GetSpell().GetName() == "Metal Slash")
                         {
-                            switch (Player1.GetSpell().GetEffect().onSelf)
+                            Player2.MakeVincible();
+                            Player2.TakeDamage(100.0f);
+                            P2_CommandText.text = "Shattered!";
+                            P1_CommandText.text = "Max Damage!";
+                        }
+                        else
+                        {
+                            Player2.TakeDamage(Player1.GetSpell().GetDamage());
+                            P1_CommandText.text = Player1.GetSpell().GetDescription();
+                            P2_CommandText.text = "wow FUCKING nothing";
+                            if (Player1.GetSpell().GetEffect() != null)
                             {
-                                case true:
-                                    ApplyEffect(Player1, Player1.GetSpell().GetEffect());
-                                    break;
-                                case false:
-                                    ApplyEffect(Player2, Player1.GetSpell().GetEffect());
-                                    break;
+                                switch (Player1.GetSpell().GetEffect().onSelf)
+                                {
+                                    case true:
+                                        ApplyEffect(Player1, Player1.GetSpell().GetEffect());
+                                        break;
+                                    case false:
+                                        if (!Player2.GetInvincible()) ApplyEffect(Player2, Player1.GetSpell().GetEffect());
+                                        break;
+                                }
                             }
                         }
-
                         StartAnimationSequence(Player1.GetSpell().GetAnimation(), p1, p2);
                         break;
 
@@ -560,35 +579,64 @@ public class FightController : MonoBehaviour
                         StartAnimationSequence(animations[4], p2, p1);
 
                         yield return new WaitForSeconds(1.0f);
-                        Player1.TakeDamage(Player2.GetSpell().GetDamage());
-                        Player2.TakeDamage(Player1.GetSpell().GetDamage());
-                        P1_CommandText.text = Player1.GetSpell().GetDescription();
-                        P2_CommandText.text = Player2.GetSpell().GetDescription();
-                        if (Player1.GetSpell().GetEffect() != null)
-                        {
-                            switch (Player1.GetSpell().GetEffect().onSelf)
-                            {
-                                case true:
-                                    ApplyEffect(Player1, Player1.GetSpell().GetEffect());
-                                    break;
-                                case false:
-                                    ApplyEffect(Player2, Player1.GetSpell().GetEffect());
-                                    break;
-                            }
-                        }
-                        if (Player2.GetSpell().GetEffect() != null)
-                        {
-                            switch (Player2.GetSpell().GetEffect().onSelf)
-                            {
-                                case true:
-                                    ApplyEffect(Player2, Player2.GetSpell().GetEffect());
-                                    break;
-                                case false:
-                                    ApplyEffect(Player1, Player2.GetSpell().GetEffect());
-                                    break;
-                            }
-                        }
 
+                        if (Player1.GetInvincible() && Player2.GetInvincible() && Player1.GetSpell().GetName() == "Metal Slash" && Player2.GetSpell().GetName() == "Metal Slash")
+                        {
+                            Player1.MakeVincible();
+                            Player2.MakeVincible();
+                            Player1.TakeDamage(100.0f);
+                            Player2.TakeDamage(100.0f);
+                            P1_CommandText.text = "Max Damage";
+                            P2_CommandText.text = "Max Damage!";
+                        }
+                        else if (Player1.GetInvincible() || Player2.GetInvincible())
+                        {
+                            if (Player2.GetInvincible() && Player1.GetSpell().GetName() == "Metal Slash")
+                            {
+                                Player2.MakeVincible();
+                                Player2.TakeDamage(100.0f);
+                                P2_CommandText.text = "Shattered!";
+                                P1_CommandText.text = "Max Damage!";
+                            }
+                            if (Player1.GetInvincible() && Player2.GetSpell().GetName() == "Metal Slash")
+                            {
+                                Player1.MakeVincible();
+                                Player1.TakeDamage(100.0f);
+                                P1_CommandText.text = "Shattered!";
+                                P2_CommandText.text = "Max Damage!";
+                            }
+                        }
+                        else
+                        {
+                            Player1.TakeDamage(Player2.GetSpell().GetDamage());
+                            Player2.TakeDamage(Player1.GetSpell().GetDamage());
+                            P1_CommandText.text = Player1.GetSpell().GetDescription();
+                            P2_CommandText.text = Player2.GetSpell().GetDescription();
+                            if (Player1.GetSpell().GetEffect() != null)
+                            {
+                                switch (Player1.GetSpell().GetEffect().onSelf)
+                                {
+                                    case true:
+                                        ApplyEffect(Player1, Player1.GetSpell().GetEffect());
+                                        break;
+                                    case false:
+                                        if (!Player2.GetInvincible()) ApplyEffect(Player2, Player1.GetSpell().GetEffect());
+                                        break;
+                                }
+                            }
+                            if (Player2.GetSpell().GetEffect() != null)
+                            {
+                                switch (Player2.GetSpell().GetEffect().onSelf)
+                                {
+                                    case true:
+                                        ApplyEffect(Player2, Player2.GetSpell().GetEffect());
+                                        break;
+                                    case false:
+                                        if (!Player1.GetInvincible()) ApplyEffect(Player1, Player2.GetSpell().GetEffect());
+                                        break;
+                                }
+                            }
+                        }
                         StartAnimationSequence(Player1.GetSpell().GetAnimation(), p1, p2);
                         StartAnimationSequence(Player2.GetSpell().GetAnimation(), p2, p1);
                         break;
@@ -601,18 +649,28 @@ public class FightController : MonoBehaviour
                         StartAnimationSequence(animations[4], p1, p2);
 
                         yield return new WaitForSeconds(1.0f);
-                        Player2.TakeDamage(Player1.GetSpell().GetDamage());
-                        P1_CommandText.text = Player1.GetSpell().GetDescription();
-                        if (Player1.GetSpell().GetEffect() != null)
+                        if (Player2.GetInvincible() && Player1.GetSpell().GetName() == "Metal Slash")
                         {
-                            switch (Player1.GetSpell().GetEffect().onSelf)
+                            Player2.MakeVincible();
+                            Player2.TakeDamage(100.0f);
+                            P2_CommandText.text = "Shattered!";
+                            P1_CommandText.text = "Max Damage!";
+                        }
+                        else
+                        {
+                            Player2.TakeDamage(Player1.GetSpell().GetDamage());
+                            P1_CommandText.text = Player1.GetSpell().GetDescription();
+                            if (Player1.GetSpell().GetEffect() != null)
                             {
-                                case true:
-                                    ApplyEffect(Player1, Player1.GetSpell().GetEffect());
-                                    break;
-                                case false:
-                                    ApplyEffect(Player2, Player1.GetSpell().GetEffect());
-                                    break;
+                                switch (Player1.GetSpell().GetEffect().onSelf)
+                                {
+                                    case true:
+                                        ApplyEffect(Player1, Player1.GetSpell().GetEffect());
+                                        break;
+                                    case false:
+                                        if (!Player2.GetInvincible()) ApplyEffect(Player2, Player1.GetSpell().GetEffect());
+                                        break;
+                                }
                             }
                         }
 
@@ -656,18 +714,28 @@ public class FightController : MonoBehaviour
                         StartAnimationSequence(animations[4], p2, p1);
 
                         yield return new WaitForSeconds(1.0f);
-                        Player1.TakeDamage(Player2.GetSpell().GetDamage());
-                        P2_CommandText.text = Player2.GetSpell().GetDescription();
-                        if (Player2.GetSpell().GetEffect() != null)
+                        if (Player1.GetInvincible() && Player2.GetSpell().GetName() == "Metal Slash")
                         {
-                            switch (Player2.GetSpell().GetEffect().onSelf)
+                            Player1.MakeVincible();
+                            Player1.TakeDamage(100.0f);
+                            P1_CommandText.text = "Shattered!";
+                            P2_CommandText.text = "Max Damage!";
+                        }
+                        else
+                        {
+                            Player1.TakeDamage(Player2.GetSpell().GetDamage());
+                            P2_CommandText.text = Player2.GetSpell().GetDescription();
+                            if (Player2.GetSpell().GetEffect() != null)
                             {
-                                case true:
-                                    ApplyEffect(Player2, Player2.GetSpell().GetEffect());
-                                    break;
-                                case false:
-                                    ApplyEffect(Player1, Player2.GetSpell().GetEffect());
-                                    break;
+                                switch (Player2.GetSpell().GetEffect().onSelf)
+                                {
+                                    case true:
+                                        ApplyEffect(Player2, Player2.GetSpell().GetEffect());
+                                        break;
+                                    case false:
+                                        if (!Player1.GetInvincible()) ApplyEffect(Player1, Player2.GetSpell().GetEffect());
+                                        break;
+                                }
                             }
                         }
                         StartAnimationSequence(Player2.GetSpell().GetAnimation(), p2, p1);
