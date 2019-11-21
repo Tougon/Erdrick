@@ -2152,6 +2152,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 129c076501b6cc548a0288d3d88dc426, type: 2}
   - {fileID: 11400000, guid: eec9fbfaa5f18ba43856478aa3aeabf7, type: 2}
   - {fileID: 11400000, guid: 0e67214b892c8424eaf7469d602c9a9d, type: 2}
+  - {fileID: 11400000, guid: 1a0e088f77a166b47983e255a3fcba66, type: 2}
   TurnCount: {fileID: 839385528}
   attackTriange: {fileID: 1868906339}
   P1Status: {fileID: 580698360}

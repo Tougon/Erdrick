@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Spell_Name: Kaclang
   Damage: 0
-  MP_Cost: 10
+  MP_Cost: 30
   Description: Invincible 1 Turn!
   effect: {fileID: 7447948169350584468, guid: abd021ede0869c240b3feb9abf69ab98, type: 3}
   animation: {fileID: 11400000, guid: b24caf35bbf5d8f4bb6ebc817322bfc0, type: 2}
