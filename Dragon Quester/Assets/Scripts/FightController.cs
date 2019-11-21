@@ -14,7 +14,7 @@ public class FightController : MonoBehaviour
     [SerializeField] GameObject battleUIElements, victory;
     [SerializeField] Text P1_CommandText, P2_CommandText;
     public List<Spell> SpellList;
-    [SerializeField] Transform TurnCount, attackTriange, P1Status, P2Status;
+    [SerializeField] Transform TurnCount, attackTriange, P1Status, P2Status, tutorialPopup;
     [SerializeField] Camera mainCamera;
     Text TurnText;
     int turns, victor;
@@ -32,19 +32,37 @@ public class FightController : MonoBehaviour
         turns = 0;
         p1 = Player1.GetComponent<Entity>();
         p2 = Player2.GetComponent<Entity>();
-        BeginBattle();
+        ShowTutorial();
     }
 
-    void BeginBattle()
+    void ShowTutorial()
     {
+        TweenTutorialUIIn();
+    }
+
+    void TweenTutorialUIIn()
+    {
+        tutorialPopup.DOLocalMoveY(0.0f, 1.0f, false);
+        tutorialPopup.GetComponent<TutorialPopup>().takeInputs = true;
+    }
+
+    void TweenTutorialUIOut()
+    {
+        tutorialPopup.DOLocalMoveY(1000.0f, 1.0f, false);
+    }
+
+    public void BeginBattle(bool P2Alt)
+    {
+        TweenTurnUIIn();
+        TweenTutorialUIOut();
         zoomCam = true;
         TurnText = TurnCount.GetComponentInChildren<Text>();
         turns++;
         TurnText.text = "Turn " + turns;
         battling = true;
         playersReady = 0;
-        Player1.StartBattle();
-        Player2.StartBattle();
+        Player1.StartBattle(false);
+        Player2.StartBattle(P2Alt);
         
         attackTriange.DOLocalMoveY(0.0f, 1.0f, true);
     }

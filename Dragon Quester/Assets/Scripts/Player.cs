@@ -42,16 +42,19 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
 
         alreadyDead = false;
+        DOTween.Init();
+    }
 
+    public void InitControls()
+    {
         controls = new PlayerControlSet();
-        controls.InitKeyboardcontrols(PlayerID+1, P2NumPadControls);
-        if(P2NumPadControls && PlayerID == 1)
+        controls.InitKeyboardcontrols(PlayerID + 1, P2NumPadControls);
+        if (P2NumPadControls && PlayerID == 1)
         {
             SpellImage.sprite = NumSpell;
             AtkImage.sprite = NumAtk;
             BlkImage.sprite = NumBlk;
         }
-        DOTween.Init();
     }
 
     private void Update()
@@ -93,8 +96,10 @@ public class Player : MonoBehaviour
         #endregion
     }
 
-    public void StartBattle()
+    public void StartBattle(bool whomst)
     {
+        P2NumPadControls = whomst;
+        InitControls();
         isInvincible = false;
         currentEffects = new List<Effect>();
         shouldRestoreMP = false;
