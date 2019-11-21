@@ -590,6 +590,23 @@ public class FightController : MonoBehaviour
 
                                 StartAnimationSequence(animations[8], p2, p1);
                             }
+                            else
+                            {
+                                Player2.TakeDamage(Player1.GetSpell().GetDamage());
+                                P1_CommandText.text = Player1.GetSpell().GetDescription();
+                                if (Player1.GetSpell().GetEffect() != null)
+                                {
+                                    switch (Player1.GetSpell().GetEffect().onSelf)
+                                    {
+                                        case true:
+                                            ApplyEffect(Player1, Player1.GetSpell().GetEffect());
+                                            break;
+                                        case false:
+                                            if (!Player2.GetInvincible()) ApplyEffect(Player2, Player1.GetSpell().GetEffect());
+                                            break;
+                                    }
+                                }
+                            }
                             if (Player1.GetInvincible() && Player2.GetSpell().GetName() == "Metal Slash")
                             {
                                 Player1.MakeVincible();
@@ -598,6 +615,23 @@ public class FightController : MonoBehaviour
                                 P2_CommandText.text = "Max Damage!";
 
                                 StartAnimationSequence(animations[8], p1, p2);
+                            }
+                            else
+                            {
+                                Player1.TakeDamage(Player2.GetSpell().GetDamage());
+                                P2_CommandText.text = Player2.GetSpell().GetDescription();
+                                if (Player2.GetSpell().GetEffect() != null)
+                                {
+                                    switch (Player2.GetSpell().GetEffect().onSelf)
+                                    {
+                                        case true:
+                                            ApplyEffect(Player2, Player2.GetSpell().GetEffect());
+                                            break;
+                                        case false:
+                                            if (!Player1.GetInvincible()) ApplyEffect(Player1, Player2.GetSpell().GetEffect());
+                                            break;
+                                    }
+                                }
                             }
                         }
                         else
