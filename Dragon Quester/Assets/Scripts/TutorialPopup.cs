@@ -35,6 +35,7 @@ public class TutorialPopup : MonoBehaviour
             {
                 P1Ready = true;
                 P1ReadyImg.sprite = readySprite;
+                SoundManager.Instance.PlaySound("Sounds/move_select");
                 CheckReady();
             }
 
@@ -54,6 +55,7 @@ public class TutorialPopup : MonoBehaviour
                 {
                     P2Ready = true;
                     P2ReadyImg.sprite = readySprite;
+                    SoundManager.Instance.PlaySound("Sounds/move_select");
                     CheckReady();
                 }
             }
@@ -63,6 +65,7 @@ public class TutorialPopup : MonoBehaviour
                 {
                     P2Ready = true;
                     P2ReadyImg.sprite = readySprite;
+                    SoundManager.Instance.PlaySound("Sounds/move_select");
                     CheckReady();
                 }
                 else

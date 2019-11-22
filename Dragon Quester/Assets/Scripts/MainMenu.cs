@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
 
+    public GameObject credits;
+    bool areCreditsOpen;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -13,9 +16,23 @@ public class MainMenu : MonoBehaviour
             Application.Quit();
         }
 
+        else if (Input.GetKeyDown(KeyCode.LeftControl) && !areCreditsOpen)
+        {
+            credits.SetActive(true);
+            areCreditsOpen = true;
+        }
+
         else if (Input.anyKeyDown)
         {
-            SceneManager.LoadScene(1);
+            if (areCreditsOpen)
+            {
+                credits.SetActive(false);
+                areCreditsOpen = false;
+            }
+            else
+            {
+                SceneManager.LoadScene(1);
+            }
         }
     }
 }
