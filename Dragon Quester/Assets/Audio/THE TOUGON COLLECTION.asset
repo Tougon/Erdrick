@@ -45,3 +45,7 @@ MonoBehaviour:
     song: {fileID: 8300000, guid: 53d727ddb63c2c74e842e114a04552d3, type: 3}
   - name: Fighting Spirits
     song: {fileID: 8300000, guid: f03a0d2f33f6f1644b4987100536c975, type: 3}
+  - name: Black Tar (Worldwide Version)
+    song: {fileID: 8300000, guid: 4142a680c705a9841b99b0967cee4d04, type: 3}
+  - name: Dancing Alone
+    song: {fileID: 8300000, guid: a733cccaf045a7e4d8c7aacd88d6fd62, type: 3}
