@@ -195,10 +195,6 @@ public class Player : MonoBehaviour
 
     void SelectAction(Command selectedCommand, int selectedSpell)
     {
-        if (canDoThings)
-        {
-            SoundManager.Instance.PlaySound("Sounds/move_select");
-        }
         Action = selectedCommand;
         if (Action == Command.Spell)
         {
@@ -232,6 +228,7 @@ public class Player : MonoBehaviour
     void HideUICommand()
     {
         // hide the ui here and the player can't do anything
+        SoundManager.Instance.PlaySound("Sounds/move_select");
         TweenUIOut();
         canDoThings = false;
         SendCommand();
